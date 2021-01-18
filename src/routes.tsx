@@ -1,14 +1,26 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { MainPage } from "./pages/MainPage";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
-export const useRoutes: React.FC = () => {
-  return (
-    <Switch>
-      <Route path="/home" exact>
-        <MainPage />
-      </Route>
-      <Redirect to="/home" />
-    </Switch>
-  );
+import { AuthPage } from './pages/AuthPage';
+import { MainPage } from './pages/MainPage';
+
+export const useRoutes = (isAuth: boolean) => {
+  if (isAuth)
+    return (
+      <Switch>
+        <Route path="/" exact>
+          <MainPage />
+        </Route>
+        <Redirect to="/" />
+      </Switch>
+    );
+  else
+    return (
+      <Switch>
+        <Route path="/auth">
+          <AuthPage />
+        </Route>
+        <Redirect to="/auth" />
+      </Switch>
+    );
 };
