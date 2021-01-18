@@ -13,6 +13,7 @@ type ContainerType = {
   justifyContent?: string;
   pos?: string;
   lastChild?: string;
+  position?: string;
 };
 
 export const Container: React.FC<ContainerType> = ({
@@ -27,6 +28,7 @@ export const Container: React.FC<ContainerType> = ({
   alignItems,
   pos,
   lastChild,
+  position,
 }) => {
   return (
     <ContainerWrapper
@@ -42,6 +44,7 @@ export const Container: React.FC<ContainerType> = ({
       justifyContent={justifyContent}
       pos={pos}
       lastChild={lastChild}
+      position={position}
     >
       {children}
     </ContainerWrapper>
@@ -61,6 +64,7 @@ const ContainerWrapper = styled.div<ContainerType>`
     }
   }};
   padding: ${(props) => props.padding};
+  position: ${(props) => props.position};
   max-width: ${(props) => props.maxWidth};
   display: ${(props) => props.display};
   margin: ${(props) => props.margin};
