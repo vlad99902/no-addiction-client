@@ -2,9 +2,11 @@ import React from 'react';
 
 import { colors } from '../styles/colors';
 
+type TypeOfType = 'main' | 'smallText';
+
 type ButtonType = {
   children: React.ReactNode;
-  type?: string;
+  type?: TypeOfType;
   onClick(): void;
 };
 
@@ -13,10 +15,21 @@ export const Button: React.FC<ButtonType> = ({
   type = 'main',
   onClick,
 }) => {
+  const setNewLines = (children: React.ReactNode): React.ReactNode => {
+    const line = String(children).trim();
+    const resArray: Array<JSX.Element> = [];
+
+    line.split(' ').forEach((word, i) => {
+      resArray.push(<p key={i}>{word.trim()}</p>);
+    });
+
+    return <>{resArray.map((el) => el)}</>;
+  };
+
   return (
-    <button style={{ ...style, ...styleType(type) }} onClick={onClick}>
-      {children}
-    </button>
+    <div style={{ ...style, ...styleType(type) }} onClick={onClick}>
+      {setNewLines(children)}
+    </div>
   );
 };
 
@@ -27,6 +40,7 @@ const styleType = (type: string): React.CSSProperties => {
         fontSize: '24px',
         textAlign: 'center',
         display: 'table-caption',
+        padding: '24px 52px',
       };
     default:
       return {
@@ -38,6 +52,8 @@ const styleType = (type: string): React.CSSProperties => {
 const style: React.CSSProperties = {
   backgroundColor: colors.$black,
   color: colors.$red,
+  cursor: 'pointer',
+  userSelect: 'none',
 
   border: 'none',
   borderRadius: '20px',
