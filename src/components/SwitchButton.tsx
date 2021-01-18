@@ -10,6 +10,10 @@ interface ISwitchButton {
   type?: TypeOfType;
   position: boolean;
 }
+type Position = {
+  backgroundColor?: string;
+  flexDirection?: string;
+};
 
 export const SwitchButton: React.FC<ISwitchButton> = ({
   onClick,
@@ -17,25 +21,29 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
   position,
 }) => {
   let flexDirection;
+  let backgroundColor;
   switch (position) {
     case true:
       flexDirection = "row-reverse";
+      backgroundColor = colors.$red;
       break;
     case false:
       flexDirection = "row";
+      backgroundColor = colors.$gray;
       break;
     default:
+      backgroundColor = colors.$gray;
       flexDirection = "row";
   }
 
   return (
     <MainPart flexDirection={flexDirection} onClick={onClick}>
-      <Selector></Selector>
+      <Selector backgroundColor={backgroundColor}></Selector>
     </MainPart>
   );
 };
 
-const MainPart = styled.button<{ flexDirection: string }>`
+const MainPart = styled.button<Position>`
   width: 70px;
   height: 36px;
   border-radius: 25px;
@@ -47,21 +55,10 @@ const MainPart = styled.button<{ flexDirection: string }>`
   flex-direction: ${(props) => props.flexDirection};
 `;
 
-const Selector = styled.div`
+const Selector = styled.div<Position>`
   height: 30px;
   width: 30px;
   border-radius: 100%;
-  background-color: ${colors.$gray};
+  background-color: ${(props) => props.backgroundColor};
   margin: 0 3px;
 `;
-
-// const Position = (pos: boolean | undefined): React.CSSProperties => {
-//   switch (pos) {
-//     case true:
-//       return { flexDirection: "row-reverse" };
-//     case false:
-//       return { flexDirection: "row" };
-//     default:
-//       return { flexDirection: "row" };
-//   }
-// };

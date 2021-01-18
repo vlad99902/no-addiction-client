@@ -22,7 +22,9 @@ export const PageHeader: React.FC = () => {
         position="realative"
         padding="0 18px"
       >
-        <Image src={logo} width="300px" margin="0px 0px 0px 40px" />
+        <Container style={{ backgroundColor: colors.$white }}>
+          <Image src={logo} width="300px" />
+        </Container>
         <Container
           position="absolute"
           style={{ left: "50%", transform: "translateX(-50%)" }}
@@ -39,7 +41,8 @@ export const PageHeader: React.FC = () => {
             />
           </Container>
         </Container>
-        <Image src={profileIcon} width="100px" margin="0px 40px 0px 0px" />
+
+        <Image src={profileIcon} width="100px" />
       </Container>
     </Content>
   );
