@@ -3,7 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./App.css";
 import { Container } from "./components/Container";
 import { useRoutes } from "./routes";
-import { PageHeader } from "./sections/PageHeader";
+import { PageHeader } from "./containers/PageHeader";
 
 const routes = useRoutes;
 
