@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 type ImageType = {
   src: string;
@@ -12,14 +12,14 @@ type ImageType = {
 
 export const Image: React.FC<ImageType> = ({
   src,
-  alt = "",
+  alt = '',
   width,
   margin,
   fixedSize = false,
 }) => {
   return (
     <ImageWrapper width={width} margin={margin}>
-      <Img src={src} alt={alt} widthFixed={fixedSize && width} />
+      {/* <Img src={src} alt={alt} widthFixed={fixedSize && width} /> */}
     </ImageWrapper>
   );
 };

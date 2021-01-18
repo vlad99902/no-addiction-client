@@ -1,9 +1,13 @@
 import React from 'react';
 
+import { Button } from '../components/Button';
+
 export const MainPage: React.FC = () => {
   return (
     <>
-      <h1>Main page</h1>
+      <Button onClick={() => console.log('пизда')} type="smallText">
+        Отказаться от алкоголя
+      </Button>
     </>
   );
 };
