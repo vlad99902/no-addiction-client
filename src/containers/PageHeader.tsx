@@ -10,6 +10,6 @@ export const PageHeader: React.FC = () => {
 const Content = styled.div`
   position: relative;
   width: 100%;
-  height: 100px;
+  height: 150px;
   background-color: ${colors.$gray};
 `;
