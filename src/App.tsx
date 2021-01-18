@@ -1,17 +1,18 @@
-import React from "react";
-import { BrowserRouter } from "react-router-dom";
-import "./App.css";
-import { Container } from "./components/Container";
-import { useRoutes } from "./routes";
-import { PageHeader } from "./containers/PageHeader";
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
+import './App.sass';
 
-const routes = useRoutes;
+import { useRoutes } from './routes';
+import { PageHeader } from './containers/PageHeader';
 
 export default function App() {
+  const isAuth: boolean = true;
+  const routes = useRoutes(isAuth);
+
   return (
     <BrowserRouter>
-      <PageHeader />
-      <div>{routes}</div>
+      {isAuth && <PageHeader />}
+      {routes}
     </BrowserRouter>
   );
 }
