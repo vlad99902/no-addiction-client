@@ -11,74 +11,68 @@ export const CountDown: React.FC = () => {
     minutes: 'minutes',
     seconds: 'seconds',
   });
-  const [countdown, setCountdown] = useState({
-    now: moment(),
-    years: moment().year(),
-    months: moment().month(),
-    days: moment().days(),
-    hours: moment().hour(),
-    minutes: moment().minute(),
-    seconds: moment().second(),
-  });
 
-  const [counterDate, setCounterDate] = useState({
-    date: moment().millisecond(12321321321),
-    years: 1,
-    months: moment().month(),
-    days: moment().days(),
-    hours: moment().hour(),
-    minutes: moment().minute(),
-    seconds: moment().second(),
-  });
+  /**
+   * Get current countdown duration
+   */
+  const [count, setCount] = useState(
+    moment().subtract(+moment().millisecond(53647920000000)),
+  );
 
-  console.log(counterDate.date);
+  // const [countdown, setCountdown] = useState({
+  //   mileseconds: count,
+  //   years: count.year(),
+  //   months: count.month(),
+  //   days: count.days(),
+  //   hours: count.hour(),
+  //   minutes: count.minute(),
+  //   seconds: count.second(),
+  // });
+
+  // const [counterDate, setCounterDate] = useState({
+  //   date: moment(),
+  //   years: moment().year(),
+  //   months: moment().month(),
+  //   days: moment().days(),
+  //   hours: moment().hour(),
+  //   minutes: moment().minute(),
+  //   seconds: moment().second(),
+  // });
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown({
-        ...{
-          now: moment().subtract(7, 'days'),
-          years: moment().year(),
-          months: moment().month(),
-          days: moment().days(),
-          hours: moment().hour(),
-          minutes: moment().minute(),
-          seconds: moment().second(),
-        },
-      });
-      console.log(countdown.now);
-    }, 1000);
+    const interval = setInterval(
+      () => setCount(moment(count).add(1, 'seconds')),
+      1000,
+    );
+
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [count]);
 
   return (
     <>
-      {countdown.years && (
-        <Years>
-          {countdown.years} {countdownWords.years}
-        </Years>
-      )}
-      {(countdown.months || countdown.months === 0) && (
-        <Months>
-          {countdown.months} {countdownWords.months}
-        </Months>
-      )}
-      {countdown.days && (
-        <Days>
-          {countdown.days} {countdownWords.days}
-        </Days>
-      )}
+      <Years>
+        {count.year()} {countdownWords.years}
+      </Years>
+
+      <Months>
+        {} {countdownWords.months}
+      </Months>
+
+      <Days>
+        {} {countdownWords.days}
+      </Days>
+
       <WrapperGrid>
         <Hours>
-          {countdown.hours} {countdownWords.hours}
+          {count.hour()} {countdownWords.hours}
         </Hours>
         <Minutes>
-          {countdown.minutes} {countdownWords.minutes}
+          {count.minute()} {countdownWords.minutes}
         </Minutes>
         <Seconds>
-          {countdown.seconds} {countdownWords.seconds}
+          {count.second()} {countdownWords.seconds}
         </Seconds>
       </WrapperGrid>
     </>
