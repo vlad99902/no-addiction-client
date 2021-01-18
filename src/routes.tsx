@@ -1,14 +1,14 @@
-import React from "react";
-import { Switch, Route, Redirect } from "react-router-dom";
-import { MainPage } from "./pages/MainPage";
+import React from 'react';
+import { Switch, Route, Redirect } from 'react-router-dom';
+import { MainPage } from './pages/MainPage';
 
 export const useRoutes: React.FC = () => {
   return (
     <Switch>
-      <Route path="/home" exact>
+      <Route path="/" exact>
         <MainPage />
       </Route>
-      <Redirect to="/home" />
+      <Redirect to="/" exact />
     </Switch>
   );
 };
