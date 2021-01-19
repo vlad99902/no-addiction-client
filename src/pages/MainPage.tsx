@@ -1,26 +1,40 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 import { Button } from "../components/Button";
 import { Container } from "../components/Container";
 import { Quote } from "../components/Quote";
+import { CountDown } from "../containers/CountDown";
+import { InAddiction } from "../containers/InAddiction";
+import { rootReducer, RootState } from "../store/rootReducer";
 
 export const MainPage: React.FC = () => {
-  return (
-    <Container
-      maxWidth="1600px"
-      margin="0 auto"
-      pos="center"
-      style={{ flexDirection: "column" }}
-      padding="18px 18px 0px"
-    >
-      <Quote author="Kirill" padding="60px">
-        Каждый год в россии около 5000 людей в возрасте до 21 года умирают в
-        ситуациях, связанных с алкоголем, — например, в авариях, бытовых
-        убийствах, в результате отравления и других подобных травм.
-      </Quote>
-      <Button onClick={() => console.log("пизда")} type="smallText">
-        Отказаться от алкоголя
-      </Button>
-    </Container>
+  const inAddiction = useSelector(
+    (state: RootState) => state.users.inAddiction
   );
+  console.log(inAddiction);
+
+  if (inAddiction)
+    return (
+      <Container
+        maxWidth="1600px"
+        margin="100px auto 0px"
+        pos="center"
+        padding="18px 18px 0px"
+        style={{ flexDirection: "column" }}
+      >
+        <InAddiction />
+      </Container>
+    );
+  else
+    return (
+      <Container
+        maxWidth="1600px"
+        margin="0 auto"
+        pos="center"
+        padding="18px 18px 0"
+      >
+        <CountDown />
+      </Container>
+    );
 };
