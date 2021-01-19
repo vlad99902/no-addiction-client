@@ -23,7 +23,7 @@ export const InAddiction: React.FC<IInAddiction> = () => {
         onClick={() => {
           dispatch(inAddictionChange(inAddiction));
         }}
-        type="smallText"
+        type="oneWordOneLine"
       >
         Отказаться от алкоголя
       </Button>

@@ -77,8 +77,9 @@ export const CountDown: React.FC = () => {
         onClick={() => {
           dispatch(inAddictionChange(inAddiction));
         }}
+        type="main"
       >
-        выпил
+        выпил za as
       </Button>
     </>
   );
