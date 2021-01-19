@@ -11,29 +11,16 @@ export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.users.inAddiction
   );
-  console.log(inAddiction);
 
-  if (inAddiction)
-    return (
-      <Container
-        maxWidth="1600px"
-        margin="100px auto 0px"
-        pos="center"
-        padding="18px 18px 0px"
-        style={{ flexDirection: "column" }}
-      >
-        <InAddiction />
-      </Container>
-    );
-  else
-    return (
-      <Container
-        maxWidth="1600px"
-        margin="0 auto"
-        pos="center"
-        padding="18px 18px 0"
-      >
-        <CountDown />
-      </Container>
-    );
+  return (
+    <Container
+      maxWidth="1600px"
+      margin="100px auto 0px"
+      pos="center"
+      padding="18px 18px 0px"
+      style={{ flexDirection: "column" }}
+    >
+      {inAddiction ? <InAddiction /> : <CountDown />}
+    </Container>
+  );
 };

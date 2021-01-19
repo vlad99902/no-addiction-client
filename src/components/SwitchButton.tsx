@@ -7,7 +7,7 @@ import { colors } from "../styles/colors";
 type TypeOfType = "small" | "medium" | "large";
 
 interface ISwitchButton {
-  onClick(defaultExpression: boolean): void;
+  onClick(): void;
   type?: TypeOfType;
   position: boolean;
 }
@@ -37,7 +37,7 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
   return (
     <MainPart
       flexDirection={getSwitchButtonPropStyles().flexDirection}
-      onClick={() => onClick(!position)}
+      onClick={() => onClick()}
     >
       <Selector
         backgroundColor={getSwitchButtonPropStyles().backgroundColor}
