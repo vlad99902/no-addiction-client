@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import styled from "styled-components";
-import moment from "moment";
-import { Button } from "../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/rootReducer";
-import { inAddictionChange } from "../store/users/usersActions";
-import { Title } from "../components/Title";
-import { start } from "repl";
+import styled from 'styled-components';
+import moment from 'moment';
+import { Button } from '../components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+import { inAddictionChange } from '../store/timers/timersActions';
+import { Title } from '../components/Title';
+import { start } from 'repl';
 
 export const CountDown: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.users.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
   const dispatch = useDispatch();
 
   const [countdownWords] = useState({
-    years: "year",
-    months: "month",
-    days: "day",
-    hours: "hour",
-    minutes: "minute",
-    seconds: "second",
+    years: 'year',
+    months: 'month',
+    days: 'day',
+    hours: 'hour',
+    minutes: 'minute',
+    seconds: 'second',
   });
 
   /**
@@ -45,12 +45,12 @@ export const CountDown: React.FC = () => {
   console.log();
   // console.log(countDate);
 
-  let year = moment().subtract(startDate.get("year"), "year").get("year");
-  let month = moment().subtract(startDate.get("month"), "month").get("month");
-  let day = moment().subtract(startDate.get("date"), "day").get("date");
-  let hour = moment().subtract(startDate.get("hour"), "hour").get("hour");
-  let min = moment().subtract(startDate.get("minute"), "minutes").get("minute");
-  let sec = moment().subtract(startDate.get("second"), "second").get("second");
+  let year = moment().subtract(startDate.get('year'), 'year').get('year');
+  let month = moment().subtract(startDate.get('month'), 'month').get('month');
+  let day = moment().subtract(startDate.get('date'), 'day').get('date');
+  let hour = moment().subtract(startDate.get('hour'), 'hour').get('hour');
+  let min = moment().subtract(startDate.get('minute'), 'minutes').get('minute');
+  let sec = moment().subtract(startDate.get('second'), 'second').get('second');
 
   console.log(`Years: ${year}, Months: ${month}, Days: ${day}`);
 
@@ -70,9 +70,9 @@ export const CountDown: React.FC = () => {
 
   const getCurrentDateWord = (time: number): string => {
     if (time !== 1 && time !== 0) {
-      return "s";
+      return 's';
     }
-    return "";
+    return '';
   };
 
   return (

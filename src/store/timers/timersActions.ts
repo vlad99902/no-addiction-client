@@ -1,9 +1,41 @@
+import { Action, ActionCreator, Dispatch } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+
 import {
   GET_CURENT_TIMER,
   INIT_TIMERS,
+  IN_ADDICTION_CHANGE,
+  SET_IN_ADDICTION_FALSE,
+  SET_IN_ADDICTION_TRUE,
+  SET_IN_ADDICTION,
   ITimersActionType,
 } from './timersTypes';
-import { setInAddiction } from '../users/usersActions';
+
+export function setInAddictionFalse(): ITimersActionType {
+  return {
+    type: SET_IN_ADDICTION_FALSE,
+  };
+}
+
+export function setInAddictionTrue(): ITimersActionType {
+  return {
+    type: SET_IN_ADDICTION_TRUE,
+  };
+}
+
+export function inAddictionChange(inAddiction: boolean): ITimersActionType {
+  return {
+    type: IN_ADDICTION_CHANGE,
+    payload: !inAddiction,
+  };
+}
+
+export function setInAddiction(inAddiction: boolean): ITimersActionType {
+  return {
+    type: SET_IN_ADDICTION,
+    payload: inAddiction,
+  };
+}
 
 export function getCurrentTimer() {
   return async (dispatch: any) => {

@@ -1,23 +1,23 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Container } from "../components/Container";
-import { Image } from "../components/Image";
-import { colors } from "../styles/colors";
-import { Title } from "../components/Title";
-import { SwitchButton } from "../components/SwitchButton";
-import { RootState } from "../store/rootReducer";
-import { inAddictionChange } from "../store/users/usersActions";
+import { Container } from '../components/Container';
+import { Image } from '../components/Image';
+import { colors } from '../styles/colors';
+import { Title } from '../components/Title';
+import { SwitchButton } from '../components/SwitchButton';
+import { RootState } from '../store/rootReducer';
+import { inAddictionChange } from '../store/timers/timersActions';
 
-import logo from "../assets/logoNoAlco.png";
-import profileIcon from "../assets/profileIcon.png";
+import logo from '../assets/logoNoAlco.png';
+import profileIcon from '../assets/profileIcon.png';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.users.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
   const dispatch = useDispatch();
 
@@ -35,7 +35,7 @@ export const PageHeader: React.FC = () => {
         </Container>
         <Container
           position="absolute"
-          style={{ left: "50%", transform: "translateX(-50%)" }}
+          style={{ left: '50%', transform: 'translateX(-50%)' }}
           pos="space-between"
           maxWidth="600px"
         >
