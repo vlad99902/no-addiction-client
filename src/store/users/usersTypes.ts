@@ -1,21 +1,18 @@
-export const IN_ADDICTION_ON = "USER/IN_ADDICTION_ON";
-export const IN_ADDICTION_OFF = "USER/IN_ADDICTION_OFF";
-export const IN_ADDICTION_CHANGE = "USER/IN_ADDICTION_CHANGE";
-export const USER_LANGUAGE_CHANGE = "USER/USER_LANGUAGE_CHANGE";
+export const IN_ADDICTION_CHANGE = 'USER/IN_ADDICTION_CHANGE';
+export const SET_IN_ADDICTION = 'USER/SET_IN_ADDICTION';
+export const USER_LANGUAGE_CHANGE = 'USER/USER_LANGUAGE_CHANGE';
 
 export interface IUsersState {
   inAddiction: boolean;
   userLanguage: string;
 }
 
-interface inAddictionOn {
-  type: typeof IN_ADDICTION_ON;
-}
-interface inAddictionOff {
-  type: typeof IN_ADDICTION_OFF;
-}
 interface inAddictionChange {
   type: typeof IN_ADDICTION_CHANGE;
+  payload: boolean;
+}
+interface setInAddiction {
+  type: typeof SET_IN_ADDICTION;
   payload: boolean;
 }
 interface userLanguageChange {
@@ -24,7 +21,6 @@ interface userLanguageChange {
 }
 
 export type UserActionsType =
-  | inAddictionOn
-  | inAddictionOff
   | userLanguageChange
-  | inAddictionChange;
+  | inAddictionChange
+  | setInAddiction;

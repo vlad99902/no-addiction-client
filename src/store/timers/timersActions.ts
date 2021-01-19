@@ -3,7 +3,7 @@ import {
   INIT_TIMERS,
   ITimersActionType,
 } from './timersTypes';
-import { inAddictionChange } from '../users/usersActions';
+import { setInAddiction } from '../users/usersActions';
 
 export function getCurrentTimer() {
   return async (dispatch: any) => {
@@ -21,12 +21,10 @@ export function getCurrentTimer() {
 export function initTimers() {
   return async (dispatch: any, getState: any) => {
     try {
-      dispatch(getCurrentTimer());
-      dispatch(inAddictionChange(getState().currentDate.end_date));
-      console.log(getState());
+      await dispatch(getCurrentTimer());
 
-      if (!getState().currentDate.end_date) {
-        console.log('я сейчас бухаю');
+      if (getState().timers.currentTimer.end_date === null) {
+        dispatch(setInAddiction(false));
       }
 
       return { type: INIT_TIMERS };
