@@ -13,6 +13,9 @@ export const CountDown: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction,
   );
+  const [currentTime] = useState(
+    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
+  );
   const dispatch = useDispatch();
 
   const [countdownWords] = useState({
@@ -24,11 +27,9 @@ export const CountDown: React.FC = () => {
     seconds: 'second',
   });
 
-  const startDate = moment(moment("2019-12-31T22:00:00.000"));
+  const [startDate] = useState(moment(moment(currentTime)));
 
-  const dateDifference = +moment() - +startDate;
-
-  const [duration, setDuration] = useState(dateDifference);
+  const [duration, setDuration] = useState(+moment() - +startDate);
 
   /**
    * Effect to countdown timer
@@ -36,21 +37,21 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000
+      1000,
     );
     return () => {
       clearInterval(interval);
     };
   }, [duration]);
 
-  const durationIn = {
+  const durationIn = () => ({
     years: moment.duration(duration).years(),
     months: moment.duration(duration).months(),
     days: moment.duration(duration).days(),
     hours: moment.duration(duration).hours(),
     minutes: moment.duration(duration).minutes(),
     seconds: moment.duration(duration).seconds(),
-  };
+  });
 
   // console.log(`
   // ${durationIn.years} years
@@ -74,17 +75,17 @@ export const CountDown: React.FC = () => {
         я не пью уже
       </Title>
       <WrapperGrid>
-        <HoursTime>{durationIn.hours} </HoursTime>
+        <HoursTime>{durationIn().hours} </HoursTime>
         <HoursTitle>
-          {countdownWords.hours + getCurrentDateWord(durationIn.hours)}
+          {countdownWords.hours + getCurrentDateWord(durationIn().hours)}
         </HoursTitle>
-        <MinutesTime>{durationIn.minutes} </MinutesTime>
+        <MinutesTime>{durationIn().minutes} </MinutesTime>
         <MinutesTitle>
-          {countdownWords.minutes + getCurrentDateWord(durationIn.minutes)}
+          {countdownWords.minutes + getCurrentDateWord(durationIn().minutes)}
         </MinutesTitle>
-        <SecondsTime>{durationIn.seconds} </SecondsTime>
+        <SecondsTime>{durationIn().seconds} </SecondsTime>
         <SecondsTitle>
-          {countdownWords.seconds + getCurrentDateWord(durationIn.seconds)}
+          {countdownWords.seconds + getCurrentDateWord(durationIn().seconds)}
         </SecondsTitle>
       </WrapperGrid>
       <Button

@@ -10,7 +10,9 @@ import {
 } from './timersTypes';
 
 const initialState: ITimersState = {
-  currentTimer: {},
+  currentTimer: {
+    begin_date: '',
+  },
   inAddiction: true,
 };
 
