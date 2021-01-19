@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import styled from "styled-components";
-import { Container } from "../components/Container";
-import { Image } from "../components/Image";
-import { colors } from "../styles/colors";
+import styled from 'styled-components';
+import { Container } from '../components/Container';
+import { Image } from '../components/Image';
+import { colors } from '../styles/colors';
 
-import logo from "../assets/logoNoAlco.png";
-import profileIcon from "../assets/profileIcon.png";
-import { Title } from "../components/Title";
-import { SwitchButton } from "../components/SwitchButton";
+import logo from '../assets/logoNoAlco.png';
+import profileIcon from '../assets/profileIcon.png';
+import { Title } from '../components/Title';
+import { SwitchButton } from '../components/SwitchButton';
 
 export const PageHeader: React.FC = () => {
   const [position, setPosition] = useState(false);
@@ -27,18 +27,13 @@ export const PageHeader: React.FC = () => {
         </Container>
         <Container
           position="absolute"
-          style={{ left: "50%", transform: "translateX(-50%)" }}
+          style={{ left: '50%', transform: 'translateX(-50%)' }}
           pos="space-between"
           maxWidth="600px"
         >
           <Title fz="36px">Сейчас я пью</Title>
           <Container margin="0 0 0 40px">
-            <SwitchButton
-              position={position}
-              onClick={() => {
-                setPosition(!position);
-              }}
-            />
+            <SwitchButton position={position} onClick={setPosition} />
           </Container>
         </Container>
 

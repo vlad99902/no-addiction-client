@@ -1,12 +1,12 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
-import { colors } from "../styles/colors";
+import styled from 'styled-components';
+import { colors } from '../styles/colors';
 
-type TypeOfType = "small" | "medium" | "large";
+type TypeOfType = 'small' | 'medium' | 'large';
 
 interface ISwitchButton {
-  onClick?(): void;
+  onClick(defaultExpression: boolean): void;
   type?: TypeOfType;
   position: boolean;
 }
@@ -17,28 +17,30 @@ type Position = {
 
 export const SwitchButton: React.FC<ISwitchButton> = ({
   onClick,
-  type = "small",
+  type = 'small',
   position,
 }) => {
-  let flexDirection;
-  let backgroundColor;
-  switch (position) {
-    case true:
-      flexDirection = "row-reverse";
-      backgroundColor = colors.$red;
-      break;
-    case false:
-      flexDirection = "row";
-      backgroundColor = colors.$gray;
-      break;
-    default:
-      backgroundColor = colors.$gray;
-      flexDirection = "row";
-  }
+  const getSwitchButtonPropStyles = (): { [key: string]: string } => {
+    if (position) {
+      return {
+        flexDirection: 'row-reverse',
+        backgroundColor: colors.$red,
+      };
+    } else
+      return {
+        flexDirection: 'row',
+        backgroundColor: colors.$gray,
+      };
+  };
 
   return (
-    <MainPart flexDirection={flexDirection} onClick={onClick}>
-      <Selector backgroundColor={backgroundColor}></Selector>
+    <MainPart
+      flexDirection={getSwitchButtonPropStyles().flexDirection}
+      onClick={() => onClick(!position)}
+    >
+      <Selector
+        backgroundColor={getSwitchButtonPropStyles().backgroundColor}
+      ></Selector>
     </MainPart>
   );
 };
