@@ -1,15 +1,15 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { Button } from "../components/Button";
-import { Quote } from "../components/Quote";
-import { RootState } from "../store/rootReducer";
-import { inAddictionChange } from "../store/users/usersActions";
+import { Button } from '../components/Button';
+import { Quote } from '../components/Quote';
+import { RootState } from '../store/rootReducer';
+import { inAddictionChange } from '../store/timers/timersActions';
 
 interface IInAddiction {}
 export const InAddiction: React.FC<IInAddiction> = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.users.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
   const dispatch = useDispatch();
   return (

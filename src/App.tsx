@@ -20,7 +20,7 @@ export default function App() {
   // console.log(currentTimer);
 
   useEffect(() => {
-    dispatch(getCurrentTimer());
+    dispatch(initTimers());
   }, []);
 
   return (

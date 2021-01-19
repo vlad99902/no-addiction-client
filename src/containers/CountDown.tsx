@@ -1,40 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import styled from "styled-components";
-import moment from "moment";
-import { Button } from "../components/Button";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/rootReducer";
-import { inAddictionChange } from "../store/users/usersActions";
-import { Title } from "../components/Title";
-import { start } from "repl";
+import styled from 'styled-components';
+import moment from 'moment';
+import { Button } from '../components/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+import { inAddictionChange } from '../store/timers/timersActions';
+import { Title } from '../components/Title';
+import { start } from 'repl';
 
 export const CountDown: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.users.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
   const dispatch = useDispatch();
 
   const [countdownWords] = useState({
-    years: "year",
-    months: "month",
-    days: "day",
-    hours: "hour",
-    minutes: "minute",
-    seconds: "second",
+    years: 'year',
+    months: 'month',
+    days: 'day',
+    hours: 'hour',
+    minutes: 'minute',
+    seconds: 'second',
   });
 
   const startDate = moment(moment("2019-12-31T22:00:00.000"));
-
-  // const startDate = startDateFromServer;
-  // const startDate = moment().set({
-  //   year: 2020,
-  //   month: 1,
-  //   date: 19,
-  //   hour: 23,
-  //   minute: 38,
-  //   second: moment().get("second"),
-  // });
 
   const dateDifference = +moment() - +startDate;
 
@@ -73,9 +63,9 @@ export const CountDown: React.FC = () => {
 
   const getCurrentDateWord = (time: number): string => {
     if (time !== 1 && time !== 0) {
-      return "s";
+      return 's';
     }
-    return "";
+    return '';
   };
 
   return (
