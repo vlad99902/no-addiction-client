@@ -4,6 +4,7 @@ import {
   IN_ADDICTION_ON,
   IUsersState,
   UserActionsType,
+  USER_LANGUAGE_CHANGE,
 } from "./usersTypes";
 
 export function inAddictionOn(): UserActionsType {
@@ -16,12 +17,16 @@ export function inAddictionOff(): UserActionsType {
     type: IN_ADDICTION_OFF,
   };
 }
-export function inAddictionChange(inAddiction: IUsersState): UserActionsType {
+export function inAddictionChange(inAddiction: boolean): UserActionsType {
   return {
     type: IN_ADDICTION_CHANGE,
-    payload: inAddiction,
+    payload: !inAddiction,
   };
-  // return (dispatch) => {
-  //   dispatch({ type: IN_ADDICTION_CHANGE, payload: inAddiction });
-  // };
+}
+
+export function userLanguageChange(payload: IUsersState): UserActionsType {
+  return {
+    type: USER_LANGUAGE_CHANGE,
+    payload,
+  };
 }

@@ -12,6 +12,7 @@ import { SwitchButton } from "../components/SwitchButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/rootReducer";
 import { inAddictionChange } from "../store/users/usersActions";
+import { IUsersState } from "../store/users/usersTypes";
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -40,7 +41,12 @@ export const PageHeader: React.FC = () => {
         >
           <Title fz="36px">Сейчас я пью</Title>
           <Container margin="0 0 0 40px">
-            <SwitchButton position={position} onClick={() => {}} />
+            <SwitchButton
+              position={inAddiction}
+              onClick={() => {
+                dispatch(inAddictionChange(inAddiction));
+              }}
+            />
           </Container>
         </Container>
 

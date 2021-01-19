@@ -17,7 +17,9 @@ export const CountDown: React.FC = () => {
    * Get current countdown duration
    */
   const [count, setCount] = useState(
-    moment().subtract(+moment().set("millisecond", 53647920000000))
+    moment().subtract(
+      moment().set("millisecond", 53647920000000).get("millisecond")
+    )
   );
 
   /**
