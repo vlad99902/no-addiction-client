@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/rootReducer";
 import { inAddictionChange } from "../store/users/usersActions";
 import { Title } from "../components/Title";
+import { start } from "repl";
 
 export const CountDown: React.FC = () => {
   const inAddiction = useSelector(
@@ -26,20 +27,41 @@ export const CountDown: React.FC = () => {
   /**
    * Get current countdown duration
    */
-  const [count, setCount] = useState(
-    moment().subtract(
-      moment().set("millisecond", 53647920000000).get("millisecond")
-    )
-  );
+  // const [count, setCount] = useState(
+  //   moment().subtract(
+  //     moment().set("millisecond", 53647920000000).get("millisecond")
+  //   )
+  // );
+
+  const startDate = moment().set({
+    year: 2020,
+    month: 11,
+    date: 27,
+    hour: 0,
+    minute: 0,
+    second: 0,
+  });
+  let countDate = +moment() - +startDate;
+  console.log();
+  // console.log(countDate);
+
+  let year = moment().subtract(startDate.get("year"), "year").get("year");
+  let month = moment().subtract(startDate.get("month"), "month").get("month");
+  let day = moment().subtract(startDate.get("date"), "day").get("date");
+  let hour = moment().subtract(startDate.get("hour"), "hour").get("hour");
+  let min = moment().subtract(startDate.get("minute"), "minutes").get("minute");
+  let sec = moment().subtract(startDate.get("second"), "second").get("second");
+
+  console.log(`Years: ${year}, Months: ${month}, Days: ${day}`);
+
+  const [count, setCount] = useState(countDate);
+  // console.log();
 
   /**
    * Effect to countdown timer
    */
   useEffect(() => {
-    const interval = setInterval(
-      () => setCount(moment(count).add(1, "seconds")),
-      1000
-    );
+    const interval = setInterval(() => setCount(+startDate), 1000);
 
     return () => {
       clearInterval(interval);
@@ -59,18 +81,17 @@ export const CountDown: React.FC = () => {
         я не пью уже
       </Title>
       <WrapperGrid>
-        <HoursTime>{count.hour()} </HoursTime>
+        <HoursTime>{hour} </HoursTime>
         <HoursTitle>
-          {countdownWords.hours + getCurrentDateWord(count.hour())}
+          {countdownWords.hours + getCurrentDateWord(hour)}
         </HoursTitle>
-
-        <MinutesTime>{count.minute()} </MinutesTime>
+        <MinutesTime>{min} </MinutesTime>
         <MinutesTitle>
-          {countdownWords.minutes + getCurrentDateWord(count.minute())}
+          {countdownWords.minutes + getCurrentDateWord(min)}
         </MinutesTitle>
-        <SecondsTime>{count.second()} </SecondsTime>
+        <SecondsTime>{sec} </SecondsTime>
         <SecondsTitle>
-          {countdownWords.seconds + getCurrentDateWord(count.second())}
+          {countdownWords.seconds + getCurrentDateWord(sec)}
         </SecondsTitle>
       </WrapperGrid>
       <Button
