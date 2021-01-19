@@ -24,49 +24,52 @@ export const CountDown: React.FC = () => {
     seconds: "second",
   });
 
-  /**
-   * Get current countdown duration
-   */
-  // const [count, setCount] = useState(
-  //   moment().subtract(
-  //     moment().set("millisecond", 53647920000000).get("millisecond")
-  //   )
-  // );
+  const startDate = moment(moment("2019-12-31T22:00:00.000"));
 
-  const startDate = moment().set({
-    year: 2020,
-    month: 11,
-    date: 27,
-    hour: 0,
-    minute: 0,
-    second: 0,
-  });
-  let countDate = +moment() - +startDate;
-  console.log();
-  // console.log(countDate);
+  // const startDate = startDateFromServer;
+  // const startDate = moment().set({
+  //   year: 2020,
+  //   month: 1,
+  //   date: 19,
+  //   hour: 23,
+  //   minute: 38,
+  //   second: moment().get("second"),
+  // });
 
-  let year = moment().subtract(startDate.get("year"), "year").get("year");
-  let month = moment().subtract(startDate.get("month"), "month").get("month");
-  let day = moment().subtract(startDate.get("date"), "day").get("date");
-  let hour = moment().subtract(startDate.get("hour"), "hour").get("hour");
-  let min = moment().subtract(startDate.get("minute"), "minutes").get("minute");
-  let sec = moment().subtract(startDate.get("second"), "second").get("second");
+  const dateDifference = +moment() - +startDate;
 
-  console.log(`Years: ${year}, Months: ${month}, Days: ${day}`);
-
-  const [count, setCount] = useState(countDate);
-  // console.log();
+  const [duration, setDuration] = useState(dateDifference);
 
   /**
    * Effect to countdown timer
    */
   useEffect(() => {
-    const interval = setInterval(() => setCount(+startDate), 1000);
-
+    const interval = setInterval(
+      () => setDuration(+moment() - +startDate),
+      1000
+    );
     return () => {
       clearInterval(interval);
     };
-  }, [count]);
+  }, [duration]);
+
+  const durationIn = {
+    years: moment.duration(duration).years(),
+    months: moment.duration(duration).months(),
+    days: moment.duration(duration).days(),
+    hours: moment.duration(duration).hours(),
+    minutes: moment.duration(duration).minutes(),
+    seconds: moment.duration(duration).seconds(),
+  };
+
+  // console.log(`
+  // ${durationIn.years} years
+  // ${durationIn.months} months
+  // ${durationIn.days} days
+  // ${durationIn.hours} hours
+  // ${durationIn.minutes} minutes
+  // ${durationIn.seconds} seconds
+  // 	`);
 
   const getCurrentDateWord = (time: number): string => {
     if (time !== 1 && time !== 0) {
@@ -81,17 +84,17 @@ export const CountDown: React.FC = () => {
         я не пью уже
       </Title>
       <WrapperGrid>
-        <HoursTime>{hour} </HoursTime>
+        <HoursTime>{durationIn.hours} </HoursTime>
         <HoursTitle>
-          {countdownWords.hours + getCurrentDateWord(hour)}
+          {countdownWords.hours + getCurrentDateWord(durationIn.hours)}
         </HoursTitle>
-        <MinutesTime>{min} </MinutesTime>
+        <MinutesTime>{durationIn.minutes} </MinutesTime>
         <MinutesTitle>
-          {countdownWords.minutes + getCurrentDateWord(min)}
+          {countdownWords.minutes + getCurrentDateWord(durationIn.minutes)}
         </MinutesTitle>
-        <SecondsTime>{sec} </SecondsTime>
+        <SecondsTime>{durationIn.seconds} </SecondsTime>
         <SecondsTitle>
-          {countdownWords.seconds + getCurrentDateWord(sec)}
+          {countdownWords.seconds + getCurrentDateWord(durationIn.seconds)}
         </SecondsTitle>
       </WrapperGrid>
       <Button
@@ -100,7 +103,7 @@ export const CountDown: React.FC = () => {
         }}
         type="main"
       >
-        выпил za as
+        выпил
       </Button>
     </>
   );
