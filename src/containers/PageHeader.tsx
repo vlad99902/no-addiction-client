@@ -1,24 +1,24 @@
-import React, { useState } from "react";
+import React from "react";
 
 import styled from "styled-components";
+
+import { useDispatch, useSelector } from "react-redux";
+
 import { Container } from "../components/Container";
 import { Image } from "../components/Image";
 import { colors } from "../styles/colors";
+import { Title } from "../components/Title";
+import { SwitchButton } from "../components/SwitchButton";
+import { RootState } from "../store/rootReducer";
+import { inAddictionChange } from "../store/users/usersActions";
 
 import logo from "../assets/logoNoAlco.png";
 import profileIcon from "../assets/profileIcon.png";
-import { Title } from "../components/Title";
-import { SwitchButton } from "../components/SwitchButton";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store/rootReducer";
-import { inAddictionChange } from "../store/users/usersActions";
-import { IUsersState } from "../store/users/usersTypes";
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.users.inAddiction
   );
-  const [position, setPosition] = useState(inAddiction);
   const dispatch = useDispatch();
 
   return (

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
+
 import styled from "styled-components";
 import moment from "moment";
-import { Container } from "../components/Container";
 
 export const CountDown: React.FC = () => {
-  const [countdownWords, setCountdownWords] = useState({
+  const [countdownWords] = useState({
     years: "year",
     months: "month",
     days: "day",

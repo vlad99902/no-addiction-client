@@ -1,8 +1,7 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
 import styled from "styled-components";
-import { IUsersState } from "../store/users/usersTypes";
+
 import { colors } from "../styles/colors";
 
 type TypeOfType = "small" | "medium" | "large";

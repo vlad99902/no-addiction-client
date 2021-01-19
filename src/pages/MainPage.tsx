@@ -1,12 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { Button } from "../components/Button";
 import { Container } from "../components/Container";
-import { Quote } from "../components/Quote";
+
 import { CountDown } from "../containers/CountDown";
 import { InAddiction } from "../containers/InAddiction";
-import { rootReducer, RootState } from "../store/rootReducer";
+import { RootState } from "../store/rootReducer";
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
