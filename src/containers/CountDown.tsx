@@ -1,44 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { Container } from '../components/Container';
 
 export const CountDown: React.FC = () => {
   const [countdownWords, setCountdownWords] = useState({
-    years: 'years',
-    months: 'months',
-    days: 'days',
-    hours: 'hours',
-    minutes: 'minutes',
-    seconds: 'seconds',
+    years: 'year',
+    months: 'month',
+    days: 'day',
+    hours: 'hour',
+    minutes: 'minute',
+    seconds: 'second',
   });
 
   /**
    * Get current countdown duration
    */
   const [count, setCount] = useState(
-    moment().subtract(+moment().millisecond(53647920000000)),
+    moment().subtract(+moment().set('millisecond', 53647920000000)),
   );
 
-  // const [countdown, setCountdown] = useState({
-  //   mileseconds: count,
-  //   years: count.year(),
-  //   months: count.month(),
-  //   days: count.days(),
-  //   hours: count.hour(),
-  //   minutes: count.minute(),
-  //   seconds: count.second(),
-  // });
-
-  // const [counterDate, setCounterDate] = useState({
-  //   date: moment(),
-  //   years: moment().year(),
-  //   months: moment().month(),
-  //   days: moment().days(),
-  //   hours: moment().hour(),
-  //   minutes: moment().minute(),
-  //   seconds: moment().second(),
-  // });
-
+  /**
+   * Effect to countdown timer
+   */
   useEffect(() => {
     const interval = setInterval(
       () => setCount(moment(count).add(1, 'seconds')),
@@ -50,30 +34,61 @@ export const CountDown: React.FC = () => {
     };
   }, [count]);
 
+  const getCurrentDateWord = (time: number): string => {
+    if (time !== 1 && time !== 0) {
+      return 's';
+    }
+    return '';
+  };
+
   return (
     <>
-      <Years>
-        {count.year()} {countdownWords.years}
+      {/* <Years>
+        {count.year()} {countdownWords.years + getCurrentDateWord(count.year())}
       </Years>
 
       <Months>
-        {} {countdownWords.months}
+        {count.month()}{' '}
+        {countdownWords.months + getCurrentDateWord(count.month())}
       </Months>
 
       <Days>
-        {} {countdownWords.days}
-      </Days>
+        {count.date()} {countdownWords.days + getCurrentDateWord(count.date())}
+      </Days> */}
 
       <WrapperGrid>
-        <Hours>
-          {count.hour()} {countdownWords.hours}
+        {/* <Hours>
+          <Container display="flex" style={{ width: '100%' }}>
+            {count.hour()}{' '}
+            {countdownWords.hours + getCurrentDateWord(count.hour())}
+          </Container>
         </Hours>
         <Minutes>
-          {count.minute()} {countdownWords.minutes}
+          {count.minute()}{' '}
+          {countdownWords.minutes + getCurrentDateWord(count.minute())}
         </Minutes>
         <Seconds>
-          {count.second()} {countdownWords.seconds}
-        </Seconds>
+          <SecondsInners>
+            <SecondsNumber>{count.second()} </SecondsNumber>
+            <SecondsTitle>
+              {countdownWords.seconds + getCurrentDateWord(count.second())}
+            </SecondsTitle>
+          </SecondsInners>
+        </Seconds> */}
+
+        <HoursTime>{count.hour()} </HoursTime>
+        <HoursTitle>
+          {countdownWords.hours + getCurrentDateWord(count.hour())}
+        </HoursTitle>
+
+        <MinutesTime>{count.minute()} </MinutesTime>
+        <MinutesTitle>
+          {countdownWords.minutes + getCurrentDateWord(count.minute())}
+        </MinutesTitle>
+        <SecondsTime>{count.second()} </SecondsTime>
+        <SecondsTitle>
+          {countdownWords.seconds + getCurrentDateWord(count.second())}
+        </SecondsTitle>
       </WrapperGrid>
     </>
   );
@@ -81,37 +96,42 @@ export const CountDown: React.FC = () => {
 
 const WrapperGrid = styled.div`
   display: grid;
-  justify-items: center;
+  grid-template-columns: 20%, 80%;
+  grid-column-gap: 16px;
+  justify-items: right;
   align-items: center;
   font-size: 48px;
 `;
 
-const Years = styled.div`
+const HoursTime = styled.div`
   grid-row: 1/2;
   grid-column: 1/2;
+  justify-self: right;
 `;
-
-const Months = styled.div`
+const HoursTitle = styled.div`
   grid-row: 1/2;
   grid-column: 2/3;
+  justify-self: left;
 `;
 
-const Days = styled.div`
-  grid-row: 1/2;
-  grid-column: 3/4;
-`;
-
-const Hours = styled.div`
+const MinutesTime = styled.div`
   grid-row: 2/3;
   grid-column: 1/2;
 `;
-
-const Minutes = styled.div`
+const MinutesTitle = styled.div`
   grid-row: 2/3;
   grid-column: 2/3;
+  justify-self: left;
 `;
 
-const Seconds = styled.div`
-  grid-row: 2/3;
-  grid-column: 3/4;
+const SecondsTime = styled.div`
+  grid-row: 3/4;
+  grid-column: 1/2;
+  justify-self: right;
+`;
+
+const SecondsTitle = styled.div`
+  grid-row: 3/4;
+  grid-column: 2/3;
+  justify-self: left;
 `;
