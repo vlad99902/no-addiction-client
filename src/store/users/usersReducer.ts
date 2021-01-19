@@ -5,16 +5,16 @@ import {
   IUsersState,
   UserActionsType,
   USER_LANGUAGE_CHANGE,
-} from "./usersTypes";
+} from './usersTypes';
 
 const initialState: IUsersState = {
   inAddiction: true,
-  userLanguage: "ru",
+  userLanguage: 'ru',
 };
 
 export function usersReducer(
-  state = initialState,
-  action: UserActionsType
+  state: IUsersState = initialState,
+  action: UserActionsType,
 ): IUsersState {
   switch (action.type) {
     case IN_ADDICTION_ON:
