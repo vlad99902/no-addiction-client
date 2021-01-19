@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^12.6.0",
     "@types/i18next": "^13.0.0",
     "@types/jest": "^26.0.20",
+    "@types/moment": "^2.13.0",
     "@types/node": "^12.19.14",
     "@types/react": "^16.14.2",
     "@types/react-dom": "^16.9.10",
