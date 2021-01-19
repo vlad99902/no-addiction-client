@@ -1,6 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-type TitleTypes = { fz?: string; ff?: string; fw?: string; color?: string };
+type TitleTypes = {
+  fz?: string;
+  ff?: string;
+  fw?: string;
+  color?: string;
+  mb?: string;
+};
 
 export const Title = styled.h1<TitleTypes>`
   font-size: ${(props) => props.fz};
@@ -8,4 +14,5 @@ export const Title = styled.h1<TitleTypes>`
     props.ff || 'font-family: "Rubik Mono One", sans-serif'};
   font-weight: ${(props) => props.fw};
   color: ${(props) => props.color};
+  margin-bottom: ${(props) => props.mb};
 `;
