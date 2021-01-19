@@ -1,9 +1,11 @@
-import React from 'react';
+import React from "react";
+import { useSelector } from "react-redux";
 
-import styled from 'styled-components';
-import { colors } from '../styles/colors';
+import styled from "styled-components";
+import { IUsersState } from "../store/users/usersTypes";
+import { colors } from "../styles/colors";
 
-type TypeOfType = 'small' | 'medium' | 'large';
+type TypeOfType = "small" | "medium" | "large";
 
 interface ISwitchButton {
   onClick(defaultExpression: boolean): void;
@@ -17,18 +19,18 @@ type Position = {
 
 export const SwitchButton: React.FC<ISwitchButton> = ({
   onClick,
-  type = 'small',
+  type = "small",
   position,
 }) => {
   const getSwitchButtonPropStyles = (): { [key: string]: string } => {
     if (position) {
       return {
-        flexDirection: 'row-reverse',
+        flexDirection: "row-reverse",
         backgroundColor: colors.$red,
       };
     } else
       return {
-        flexDirection: 'row',
+        flexDirection: "row",
         backgroundColor: colors.$gray,
       };
   };
