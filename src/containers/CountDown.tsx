@@ -1,23 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import moment from 'moment';
-import { Container } from '../components/Container';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import moment from "moment";
+import { Container } from "../components/Container";
 
 export const CountDown: React.FC = () => {
   const [countdownWords, setCountdownWords] = useState({
-    years: 'year',
-    months: 'month',
-    days: 'day',
-    hours: 'hour',
-    minutes: 'minute',
-    seconds: 'second',
+    years: "year",
+    months: "month",
+    days: "day",
+    hours: "hour",
+    minutes: "minute",
+    seconds: "second",
   });
 
   /**
    * Get current countdown duration
    */
   const [count, setCount] = useState(
-    moment().subtract(+moment().set('millisecond', 53647920000000)),
+    moment().subtract(+moment().set("millisecond", 53647920000000))
   );
 
   /**
@@ -25,8 +25,8 @@ export const CountDown: React.FC = () => {
    */
   useEffect(() => {
     const interval = setInterval(
-      () => setCount(moment(count).add(1, 'seconds')),
-      1000,
+      () => setCount(moment(count).add(1, "seconds")),
+      1000
     );
 
     return () => {
@@ -36,61 +36,27 @@ export const CountDown: React.FC = () => {
 
   const getCurrentDateWord = (time: number): string => {
     if (time !== 1 && time !== 0) {
-      return 's';
+      return "s";
     }
-    return '';
+    return "";
   };
 
   return (
-    <>
-      {/* <Years>
-        {count.year()} {countdownWords.years + getCurrentDateWord(count.year())}
-      </Years>
+    <WrapperGrid>
+      <HoursTime>{count.hour()} </HoursTime>
+      <HoursTitle>
+        {countdownWords.hours + getCurrentDateWord(count.hour())}
+      </HoursTitle>
 
-      <Months>
-        {count.month()}{' '}
-        {countdownWords.months + getCurrentDateWord(count.month())}
-      </Months>
-
-      <Days>
-        {count.date()} {countdownWords.days + getCurrentDateWord(count.date())}
-      </Days> */}
-
-      <WrapperGrid>
-        {/* <Hours>
-          <Container display="flex" style={{ width: '100%' }}>
-            {count.hour()}{' '}
-            {countdownWords.hours + getCurrentDateWord(count.hour())}
-          </Container>
-        </Hours>
-        <Minutes>
-          {count.minute()}{' '}
-          {countdownWords.minutes + getCurrentDateWord(count.minute())}
-        </Minutes>
-        <Seconds>
-          <SecondsInners>
-            <SecondsNumber>{count.second()} </SecondsNumber>
-            <SecondsTitle>
-              {countdownWords.seconds + getCurrentDateWord(count.second())}
-            </SecondsTitle>
-          </SecondsInners>
-        </Seconds> */}
-
-        <HoursTime>{count.hour()} </HoursTime>
-        <HoursTitle>
-          {countdownWords.hours + getCurrentDateWord(count.hour())}
-        </HoursTitle>
-
-        <MinutesTime>{count.minute()} </MinutesTime>
-        <MinutesTitle>
-          {countdownWords.minutes + getCurrentDateWord(count.minute())}
-        </MinutesTitle>
-        <SecondsTime>{count.second()} </SecondsTime>
-        <SecondsTitle>
-          {countdownWords.seconds + getCurrentDateWord(count.second())}
-        </SecondsTitle>
-      </WrapperGrid>
-    </>
+      <MinutesTime>{count.minute()} </MinutesTime>
+      <MinutesTitle>
+        {countdownWords.minutes + getCurrentDateWord(count.minute())}
+      </MinutesTitle>
+      <SecondsTime>{count.second()} </SecondsTime>
+      <SecondsTitle>
+        {countdownWords.seconds + getCurrentDateWord(count.second())}
+      </SecondsTitle>
+    </WrapperGrid>
   );
 };
 

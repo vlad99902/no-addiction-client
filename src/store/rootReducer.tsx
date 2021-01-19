@@ -6,3 +6,5 @@ export const rootReducer = combineReducers({
   users: usersReducer,
   timers: timersReducer,
 });
+
+export type RootState = ReturnType<typeof rootReducer>;

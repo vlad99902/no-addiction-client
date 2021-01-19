@@ -4,28 +4,30 @@ import styled from "styled-components";
 import { Container } from "./Container";
 
 interface IQuote {
-  author: string;
+  author?: string;
   children: React.ReactNode;
   padding?: string;
+  marginBottom?: string;
 }
 
 export const Quote: React.FC<IQuote> = ({
   author,
   children,
-  padding = "0px",
+  padding,
+  marginBottom = "0px",
 }) => {
   return (
-    <Container maxWidth="1400px" padding="100px 0">
-      <Text padding={padding}>{children}</Text>
+    <Container maxWidth="1400px" marginBottom="100px">
+      <Text marginBottom={marginBottom}>{children}</Text>
       <Author>{author}</Author>
     </Container>
   );
 };
 
-const Text = styled.div<{ padding: string }>`
+const Text = styled.div<{ marginBottom: string }>`
   margin: 0 auto;
   font-size: 36px;
-  padding-bottom: ${(props) => props.padding};
+  margin-bottom: ${(props) => props.marginBottom};
 `;
 const Author = styled.div`
   font-size: 24px;
