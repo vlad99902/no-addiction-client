@@ -5,7 +5,9 @@ export const SET_IN_ADDICTION_TRUE = 'TIMERS/SET_IN_ADDICTION_TRUE';
 export const SET_IN_ADDICTION = 'TIMERS/SET_IN_ADDICTION';
 export const GET_CURENT_TIMER = 'TIMERS/GET_CURENT_TIMER';
 export const GET_IN_ADDICTION = 'TIMERS/GET_IN_ADDICTION';
-// export const FETCH_UPDATE_IN_ADDICTION
+export const CLEAR_CURRENT_TIMER = 'TIMERS/CLEAR_CURRENT_TIMER';
+export const FETCH_UPDATE_CURRENT_TIMER = 'TIMERS/FETCH_UPDATE_IN_ADDICTION';
+export const FETCH_CREATE_CURRENT_TIMER = 'TIMERS/FETCH_CREATE_IN_ADDICTION';
 
 export const INIT_QUOTES = 'QUOTES/INIT_QUOTES';
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
@@ -23,7 +25,16 @@ export interface ITimersState {
   quote: QuoteType;
   inAddiction: boolean;
 }
+interface fetchUpdateInAddiction {
+  type: typeof FETCH_UPDATE_CURRENT_TIMER;
+}
 
+interface clearCurrentTimer {
+  type: typeof CLEAR_CURRENT_TIMER;
+}
+interface fetchCreateInAddiction {
+  type: typeof FETCH_CREATE_CURRENT_TIMER;
+}
 interface getInAddiction {
   type: typeof GET_IN_ADDICTION;
   inAddiction: boolean;
@@ -78,5 +89,8 @@ export type TimersActionType =
   | initQuotes
   | getCurrentTimer
   | getRandomBadQuote
+  | fetchUpdateInAddiction
+  | fetchCreateInAddiction
+  | clearCurrentTimer
   | getInAddiction
   | getRandomGoodQuote;
