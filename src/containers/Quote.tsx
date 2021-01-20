@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Container } from '../components/Container';
 
 interface IQuote {
-  author?: string;
+  author?: string | null;
   children: React.ReactNode;
   padding?: string;
   marginBottom?: string;

@@ -4,10 +4,17 @@ export const SET_IN_ADDICTION_TRUE = 'TIMERS/SET_IN_ADDICTION_TRUE';
 export const SET_IN_ADDICTION = 'TIMERS/SET_IN_ADDICTION';
 export const GET_CURENT_TIMER = 'TIMERS/GET_CURENT_TIMER';
 export const INIT_TIMERS = 'TIMERS/INIT_TIMERS';
+export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
+export const GET_RANDOM_GOOD_QUOTE = 'QUOTES/GET_RANDOM_GOOD_QUOTE';
 
 export interface ITimersState {
   currentTimer: {
     begin_date: string;
+  };
+  quote: {
+    quote: string;
+    author: string | null;
+    category: string;
   };
   inAddiction: boolean;
 }
@@ -40,10 +47,29 @@ interface getCurrentTimer {
   };
 }
 
+interface getRandomBadQuote {
+  type: typeof GET_RANDOM_BAD_QUOTE;
+  payload: {
+    quote: string;
+    author: string | null;
+    category: string;
+  };
+}
+interface getRandomGoodQuote {
+  type: typeof GET_RANDOM_GOOD_QUOTE;
+  payload: {
+    quote: string;
+    author: string | null;
+    category: string;
+  };
+}
+
 export type TimersActionType =
-  | getCurrentTimer
-  | initTimers
+  | setInAddictionFalse
+  | setInAddictionTrue
   | inAddictionChange
   | setInAddiction
-  | setInAddictionFalse
-  | setInAddictionTrue;
+  | initTimers
+  | getCurrentTimer
+  | getRandomBadQuote
+  | getRandomGoodQuote;
