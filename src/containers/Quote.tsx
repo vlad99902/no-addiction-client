@@ -22,15 +22,29 @@ export const Quote: React.FC<IQuote> = ({
   marginTop = '0px',
 }) => {
   const quote = useSelector((state: RootState) => state.timers.quote);
+  // const loading = useSelector((state: RootState) => state.users.loading);
+  const loading = true;
+  const visibility = (loading: boolean) => {
+    if (loading) return 'hidden';
+    else return 'visible';
+  };
+  const display = (loading: boolean) => {
+    if (loading) return 'block';
+    else return 'none';
+  };
   return (
     <>
-      <Container maxWidth="1400px" marginBottom="100px">
+      <Container
+        maxWidth="1400px"
+        marginBottom="100px"
+        visibility={visibility(loading)}
+      >
         <Text marginBottom={marginBottom} marginTop={marginTop}>
           {quote.quote}
         </Text>
         <Author>{quote.author}</Author>
+        <Loader display={display(loading)} />
       </Container>
-      <Loader />
     </>
   );
 };

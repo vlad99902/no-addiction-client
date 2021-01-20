@@ -1,5 +1,17 @@
+import React from 'react';
+
+import styled from 'styled-components';
+
 import '../styles/loader.css';
 
-export const Loader = () => {
-  return <div className="loader"></div>;
+interface ILoader {
+  display: string;
+}
+
+export const Loader: React.FC<ILoader> = ({ display = 'block' }) => {
+  return (
+    <>
+      <div className="loader" style={{ display: display }}></div>
+    </>
+  );
 };

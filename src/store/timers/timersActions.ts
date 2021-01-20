@@ -1,3 +1,5 @@
+import { userHideLoader } from './../users/usersActions';
+import { userShowLoader } from '../users/usersActions';
 import {
   GET_CURENT_TIMER,
   INIT_TIMERS,
@@ -32,7 +34,7 @@ export const getInAddiction = () => {
   return async (dispatch: any) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true',
+        'http://localhost:3000/api/timers/current?inAddiction=true'
       );
       const json = await res.json();
 
@@ -85,7 +87,7 @@ export const inAddictionChange = (newBeginDate: string) => {
             userId: getState().users.userId,
             beginDate: newBeginDate,
             categoryId: getState().users.currentCategoryId,
-          }),
+          })
         );
         const res = await fetch(
           'http://localhost:3000/api/timers/current/create',
@@ -99,12 +101,10 @@ export const inAddictionChange = (newBeginDate: string) => {
               beginDate: newBeginDate,
               categoryId: getState().users.currentCategoryId,
             }),
-          },
+          }
         );
 
         await dispatch(getCurrentTimer());
-
-        const json = await res.json();
       }
 
       dispatch({
@@ -127,12 +127,15 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
 export const getRandomBadQuote = () => {
   return async (dispatch: any) => {
     try {
+      dispatch(userShowLoader());
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
+      dispatch(userHideLoader());
     } catch (error) {
       console.log(error);
+      dispatch(userHideLoader());
     }
   };
 };
