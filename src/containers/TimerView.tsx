@@ -47,26 +47,50 @@ export const TimerView: React.FC<TimerViewType> = ({
     return '';
   };
 
+  /**
+   * Set 0 digit to the beginnig of time if type time === 'time'
+   * @param {number} time Time to set 0 digit
+   * @param {type} type Check type of time
+   */
+
+  const getTimeZeroDogit = (time: number, type: 'time' | 'date'): string => {
+    if (time % 10 === time && type === 'time') {
+      return '0' + String(time);
+    } else return String(time);
+  };
+
   return (
     <WrapperGrid fz={fz}>
-      <Time1Child>{time1} </Time1Child>
-      <Title1Child>
-        {type === 'date'
-          ? countdownWords.years
-          : countdownWords.hours + getCurrentDateWordEnding(time1)}
-      </Title1Child>
-      <Time2Child>{time2} </Time2Child>
-      <Title2Child>
-        {type === 'date'
-          ? countdownWords.months
-          : countdownWords.minutes + getCurrentDateWordEnding(time2)}
-      </Title2Child>
-      <Time3Child>{time3} </Time3Child>
-      <Title3Child>
-        {type === 'date'
-          ? countdownWords.days
-          : countdownWords.seconds + getCurrentDateWordEnding(time3)}
-      </Title3Child>
+      {(type !== 'date' || !!time1) && (
+        <>
+          <Time1Child>{getTimeZeroDogit(time1, type)}</Time1Child>
+          <Title1Child>
+            {type === 'date'
+              ? countdownWords.years + getCurrentDateWordEnding(time1)
+              : countdownWords.hours + getCurrentDateWordEnding(time1)}
+          </Title1Child>
+        </>
+      )}
+      {(type !== 'date' || !!time2) && (
+        <>
+          <Time2Child>{getTimeZeroDogit(time2, type)}</Time2Child>
+          <Title2Child>
+            {type === 'date'
+              ? countdownWords.months + getCurrentDateWordEnding(time2)
+              : countdownWords.minutes + getCurrentDateWordEnding(time2)}
+          </Title2Child>
+        </>
+      )}
+      {(type !== 'date' || !!time3) && (
+        <>
+          <Time3Child>{getTimeZeroDogit(time3, type)}</Time3Child>
+          <Title3Child>
+            {type === 'date'
+              ? countdownWords.days + getCurrentDateWordEnding(time3)
+              : countdownWords.seconds + getCurrentDateWordEnding(time3)}
+          </Title3Child>
+        </>
+      )}
     </WrapperGrid>
   );
 };
