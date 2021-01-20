@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Button } from '../components/Button';
-import { Quote } from '../components/Quote';
+import { Quote } from './Quote';
 import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
 

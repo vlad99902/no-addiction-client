@@ -1,11 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
 
 import { Container } from '../components/Container';
-
 import { CountDown } from '../containers/CountDown';
 import { InAddiction } from '../containers/InAddiction';
-import { RootState } from '../store/rootReducer';
+import { Title } from '../components/Title';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
@@ -20,7 +20,18 @@ export const MainPage: React.FC = () => {
       padding="18px 18px 0px"
       style={{ flexDirection: 'column' }}
     >
-      {inAddiction ? <InAddiction /> : <CountDown />}
+      {inAddiction ? (
+        <>
+          <InAddiction />
+        </>
+      ) : (
+        <>
+          <Title mb="60px" fz="96px">
+            я не пью уже
+          </Title>
+          <CountDown />
+        </>
+      )}
     </Container>
   );
 };

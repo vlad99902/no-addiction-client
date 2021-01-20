@@ -76,9 +76,6 @@ export const CountDown: React.FC = () => {
 
   return (
     <>
-      <Title mb="60px" fz="96px">
-        я не пью уже
-      </Title>
       <TimerViewGrid>
         <Container margin="0 64px 0 0">
           <TimerView
@@ -116,5 +113,5 @@ const TimerViewGrid = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 100px;
 `;
