@@ -29,7 +29,7 @@ export const CountDown: React.FC = () => {
     useSelector((state: RootState) => state.timers.currentTimer.begin_date),
   );
 
-  const [startDate] = useState(moment(moment(currentTime.slice(0, -1))));
+  const [startDate] = useState(moment(moment(currentTime)));
 
   const [duration, setDuration] = useState(+moment() - +startDate);
 
@@ -98,7 +98,7 @@ export const CountDown: React.FC = () => {
       </TimerViewGrid>
       <Button
         onClick={() => {
-          dispatch(inAddictionChange(inAddiction));
+          // dispatch(inAddictionChange(inAddiction));
         }}
         type="main"
       >

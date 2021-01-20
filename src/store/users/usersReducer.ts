@@ -6,6 +6,8 @@ import {
 
 const initialState: IUsersState = {
   userLanguage: 'ru',
+  currentCategoryId: 1,
+  userId: 0,
 };
 
 export function usersReducer(

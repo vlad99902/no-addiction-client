@@ -55,20 +55,6 @@ export const setInAddictionTrue = (): TimersActionType => {
   };
 };
 
-export const inAddictionChange = (inAddiction: boolean): TimersActionType => {
-  return {
-    type: IN_ADDICTION_CHANGE,
-    payload: !inAddiction,
-  };
-};
-
-export const setInAddiction = (inAddiction: boolean): TimersActionType => {
-  return {
-    type: SET_IN_ADDICTION,
-    payload: inAddiction,
-  };
-};
-
 export const getCurrentTimer = () => {
   // return async (dispatch: Dispatch<TimersActionType>) => {
   return async (dispatch: any) => {
@@ -80,6 +66,61 @@ export const getCurrentTimer = () => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const inAddictionChange = (newBeginDate: string) => {
+  // return {
+  //   type: IN_ADDICTION_CHANGE,
+  //   payload: !inAddiction,
+  // };
+  return async (dispatch: any, getState: any) => {
+    try {
+      const inAddiction = getState().timers.inAddiction;
+
+      //if now inAddiction
+      if (inAddiction) {
+        console.log(
+          JSON.stringify({
+            userId: getState().users.userId,
+            beginDate: newBeginDate,
+            categoryId: getState().users.currentCategoryId,
+          }),
+        );
+        const res = await fetch(
+          'http://localhost:3000/api/timers/current/create',
+          {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json',
+            },
+            body: JSON.stringify({
+              userId: getState().users.userId,
+              beginDate: newBeginDate,
+              categoryId: getState().users.currentCategoryId,
+            }),
+          },
+        );
+
+        await dispatch(getCurrentTimer());
+
+        const json = await res.json();
+      }
+
+      dispatch({
+        type: IN_ADDICTION_CHANGE,
+        payload: !inAddiction,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const setInAddiction = (inAddiction: boolean): TimersActionType => {
+  return {
+    type: SET_IN_ADDICTION,
+    payload: inAddiction,
   };
 };
 
