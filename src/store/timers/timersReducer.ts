@@ -11,6 +11,9 @@ import {
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
   INIT_QUOTES,
+  FETCH_CREATE_CURRENT_TIMER,
+  FETCH_UPDATE_CURRENT_TIMER,
+  CLEAR_CURRENT_TIMER,
 } from './timersTypes';
 
 const initialState: ITimersState = {
@@ -49,6 +52,12 @@ export const timersReducer = (
     case GET_IN_ADDICTION:
       return { ...state, inAddiction: action.inAddiction };
     case INIT_QUOTES:
+      return { ...state };
+    case FETCH_CREATE_CURRENT_TIMER:
+      return { ...state };
+    case FETCH_UPDATE_CURRENT_TIMER:
+      return { ...state };
+    case CLEAR_CURRENT_TIMER:
       return { ...state };
     default:
       return state;

@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
-import { inAddictionChange } from '../store/timers/timersActions';
 
 import { Button } from '../components/Button';
 
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
+import { clearCurrentTimer } from '../store/timers/timersActions';
 
 type DurationInType =
   | 'years'
@@ -21,13 +21,14 @@ type DurationInType =
 
 export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
-  const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
-  );
 
   const [currentTime] = useState(
     useSelector((state: RootState) => state.timers.currentTimer.begin_date),
   );
+
+  useEffect(() => {}, [
+    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
+  ]);
 
   const [startDate] = useState(moment(moment(currentTime)));
 
@@ -96,12 +97,7 @@ export const CountDown: React.FC = () => {
           }}
         />
       </TimerViewGrid>
-      <Button
-        onClick={() => {
-          // dispatch(inAddictionChange(inAddiction));
-        }}
-        type="main"
-      >
+      <Button onClick={() => dispatch(clearCurrentTimer())} type="main">
         выпил
       </Button>
     </>
