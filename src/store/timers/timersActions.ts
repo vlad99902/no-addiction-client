@@ -1,4 +1,3 @@
-
 import { userHideLoader } from './../users/usersActions';
 import { userShowLoader } from '../users/usersActions';
 
@@ -23,16 +22,18 @@ import {
 export const initState = () => {
   return async (dispatch: any, getState: any) => {
     try {
+      dispatch(userShowLoader());
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
       getState().timers.inAddiction
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
-
-      return { type: INIT_TIMERS };
+      dispatch(userHideLoader());
+      dispatch({ type: INIT_TIMERS });
     } catch (error) {
       console.log(error);
+      dispatch(userHideLoader());
     }
   };
 };
@@ -41,7 +42,7 @@ export const getInAddiction = () => {
   return async (dispatch: any) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true'
+        'http://localhost:3000/api/timers/current?inAddiction=true',
       );
       const json = await res.json();
 
@@ -134,18 +135,19 @@ export const fetchUpdateCurrentTimer = (endDate: string) => {
   };
 };
 
-export const inAddictionChange = (date: string) => {
+export const inAddictionChange = (date: string | null = null) => {
   return async (dispatch: any, getState: any) => {
     try {
       const inAddiction = getState().timers.inAddiction;
 
       //if now inAddiction
+      if (date === null) {
+        date = moment().format('YYYY-MM-DD HH:mm:ss');
+      }
       if (inAddiction) {
-
         await dispatch(fetchCreateCurrentTimer(date));
       } else {
         await dispatch(fetchUpdateCurrentTimer(date));
-
       }
 
       //вот на фронет обработать сообщение с бэка
@@ -172,6 +174,7 @@ export const getRandomBadQuote = () => {
   return async (dispatch: any) => {
     try {
       dispatch(userShowLoader());
+
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
 
