@@ -15,6 +15,7 @@ type ContainerType = {
   lastChild?: string;
   position?: string;
   visibility?: string;
+  height?: string;
 };
 
 export const Container: React.FC<ContainerType> = ({
@@ -31,6 +32,7 @@ export const Container: React.FC<ContainerType> = ({
   lastChild,
   position,
   visibility,
+  height,
 }) => {
   return (
     <ContainerWrapper
@@ -48,6 +50,7 @@ export const Container: React.FC<ContainerType> = ({
       lastChild={lastChild}
       position={position}
       visibility={visibility}
+      height={height}
     >
       {children}
     </ContainerWrapper>
@@ -75,6 +78,7 @@ const ContainerWrapper = styled.div<ContainerType>`
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
   visibility: ${(props) => props.visibility};
+  height: ${(props) => props.height};
   :last-child {
     ${(props) => props.lastChild}
   }

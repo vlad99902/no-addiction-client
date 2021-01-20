@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import '../styles/loader.css';
 
 interface ILoader {
-  display: string;
+  display?: string;
 }
 
 export const Loader: React.FC<ILoader> = ({ display = 'block' }) => {
