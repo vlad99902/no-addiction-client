@@ -1,22 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
-
-import { Container } from '../components/Container';
-import { CountDown } from '../containers/CountDown';
-import { InAddiction } from '../containers/InAddiction';
-import { Title } from '../components/Title';
 import {
   getRandomBadQuote,
   getRandomGoodQuote,
 } from '../store/timers/timersActions';
 
+import { Container } from '../components/Container';
+import { CountDown } from '../containers/CountDown';
+import { InAddiction } from '../containers/InAddiction';
+import { Title } from '../components/Title';
+import { Button } from '../components/Button';
+import { Quote } from '../containers/Quote';
+
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
   const dispatch = useDispatch();
-  inAddiction ? dispatch(getRandomBadQuote()) : dispatch(getRandomGoodQuote());
+
+  useEffect(() => {
+    inAddiction
+      ? dispatch(getRandomBadQuote())
+      : dispatch(getRandomGoodQuote());
+  }, [inAddiction]);
 
   return (
     <Container
@@ -35,7 +42,9 @@ export const MainPage: React.FC = () => {
           <Title mb="60px" fz="96px">
             я не пью уже
           </Title>
+
           <CountDown />
+          <Quote marginBottom="60px" marginTop="60px" />
         </>
       )}
     </Container>
