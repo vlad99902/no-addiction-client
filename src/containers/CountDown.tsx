@@ -22,15 +22,14 @@ type DurationInType =
 export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
 
-  const [currentTime] = useState(
-    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
+  // const [currentTime] = useState(
+  //   useSelector((state: RootState) => state.timers.currentTimer.begin_date),
+  // );
+  // const [startDate] = useState(moment(moment(currentTime)));
+  const currentTime = useSelector(
+    (state: RootState) => state.timers.currentTimer.begin_date,
   );
-
-  useEffect(() => {}, [
-    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
-  ]);
-
-  const [startDate] = useState(moment(moment(currentTime)));
+  const startDate = moment(currentTime);
 
   const [duration, setDuration] = useState(+moment() - +startDate);
 
