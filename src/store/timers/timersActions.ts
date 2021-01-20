@@ -1,6 +1,3 @@
-import { Action, ActionCreator, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
-
 import {
   GET_CURENT_TIMER,
   INIT_TIMERS,
@@ -8,36 +5,37 @@ import {
   SET_IN_ADDICTION_FALSE,
   SET_IN_ADDICTION_TRUE,
   SET_IN_ADDICTION,
-  ITimersActionType,
+  TimersActionType,
 } from './timersTypes';
 
-export function setInAddictionFalse(): ITimersActionType {
+export const setInAddictionFalse = (): TimersActionType => {
   return {
     type: SET_IN_ADDICTION_FALSE,
   };
-}
+};
 
-export function setInAddictionTrue(): ITimersActionType {
+export const setInAddictionTrue = (): TimersActionType => {
   return {
     type: SET_IN_ADDICTION_TRUE,
   };
-}
+};
 
-export function inAddictionChange(inAddiction: boolean): ITimersActionType {
+export const inAddictionChange = (inAddiction: boolean): TimersActionType => {
   return {
     type: IN_ADDICTION_CHANGE,
     payload: !inAddiction,
   };
-}
+};
 
-export function setInAddiction(inAddiction: boolean): ITimersActionType {
+export const setInAddiction = (inAddiction: boolean): TimersActionType => {
   return {
     type: SET_IN_ADDICTION,
     payload: inAddiction,
   };
-}
+};
 
-export function getCurrentTimer() {
+export const getCurrentTimer = () => {
+  // return async (dispatch: Dispatch<TimersActionType>) => {
   return async (dispatch: any) => {
     try {
       const res = await fetch('http://localhost:3000/api/timers/current');
@@ -48,9 +46,9 @@ export function getCurrentTimer() {
       console.log(error);
     }
   };
-}
+};
 
-export function initTimers() {
+export const initTimers = () => {
   return async (dispatch: any, getState: any) => {
     try {
       await dispatch(getCurrentTimer());
@@ -64,4 +62,4 @@ export function initTimers() {
       console.log(error);
     }
   };
-}
+};
