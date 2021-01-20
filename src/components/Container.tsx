@@ -1,6 +1,6 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
 type ContainerType = {
   maxWidth?: string;
@@ -14,6 +14,8 @@ type ContainerType = {
   pos?: string;
   lastChild?: string;
   position?: string;
+  visibility?: string;
+  height?: string;
 };
 
 export const Container: React.FC<ContainerType> = ({
@@ -29,6 +31,8 @@ export const Container: React.FC<ContainerType> = ({
   pos,
   lastChild,
   position,
+  visibility,
+  height,
 }) => {
   return (
     <ContainerWrapper
@@ -45,6 +49,8 @@ export const Container: React.FC<ContainerType> = ({
       pos={pos}
       lastChild={lastChild}
       position={position}
+      visibility={visibility}
+      height={height}
     >
       {children}
     </ContainerWrapper>
@@ -53,13 +59,13 @@ export const Container: React.FC<ContainerType> = ({
 
 const ContainerWrapper = styled.div<ContainerType>`
   ${(props) => {
-    if (props.pos === "space-between") {
+    if (props.pos === 'space-between') {
       return `display: flex; justify-content: space-between; align-items: center; flex-grow: 1;`;
-    } else if (props.pos === "start") {
+    } else if (props.pos === 'start') {
       return `display: flex; justify-content: flex-start; align-items: center`;
-    } else if (props.pos === "center") {
+    } else if (props.pos === 'center') {
       return `display: flex; justify-content: center; align-items: center`;
-    } else if (props.pos === "end") {
+    } else if (props.pos === 'end') {
       return `display: flex; justify-content: flex-end; align-items: center`;
     }
   }};
@@ -71,6 +77,8 @@ const ContainerWrapper = styled.div<ContainerType>`
   margin-bottom: ${(props) => props.marginBottom};
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
+  visibility: ${(props) => props.visibility};
+  height: ${(props) => props.height};
   :last-child {
     ${(props) => props.lastChild}
   }

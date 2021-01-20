@@ -1,3 +1,7 @@
+
+import { userHideLoader } from './../users/usersActions';
+import { userShowLoader } from '../users/usersActions';
+
 import moment from 'moment';
 
 import {
@@ -37,7 +41,7 @@ export const getInAddiction = () => {
   return async (dispatch: any) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true',
+        'http://localhost:3000/api/timers/current?inAddiction=true'
       );
       const json = await res.json();
 
@@ -137,9 +141,11 @@ export const inAddictionChange = (date: string) => {
 
       //if now inAddiction
       if (inAddiction) {
+
         await dispatch(fetchCreateCurrentTimer(date));
       } else {
         await dispatch(fetchUpdateCurrentTimer(date));
+
       }
 
       //вот на фронет обработать сообщение с бэка
@@ -165,12 +171,15 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
 export const getRandomBadQuote = () => {
   return async (dispatch: any) => {
     try {
+      dispatch(userShowLoader());
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
+      dispatch(userHideLoader());
     } catch (error) {
       console.log(error);
+      dispatch(userHideLoader());
     }
   };
 };
