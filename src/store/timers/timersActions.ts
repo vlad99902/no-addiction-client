@@ -4,13 +4,12 @@ import { userShowLoader } from '../users/usersActions';
 import moment from 'moment';
 
 import {
+  TimersActionType,
+  AsyncActionType,
   GET_CURENT_TIMER,
   INIT_TIMERS,
   IN_ADDICTION_CHANGE,
-  SET_IN_ADDICTION_FALSE,
-  SET_IN_ADDICTION_TRUE,
   SET_IN_ADDICTION,
-  TimersActionType,
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
@@ -39,8 +38,8 @@ export const initState = () => {
   };
 };
 
-export const getInAddiction = () => {
-  return async (dispatch: any) => {
+export const getInAddiction = (): AsyncActionType => {
+  return async (dispatch) => {
     try {
       const res = await fetch(
         'http://localhost:3000/api/timers/current?inAddiction=true',
@@ -51,18 +50,6 @@ export const getInAddiction = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-};
-
-export const setInAddictionFalse = (): TimersActionType => {
-  return {
-    type: SET_IN_ADDICTION_FALSE,
-  };
-};
-
-export const setInAddictionTrue = (): TimersActionType => {
-  return {
-    type: SET_IN_ADDICTION_TRUE,
   };
 };
 
@@ -140,10 +127,6 @@ export const inAddictionChange = (date: string | null = null) => {
   return async (dispatch: any, getState: any) => {
     try {
       const inAddiction = getState().timers.inAddiction;
-
-      // inAddiction
-      //   ? await dispatch(getRandomBadQuote())
-      //   : await dispatch(getRandomGoodQuote());
 
       //if now inAddiction
       if (date === null) {
