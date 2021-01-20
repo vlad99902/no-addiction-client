@@ -22,14 +22,14 @@ import {
 export const initState = () => {
   return async (dispatch: any, getState: any) => {
     try {
-      dispatch(userShowLoader());
+      // dispatch(userShowLoader());
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
       getState().timers.inAddiction
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
-      dispatch(userHideLoader());
+      // dispatch(userHideLoader());
       dispatch({ type: INIT_TIMERS });
     } catch (error) {
       console.log(error);
