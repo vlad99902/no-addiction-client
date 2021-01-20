@@ -7,7 +7,7 @@ export const INIT_TIMERS = 'TIMERS/INIT_TIMERS';
 
 export interface ITimersState {
   currentTimer: {
-    begin_date: '';
+    begin_date: string;
   };
   inAddiction: boolean;
 }
@@ -36,11 +36,11 @@ interface initTimers {
 interface getCurrentTimer {
   type: typeof GET_CURENT_TIMER;
   currentDate: {
-    begin_date: '';
+    begin_date: string;
   };
 }
 
-export type ITimersActionType =
+export type TimersActionType =
   | getCurrentTimer
   | initTimers
   | inAddictionChange
