@@ -80,32 +80,31 @@ export const inAddictionChange = (newBeginDate: string) => {
 
       //if now inAddiction
       if (inAddiction) {
-        console.log(
-          JSON.stringify({
+        await fetch('http://localhost:3000/api/timers/current/create', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json',
+          },
+          body: JSON.stringify({
             userId: getState().users.userId,
             beginDate: newBeginDate,
             categoryId: getState().users.currentCategoryId,
           }),
-        );
-        const res = await fetch(
-          'http://localhost:3000/api/timers/current/create',
-          {
-            method: 'POST',
-            headers: {
-              'Content-type': 'application/json',
-            },
-            body: JSON.stringify({
-              userId: getState().users.userId,
-              beginDate: newBeginDate,
-              categoryId: getState().users.currentCategoryId,
-            }),
+        });
+      } else {
+        await fetch('http://localhost:3000/api/timers/current/update', {
+          method: 'PUT',
+          headers: {
+            'Content-type': 'application/json',
           },
-        );
-
-        await dispatch(getCurrentTimer());
-
-        const json = await res.json();
+          body: JSON.stringify({
+            id: getState().timers.currentTimer._id,
+            endDate: newBeginDate,
+          }),
+        });
       }
+
+      await dispatch(getCurrentTimer());
 
       dispatch({
         type: IN_ADDICTION_CHANGE,
