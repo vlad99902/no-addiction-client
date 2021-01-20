@@ -1,16 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { Container } from '../components/Container';
 import { CountDown } from '../containers/CountDown';
 import { InAddiction } from '../containers/InAddiction';
 import { Title } from '../components/Title';
+import {
+  getRandomBadQuote,
+  getRandomGoodQuote,
+} from '../store/timers/timersActions';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
+  const dispatch = useDispatch();
+  inAddiction ? dispatch(getRandomBadQuote()) : dispatch(getRandomGoodQuote());
 
   return (
     <Container

@@ -9,6 +9,7 @@ import {
   INIT_TIMERS,
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
+  INIT_QUOTES,
 } from './timersTypes';
 
 const initialState: ITimersState = {
@@ -44,6 +45,8 @@ export const timersReducer = (
       return { ...state, quote: action.payload };
     case GET_RANDOM_GOOD_QUOTE:
       return { ...state, quote: action.payload };
+    case INIT_QUOTES:
+      return { ...state };
     default:
       return state;
   }

@@ -50,7 +50,7 @@ export const getCurrentTimer = () => {
   };
 };
 
-export const initTimers = () => {
+export const initState = () => {
   return async (dispatch: any, getState: any) => {
     try {
       await dispatch(getCurrentTimer());
@@ -58,6 +58,10 @@ export const initTimers = () => {
       if (getState().timers.currentTimer.end_date === null) {
         dispatch(setInAddiction(false));
       }
+
+      getState().timers.inAddiction
+        ? await dispatch(getRandomBadQuote())
+        : await dispatch(getRandomGoodQuote());
 
       return { type: INIT_TIMERS };
     } catch (error) {
@@ -67,7 +71,7 @@ export const initTimers = () => {
 };
 
 export const getRandomBadQuote = () => {
-  return async (dispatch: any, getStore: any) => {
+  return async (dispatch: any) => {
     try {
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
