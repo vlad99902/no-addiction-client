@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import './App.sass';
 
 import { useDispatch } from 'react-redux';
-import { initTimers } from './store/timers/timersActions';
+import { initState } from './store/timers/timersActions';
 
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
@@ -15,7 +15,7 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initTimers());
+    dispatch(initState());
   }, []);
 
   return (

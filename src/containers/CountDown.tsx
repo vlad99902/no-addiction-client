@@ -7,10 +7,10 @@ import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
 
 import { Button } from '../components/Button';
-import { Title } from '../components/Title';
 
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
+import { Quote } from './Quote';
 
 type DurationInType =
   | 'years'
@@ -105,6 +105,7 @@ export const CountDown: React.FC = () => {
       >
         выпил
       </Button>
+      <Quote marginBottom="60px" marginTop="60px" />
     </>
   );
 };
