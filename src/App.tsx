@@ -2,10 +2,9 @@ import { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.sass';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentTimer, initTimers } from './store/timers/timersActions';
+import { useDispatch } from 'react-redux';
+import { initTimers } from './store/timers/timersActions';
 
-import { RootState } from './store/rootReducer';
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
 
@@ -14,10 +13,6 @@ export default function App() {
   const routes = useRoutes(isAuth);
 
   const dispatch = useDispatch();
-  const currentTimer = useSelector(
-    (state: RootState) => state.timers.currentTimer,
-  );
-  // console.log(currentTimer);
 
   useEffect(() => {
     dispatch(initTimers());

@@ -7,14 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
 import { Title } from '../components/Title';
-import { start } from 'repl';
 
 export const CountDown: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
   const [currentTime] = useState(
-    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
+    useSelector((state: RootState) => state.timers.currentTimer.begin_date)
   );
   const dispatch = useDispatch();
 
@@ -37,7 +36,7 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000,
+      1000
     );
     return () => {
       clearInterval(interval);

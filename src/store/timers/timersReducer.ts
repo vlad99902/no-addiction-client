@@ -1,6 +1,6 @@
 import {
   ITimersState,
-  ITimersActionType,
+  TimersActionType,
   SET_IN_ADDICTION,
   IN_ADDICTION_CHANGE,
   SET_IN_ADDICTION_FALSE,
@@ -18,7 +18,7 @@ const initialState: ITimersState = {
 
 export const timersReducer = (
   state: ITimersState = initialState,
-  action: ITimersActionType,
+  action: TimersActionType
 ): ITimersState => {
   switch (action.type) {
     case IN_ADDICTION_CHANGE:
