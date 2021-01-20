@@ -1,7 +1,9 @@
+import { Action } from 'redux';
+import { RootState } from '../rootReducer';
+import { ThunkAction } from 'redux-thunk';
+
 export const INIT_TIMERS = 'TIMERS/INIT_TIMERS';
 export const IN_ADDICTION_CHANGE = 'TIMERS/IN_ADDICTION_CHANGE';
-export const SET_IN_ADDICTION_FALSE = 'TIMERS/SET_IN_ADDICTION_FALSE';
-export const SET_IN_ADDICTION_TRUE = 'TIMERS/SET_IN_ADDICTION_TRUE';
 export const SET_IN_ADDICTION = 'TIMERS/SET_IN_ADDICTION';
 export const GET_CURENT_TIMER = 'TIMERS/GET_CURENT_TIMER';
 export const GET_IN_ADDICTION = 'TIMERS/GET_IN_ADDICTION';
@@ -40,14 +42,6 @@ interface getInAddiction {
   inAddiction: boolean;
 }
 
-interface setInAddictionFalse {
-  type: typeof SET_IN_ADDICTION_FALSE;
-}
-
-interface setInAddictionTrue {
-  type: typeof SET_IN_ADDICTION_TRUE;
-}
-
 interface inAddictionChange {
   type: typeof IN_ADDICTION_CHANGE;
   payload: boolean;
@@ -67,7 +61,6 @@ interface getCurrentTimer {
     begin_date: string;
   };
 }
-
 interface initQuotes {
   type: typeof INIT_QUOTES;
 }
@@ -80,9 +73,14 @@ interface getRandomGoodQuote {
   payload: QuoteType;
 }
 
+export type AsyncActionType = ThunkAction<
+  void,
+  RootState,
+  unknown,
+  Action<TimersActionType>
+>;
+
 export type TimersActionType =
-  | setInAddictionFalse
-  | setInAddictionTrue
   | inAddictionChange
   | setInAddiction
   | initTimers
