@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -22,14 +22,11 @@ type DurationInType =
 export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
 
-  // const [currentTime] = useState(
-  //   useSelector((state: RootState) => state.timers.currentTimer.begin_date),
-  // );
-  // const [startDate] = useState(moment(moment(currentTime)));
   const currentTime = useSelector(
     (state: RootState) => state.timers.currentTimer.begin_date,
   );
-  const startDate = moment(currentTime);
+
+  const [startDate, setStartDate] = useState(moment(currentTime));
 
   const [duration, setDuration] = useState(+moment() - +startDate);
 
@@ -45,6 +42,11 @@ export const CountDown: React.FC = () => {
       clearInterval(interval);
     };
   }, [duration]);
+
+  useEffect(() => {
+    setStartDate(moment(currentTime));
+    setDuration(+moment() - +moment(currentTime));
+  }, [currentTime]);
 
   const durationIn = (type: DurationInType): number => {
     switch (type) {
