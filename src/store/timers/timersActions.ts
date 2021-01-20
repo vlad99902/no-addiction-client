@@ -29,6 +29,7 @@ export const initState = () => {
       getState().timers.inAddiction
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
+
       // dispatch(userHideLoader());
       dispatch({ type: INIT_TIMERS });
     } catch (error) {
@@ -140,6 +141,10 @@ export const inAddictionChange = (date: string | null = null) => {
     try {
       const inAddiction = getState().timers.inAddiction;
 
+      // inAddiction
+      //   ? await dispatch(getRandomBadQuote())
+      //   : await dispatch(getRandomGoodQuote());
+
       //if now inAddiction
       if (date === null) {
         date = moment().format('YYYY-MM-DD HH:mm:ss');
@@ -150,13 +155,16 @@ export const inAddictionChange = (date: string | null = null) => {
         await dispatch(fetchUpdateCurrentTimer(date));
       }
 
-      //вот на фронет обработать сообщение с бэка
-      await dispatch(getCurrentTimer());
-
       dispatch({
         type: IN_ADDICTION_CHANGE,
         payload: !inAddiction,
       });
+
+      getState().timers.inAddiction
+        ? await dispatch(getRandomBadQuote())
+        : await dispatch(getRandomGoodQuote());
+      //вот на фронет обработать сообщение с бэка
+      await dispatch(getCurrentTimer());
     } catch (error) {
       console.log(error);
     }
@@ -173,13 +181,13 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
 export const getRandomBadQuote = () => {
   return async (dispatch: any) => {
     try {
-      dispatch(userShowLoader());
+      // dispatch(userShowLoader());
 
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
-      dispatch(userHideLoader());
+      // dispatch(userHideLoader());
     } catch (error) {
       console.log(error);
       dispatch(userHideLoader());

@@ -20,11 +20,11 @@ export const MainPage: React.FC = () => {
   const loading = useSelector((state: RootState) => state.users.loading);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    inAddiction
-      ? dispatch(getRandomBadQuote())
-      : dispatch(getRandomGoodQuote());
-  }, [inAddiction]);
+  // useEffect(() => {
+  //   inAddiction
+  //     ? dispatch(getRandomBadQuote())
+  //     : dispatch(getRandomGoodQuote());
+  // }, [inAddiction]);
 
   return (
     <Container
