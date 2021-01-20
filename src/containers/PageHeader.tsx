@@ -1,5 +1,4 @@
 import React from 'react';
-import moment from 'moment';
 
 import styled from 'styled-components';
 import { colors } from '../styles/colors';
@@ -31,7 +30,7 @@ export const PageHeader: React.FC = () => {
         position="realative"
         padding="0 18px"
       >
-        <Container style={{ backgroundColor: colors.$white }}>
+        <Container style={{}}>
           <Image src={logo} width="300px" />
         </Container>
         <Container
@@ -45,9 +44,7 @@ export const PageHeader: React.FC = () => {
             <SwitchButton
               position={inAddiction}
               onClick={() => {
-                dispatch(
-                  inAddictionChange(moment().format('YYYY-MM-DD HH:mm:ss')),
-                );
+                dispatch(inAddictionChange());
               }}
             />
           </Container>

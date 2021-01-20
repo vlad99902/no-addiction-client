@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import {
@@ -10,13 +10,14 @@ import { Container } from '../components/Container';
 import { CountDown } from '../containers/CountDown';
 import { InAddiction } from '../containers/InAddiction';
 import { Title } from '../components/Title';
-import { Button } from '../components/Button';
 import { Quote } from '../containers/Quote';
+import { Loader } from '../components/Loader';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction,
   );
+  const loading = useSelector((state: RootState) => state.users.loading);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -36,6 +37,10 @@ export const MainPage: React.FC = () => {
       {inAddiction ? (
         <>
           <InAddiction />
+        </>
+      ) : loading ? (
+        <>
+          <Loader />
         </>
       ) : (
         <>

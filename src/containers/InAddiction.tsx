@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '../components/Button';
 import { Quote } from './Quote';
 import { RootState } from '../store/rootReducer';
-import { clearCurrentTimer } from '../store/timers/timersActions';
+import { inAddictionChange } from '../store/timers/timersActions';
 // import { inAddictionChange } from '../store/timers/timersActions';
 
 interface IInAddiction {}
@@ -16,7 +16,12 @@ export const InAddiction: React.FC<IInAddiction> = () => {
   return (
     <>
       <Quote marginBottom="60px" />
-      <Button onClick={() => {}} type="oneWordOneLine">
+      <Button
+        onClick={() => {
+          dispatch(inAddictionChange());
+        }}
+        type="oneWordOneLine"
+      >
         Отказаться от алкоголя
       </Button>
     </>
