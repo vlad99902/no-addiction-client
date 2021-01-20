@@ -1,32 +1,36 @@
 import React, { useState, useEffect } from 'react';
-
-import styled from 'styled-components';
 import moment from 'moment';
-import { Button } from '../components/Button';
+import styled from 'styled-components';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
+
+import { Button } from '../components/Button';
 import { Title } from '../components/Title';
 
+import { TimerView } from '../containers/TimerView';
+import { Container } from '../components/Container';
+
+type DurationInType =
+  | 'years'
+  | 'months'
+  | 'days'
+  | 'hours'
+  | 'minutes'
+  | 'seconds';
+
 export const CountDown: React.FC = () => {
+  const dispatch = useDispatch();
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
+
   const [currentTime] = useState(
     useSelector((state: RootState) => state.timers.currentTimer.begin_date)
   );
-  const dispatch = useDispatch();
 
-  const [countdownWords] = useState({
-    years: 'year',
-    months: 'month',
-    days: 'day',
-    hours: 'hour',
-    minutes: 'minute',
-    seconds: 'second',
-  });
-
-  const [startDate] = useState(moment(moment(currentTime)));
+  const [startDate] = useState(moment(moment(currentTime.slice(0, -1))));
 
   const [duration, setDuration] = useState(+moment() - +startDate);
 
@@ -43,14 +47,24 @@ export const CountDown: React.FC = () => {
     };
   }, [duration]);
 
-  const durationIn = () => ({
-    years: moment.duration(duration).years(),
-    months: moment.duration(duration).months(),
-    days: moment.duration(duration).days(),
-    hours: moment.duration(duration).hours(),
-    minutes: moment.duration(duration).minutes(),
-    seconds: moment.duration(duration).seconds(),
-  });
+  const durationIn = (type: DurationInType): number => {
+    switch (type) {
+      case 'years':
+        return moment.duration(duration).years();
+      case 'months':
+        return moment.duration(duration).months();
+      case 'days':
+        return moment.duration(duration).days();
+      case 'hours':
+        return moment.duration(duration).hours();
+      case 'minutes':
+        return moment.duration(duration).minutes();
+      case 'seconds':
+        return moment.duration(duration).seconds();
+      default:
+        return 0;
+    }
+  };
 
   // console.log(`
   // ${durationIn.years} years
@@ -61,32 +75,28 @@ export const CountDown: React.FC = () => {
   // ${durationIn.seconds} seconds
   // 	`);
 
-  const getCurrentDateWord = (time: number): string => {
-    if (time !== 1 && time !== 0) {
-      return 's';
-    }
-    return '';
-  };
-
   return (
     <>
-      <Title mb="60px" fz="96px">
-        я не пью уже
-      </Title>
-      <WrapperGrid>
-        <HoursTime>{durationIn().hours} </HoursTime>
-        <HoursTitle>
-          {countdownWords.hours + getCurrentDateWord(durationIn().hours)}
-        </HoursTitle>
-        <MinutesTime>{durationIn().minutes} </MinutesTime>
-        <MinutesTitle>
-          {countdownWords.minutes + getCurrentDateWord(durationIn().minutes)}
-        </MinutesTitle>
-        <SecondsTime>{durationIn().seconds} </SecondsTime>
-        <SecondsTitle>
-          {countdownWords.seconds + getCurrentDateWord(durationIn().seconds)}
-        </SecondsTitle>
-      </WrapperGrid>
+      <TimerViewGrid>
+        <Container margin="0 64px 0 0">
+          <TimerView
+            type="date"
+            time={{
+              time1: durationIn('years'),
+              time2: durationIn('months'),
+              time3: durationIn('days'),
+            }}
+          />
+        </Container>
+        <TimerView
+          type="time"
+          time={{
+            time1: durationIn('hours'),
+            time2: durationIn('minutes'),
+            time3: durationIn('seconds'),
+          }}
+        />
+      </TimerViewGrid>
       <Button
         onClick={() => {
           dispatch(inAddictionChange(inAddiction));
@@ -99,45 +109,10 @@ export const CountDown: React.FC = () => {
   );
 };
 
-const WrapperGrid = styled.div`
-  display: grid;
-  grid-template-columns: 20%, 80%;
-  grid-column-gap: 16px;
-  justify-items: right;
-  align-items: center;
-  font-size: 48px;
-  margin-bottom: 60px;
-`;
-
-const HoursTime = styled.div`
-  grid-row: 1/2;
-  grid-column: 1/2;
-  justify-self: right;
-`;
-const HoursTitle = styled.div`
-  grid-row: 1/2;
-  grid-column: 2/3;
-  justify-self: left;
-`;
-
-const MinutesTime = styled.div`
-  grid-row: 2/3;
-  grid-column: 1/2;
-`;
-const MinutesTitle = styled.div`
-  grid-row: 2/3;
-  grid-column: 2/3;
-  justify-self: left;
-`;
-
-const SecondsTime = styled.div`
-  grid-row: 3/4;
-  grid-column: 1/2;
-  justify-self: right;
-`;
-
-const SecondsTitle = styled.div`
-  grid-row: 3/4;
-  grid-column: 2/3;
-  justify-self: left;
+const TimerViewGrid = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  margin-bottom: 100px;
 `;

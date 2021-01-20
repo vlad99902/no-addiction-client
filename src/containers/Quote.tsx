@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
-import { Container } from "./Container";
+import styled from 'styled-components';
+import { Container } from '../components/Container';
 
 interface IQuote {
   author?: string;
@@ -14,7 +14,7 @@ export const Quote: React.FC<IQuote> = ({
   author,
   children,
   padding,
-  marginBottom = "0px",
+  marginBottom = '0px',
 }) => {
   return (
     <Container maxWidth="1400px" marginBottom="100px">

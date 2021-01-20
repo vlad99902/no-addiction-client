@@ -57,7 +57,8 @@ export const PageHeader: React.FC = () => {
 };
 
 const Content = styled.div`
-  position: sticky;
+  position: fixed;
+  top: 0;
   width: 100%;
   /* padding-top: 100px; */
   /* height: 100px; */
