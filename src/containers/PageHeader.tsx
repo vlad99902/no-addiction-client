@@ -1,16 +1,17 @@
 import React from 'react';
+import moment from 'moment';
 
 import styled from 'styled-components';
+import { colors } from '../styles/colors';
 
 import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
+import { inAddictionChange } from '../store/timers/timersActions';
 
 import { Container } from '../components/Container';
 import { Image } from '../components/Image';
-import { colors } from '../styles/colors';
 import { Title } from '../components/Title';
 import { SwitchButton } from '../components/SwitchButton';
-import { RootState } from '../store/rootReducer';
-import { inAddictionChange } from '../store/timers/timersActions';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
@@ -44,7 +45,9 @@ export const PageHeader: React.FC = () => {
             <SwitchButton
               position={inAddiction}
               onClick={() => {
-                dispatch(inAddictionChange(inAddiction));
+                dispatch(
+                  inAddictionChange(moment().format('YYYY-MM-DD HH:mm:ss')),
+                );
               }}
             />
           </Container>

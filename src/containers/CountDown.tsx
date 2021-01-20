@@ -10,7 +10,6 @@ import { Button } from '../components/Button';
 
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
-import { Quote } from './Quote';
 
 type DurationInType =
   | 'years'
@@ -23,14 +22,14 @@ type DurationInType =
 export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
 
   const [currentTime] = useState(
-    useSelector((state: RootState) => state.timers.currentTimer.begin_date)
+    useSelector((state: RootState) => state.timers.currentTimer.begin_date),
   );
 
-  const [startDate] = useState(moment(moment(currentTime.slice(0, -1))));
+  const [startDate] = useState(moment(moment(currentTime)));
 
   const [duration, setDuration] = useState(+moment() - +startDate);
 
@@ -40,7 +39,7 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000
+      1000,
     );
     return () => {
       clearInterval(interval);
@@ -99,13 +98,12 @@ export const CountDown: React.FC = () => {
       </TimerViewGrid>
       <Button
         onClick={() => {
-          dispatch(inAddictionChange(inAddiction));
+          // dispatch(inAddictionChange(inAddiction));
         }}
         type="main"
       >
         выпил
       </Button>
-      <Quote marginBottom="60px" marginTop="60px" />
     </>
   );
 };

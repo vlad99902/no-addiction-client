@@ -9,6 +9,7 @@ import {
   INIT_TIMERS,
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
+  GET_IN_ADDICTION,
   INIT_QUOTES,
 } from './timersTypes';
 
@@ -26,7 +27,7 @@ const initialState: ITimersState = {
 
 export const timersReducer = (
   state: ITimersState = initialState,
-  action: TimersActionType
+  action: TimersActionType,
 ): ITimersState => {
   switch (action.type) {
     case IN_ADDICTION_CHANGE:
@@ -45,6 +46,8 @@ export const timersReducer = (
       return { ...state, quote: action.payload };
     case GET_RANDOM_GOOD_QUOTE:
       return { ...state, quote: action.payload };
+    case GET_IN_ADDICTION:
+      return { ...state, inAddiction: action.inAddiction };
     case INIT_QUOTES:
       return { ...state };
     default:
