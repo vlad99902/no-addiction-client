@@ -14,24 +14,8 @@ import reportWebVitals from './reportWebVitals';
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk)),
+  composeWithDevTools(applyMiddleware(thunk))
 );
-
-let currentValue: boolean;
-function handleChange() {
-  let previousValue = currentValue;
-  currentValue = store.getState().timers.inAddiction;
-
-  if (previousValue !== currentValue) {
-    console.log(
-      'Some deep nested property changed from',
-      previousValue,
-      'to',
-      currentValue,
-    );
-  }
-}
-store.subscribe(handleChange);
 
 ReactDOM.render(
   <React.StrictMode>
@@ -39,7 +23,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root'),
+  document.getElementById('root')
 );
 
 // If you want to start measuring performance in your app, pass a function

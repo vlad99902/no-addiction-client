@@ -1,21 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
-import {
-  getRandomBadQuote,
-  getRandomGoodQuote,
-} from '../store/timers/timersActions';
 
 import { Container } from '../components/Container';
 import { CountDown } from '../containers/CountDown';
 import { InAddiction } from '../containers/InAddiction';
 import { Title } from '../components/Title';
 import { Quote } from '../containers/Quote';
-import { Loader } from '../components/Loader';
+
+import { Button } from '../components/Button';
+import { userSetLoader } from '../store/users/usersActions';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
   const loading = useSelector((state: RootState) => state.users.loading);
   const dispatch = useDispatch();
@@ -29,7 +27,7 @@ export const MainPage: React.FC = () => {
   return (
     <Container
       maxWidth="1600px"
-      margin="200px auto 0px"
+      margin="100px auto 0px"
       pos="center"
       padding="18px 18px 0px"
       style={{ flexDirection: 'column' }}
@@ -37,10 +35,6 @@ export const MainPage: React.FC = () => {
       {inAddiction ? (
         <>
           <InAddiction />
-        </>
-      ) : loading ? (
-        <>
-          <Loader />
         </>
       ) : (
         <>
@@ -50,6 +44,20 @@ export const MainPage: React.FC = () => {
 
           <CountDown />
           <Quote marginBottom="60px" marginTop="60px" />
+          <Button
+            onClick={() => {
+              dispatch(userSetLoader({ main: true }));
+            }}
+          >
+            on true
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(userSetLoader({ component: false }));
+            }}
+          >
+            on false
+          </Button>
         </>
       )}
     </Container>
