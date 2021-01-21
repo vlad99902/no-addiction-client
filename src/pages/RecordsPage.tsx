@@ -35,7 +35,7 @@ export const RecordsPage: React.FC = () => {
         {records.map((record, i) => {
           // console.log(record.duration);
           return (
-            <div key={record.recordId}>
+            <React.Fragment key={record.recordId}>
               <Container pos="space-between" alignItems="flex-end">
                 <Title fz="32px">{i + 1}</Title>
                 <Title fz="22px">
@@ -48,10 +48,10 @@ export const RecordsPage: React.FC = () => {
               </Container>
 
               <Line color={colors.$darkGray} />
-            </div>
+            </React.Fragment>
           );
         })}
-        <Line />
+        {/* <Line /> */}
       </Container>
     </Container>
   );
@@ -61,7 +61,7 @@ const Line = styled.hr<{ color?: string }>`
   border: 3px ${(props) => props.color || colors.$black} solid;
   border-radius: 6px;
   width: 100%;
-  /* :last-child {
-    display: none;
-  } */
+  :last-child {
+    border: 3px ${colors.$black} solid;
+  }
 `;

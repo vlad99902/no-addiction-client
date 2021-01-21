@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
+import { getDurationNormalize } from '../functions/moment';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
@@ -10,14 +11,6 @@ import { Button } from '../components/Button';
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
 import { clearCurrentTimer } from '../store/timers/timersActions';
-
-type DurationInType =
-  | 'years'
-  | 'months'
-  | 'days'
-  | 'hours'
-  | 'minutes'
-  | 'seconds';
 
 export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
@@ -48,25 +41,6 @@ export const CountDown: React.FC = () => {
     setDuration(+moment() - +moment(currentTime));
   }, [currentTime]);
 
-  const durationIn = (type: DurationInType): number => {
-    switch (type) {
-      case 'years':
-        return moment.duration(duration).years();
-      case 'months':
-        return moment.duration(duration).months();
-      case 'days':
-        return moment.duration(duration).days();
-      case 'hours':
-        return moment.duration(duration).hours();
-      case 'minutes':
-        return moment.duration(duration).minutes();
-      case 'seconds':
-        return moment.duration(duration).seconds();
-      default:
-        return 0;
-    }
-  };
-
   return (
     <>
       <TimerViewGrid>
@@ -74,18 +48,18 @@ export const CountDown: React.FC = () => {
           <TimerView
             type="date"
             time={{
-              time1: durationIn('years'),
-              time2: durationIn('months'),
-              time3: durationIn('days'),
+              time1: +getDurationNormalize('years', duration),
+              time2: +getDurationNormalize('months', duration),
+              time3: +getDurationNormalize('days', duration),
             }}
           />
         </Container>
         <TimerView
           type="time"
           time={{
-            time1: durationIn('hours'),
-            time2: durationIn('minutes'),
-            time3: durationIn('seconds'),
+            time1: +getDurationNormalize('hours', duration),
+            time2: +getDurationNormalize('minutes', duration),
+            time3: +getDurationNormalize('seconds', duration),
           }}
         />
       </TimerViewGrid>
