@@ -146,14 +146,14 @@ export const inAddictionChange = (date: string | null = null) => {
       //   : await dispatch(getRandomGoodQuote());
 
       //if now inAddiction
-      // if (date === null) {
-      //   date = moment().format('YYYY-MM-DD HH:mm:ss');
-      // }
-      // if (inAddiction) {
-      //   await dispatch(fetchCreateCurrentTimer(date));
-      // } else {
-      //   await dispatch(fetchUpdateCurrentTimer(date));
-      // }
+      if (date === null) {
+        date = moment().format('YYYY-MM-DD HH:mm:ss');
+      }
+      if (inAddiction) {
+        await dispatch(fetchCreateCurrentTimer(date));
+      } else {
+        await dispatch(fetchUpdateCurrentTimer(date));
+      }
 
       dispatch({
         type: IN_ADDICTION_CHANGE,
