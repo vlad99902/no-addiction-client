@@ -59,16 +59,16 @@ export const getTimeZeroDigit = (
 };
 
 export const deleteZeroDates = (numbersArray: number[]): string => {
-  let get = false;
-  const ac = numbersArray.reduce((accum, el) => {
-    if (get) {
-      accum += '' + el;
-    } else if (!!el && get) {
+  let get: boolean = false;
+  const ac = numbersArray.reduce((accum: string, el: number) => {
+    if (!!el) {
       get = true;
+    }
+    if (get) {
+      accum += '-' + el;
     }
     return accum;
   }, '');
 
-  console.log(ac);
-  return ac;
+  return ac.slice(1, ac.length);
 };
