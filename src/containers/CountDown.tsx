@@ -3,20 +3,15 @@ import moment from 'moment';
 import styled from 'styled-components';
 import { getDurationNormalize } from '../functions/moment';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
-
-import { Button } from '../components/Button';
 
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
-import { clearCurrentTimer } from '../store/timers/timersActions';
 
 export const CountDown: React.FC = () => {
-  const dispatch = useDispatch();
-
   const currentTime = useSelector(
-    (state: RootState) => state.timers.currentTimer.beginDate,
+    (state: RootState) => state.timers.currentTimer.beginDate
   );
 
   const [startDate, setStartDate] = useState(moment(currentTime));
@@ -29,7 +24,7 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000,
+      1000
     );
     return () => {
       clearInterval(interval);
@@ -63,9 +58,6 @@ export const CountDown: React.FC = () => {
           }}
         />
       </TimerViewGrid>
-      <Button onClick={() => dispatch(clearCurrentTimer())} type="main">
-        выпил
-      </Button>
     </>
   );
 };
