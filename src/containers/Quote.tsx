@@ -28,6 +28,7 @@ export const Quote: React.FC<IQuote> = ({
       maxWidth="1400px"
       marginBottom={marginBottom}
       marginTop={marginTop}
+      margin="0 auto"
     >
       <Container>
         <Text>{quote.quote}</Text>

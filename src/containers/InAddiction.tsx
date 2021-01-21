@@ -12,7 +12,7 @@ export const InAddiction: React.FC<IInAddiction> = () => {
   const dispatch = useDispatch();
   return (
     <Container>
-      <Quote marginBottom="60px" marginTop="60px" />
+      <Quote marginBottom="60px" />
       <Container margin="0 auto" pos="center">
         <Button
           onClick={() => {
