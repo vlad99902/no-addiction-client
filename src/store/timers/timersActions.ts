@@ -36,7 +36,7 @@ export const initState = (): AsyncActionType => {
       dispatch({ type: INIT_TIMERS });
       await setTimeout(
         () => dispatch(userSetLoader({ main: false, headerSwitcher: false })),
-        500
+        500,
       );
     } catch (error) {
       console.log(error);
@@ -65,6 +65,8 @@ export const fetchRecordsList = (): AsyncActionType => {
   };
 };
 
+export const ifurrentTimerOneOfRecords = () => {};
+
 export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -89,6 +91,7 @@ export const clearCurrentTimer = (): AsyncActionType => {
       await fetchCreateCurrentTimer(getState(), timeNow);
 
       dispatch({ type: CLEAR_CURRENT_TIMER });
+      await dispatch(fetchRecordsList());
       await dispatch(getCurrentTimer());
     } catch (error) {
       console.log(error);
@@ -139,6 +142,8 @@ export const inAddictionChange = (
         : await dispatch(getRandomGoodQuote());
       //вот на фронет обработать сообщение с бэка
       await dispatch(getCurrentTimer());
+
+      await dispatch(fetchRecordsList());
       if (getState().users.loading.main) {
         setTimeout(() => dispatch(userSetLoader({ main: false })), 500);
       }
