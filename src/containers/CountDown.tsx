@@ -23,7 +23,7 @@ export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentTime = useSelector(
-    (state: RootState) => state.timers.currentTimer.beginDate
+    (state: RootState) => state.timers.currentTimer.beginDate,
   );
 
   const [startDate, setStartDate] = useState(moment(currentTime));
@@ -36,7 +36,7 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000
+      1000,
     );
     return () => {
       clearInterval(interval);

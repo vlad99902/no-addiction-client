@@ -51,7 +51,7 @@ export const fetchRecordsList = (): AsyncActionType => {
       json = json.map((rec: any) => ({
         ...rec,
         duration: moment.duration(
-          +moment(rec.end_date) - +moment(rec.begin_date),
+          +moment(rec.endDate) - +moment(rec.beginDate),
         ),
       }));
 
