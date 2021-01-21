@@ -11,7 +11,6 @@ export const CLEAR_CURRENT_TIMER = 'TIMERS/CLEAR_CURRENT_TIMER';
 export const FETCH_UPDATE_CURRENT_TIMER = 'TIMERS/FETCH_UPDATE_IN_ADDICTION';
 export const FETCH_CREATE_CURRENT_TIMER = 'TIMERS/FETCH_CREATE_IN_ADDICTION';
 
-export const INIT_QUOTES = 'QUOTES/INIT_QUOTES';
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
 export const GET_RANDOM_GOOD_QUOTE = 'QUOTES/GET_RANDOM_GOOD_QUOTE';
 
@@ -73,9 +72,6 @@ interface getCurrentTimer {
   type: typeof GET_CURENT_TIMER;
   currentDate: CurrentTimerType;
 }
-interface initQuotes {
-  type: typeof INIT_QUOTES;
-}
 interface getRandomBadQuote {
   type: typeof GET_RANDOM_BAD_QUOTE;
   payload: QuoteType;
@@ -89,14 +85,13 @@ export type AsyncActionType = ThunkAction<
   void,
   RootState,
   unknown,
-  Action<TimersActionType>
+  Action<String>
 >;
 
 export type TimersActionType =
   | inAddictionChange
   | setInAddiction
   | initTimers
-  | initQuotes
   | getCurrentTimer
   | getRandomBadQuote
   | fetchUpdateInAddiction

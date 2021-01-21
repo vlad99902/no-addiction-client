@@ -18,8 +18,8 @@ import {
   CLEAR_CURRENT_TIMER,
 } from './timersTypes';
 
-export const initState = () => {
-  return async (dispatch: any, getState: any) => {
+export const initState = (): AsyncActionType => {
+  return async (dispatch, getState) => {
     try {
       // dispatch(userShowLoader());
       await dispatch(getCurrentTimer());
@@ -53,8 +53,8 @@ export const getInAddiction = (): AsyncActionType => {
   };
 };
 
-export const clearCurrentTimer = () => {
-  return async (dispatch: any, getState: any) => {
+export const clearCurrentTimer = (): AsyncActionType => {
+  return async (dispatch) => {
     const timeNow = moment().format('YYYY-MM-DD HH:mm:ss');
     try {
       //delete current timer
@@ -68,9 +68,8 @@ export const clearCurrentTimer = () => {
   };
 };
 
-export const getCurrentTimer = () => {
-  // return async (dispatch: Dispatch<TimersActionType>) => {
-  return async (dispatch: any) => {
+export const getCurrentTimer = (): AsyncActionType => {
+  return async (dispatch) => {
     try {
       const res = await fetch('http://localhost:3000/api/timers/current');
       const json = await res.json();
@@ -82,8 +81,10 @@ export const getCurrentTimer = () => {
   };
 };
 
-export const fetchCreateCurrentTimer = (newBeginDate: string) => {
-  return async (dispatch: any, getState: any) => {
+export const fetchCreateCurrentTimer = (
+  newBeginDate: string,
+): AsyncActionType => {
+  return async (dispatch, getState) => {
     try {
       await fetch('http://localhost:3000/api/timers/current/create', {
         method: 'POST',
@@ -103,8 +104,8 @@ export const fetchCreateCurrentTimer = (newBeginDate: string) => {
   };
 };
 
-export const fetchUpdateCurrentTimer = (endDate: string) => {
-  return async (dispatch: any, getState: any) => {
+export const fetchUpdateCurrentTimer = (endDate: string): AsyncActionType => {
+  return async (dispatch, getState) => {
     try {
       await fetch('http://localhost:3000/api/timers/current/update', {
         method: 'PUT',
@@ -112,7 +113,7 @@ export const fetchUpdateCurrentTimer = (endDate: string) => {
           'Content-type': 'application/json',
         },
         body: JSON.stringify({
-          id: getState().timers.currentTimer._id,
+          id: getState().timers.currentTimer.timerId,
           endDate: endDate,
         }),
       });
@@ -123,8 +124,10 @@ export const fetchUpdateCurrentTimer = (endDate: string) => {
   };
 };
 
-export const inAddictionChange = (date: string | null = null) => {
-  return async (dispatch: any, getState: any) => {
+export const inAddictionChange = (
+  date: string | null = null,
+): AsyncActionType => {
+  return async (dispatch, getState) => {
     try {
       const inAddiction = getState().timers.inAddiction;
 
@@ -161,8 +164,8 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
   };
 };
 
-export const getRandomBadQuote = () => {
-  return async (dispatch: any) => {
+export const getRandomBadQuote = (): AsyncActionType => {
+  return async (dispatch) => {
     try {
       // dispatch(userShowLoader());
 
@@ -178,8 +181,8 @@ export const getRandomBadQuote = () => {
   };
 };
 
-export const getRandomGoodQuote = () => {
-  return async (dispatch: any) => {
+export const getRandomGoodQuote = (): AsyncActionType => {
+  return async (dispatch) => {
     try {
       const res = await fetch('http://localhost:3000/api/quotes?isbad=false');
       const json = await res.json();
