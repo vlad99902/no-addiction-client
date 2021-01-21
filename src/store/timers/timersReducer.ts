@@ -8,8 +8,6 @@ import {
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
-  FETCH_CREATE_CURRENT_TIMER,
-  FETCH_UPDATE_CURRENT_TIMER,
   CLEAR_CURRENT_TIMER,
 } from './timersTypes';
 
@@ -46,12 +44,8 @@ export const timersReducer = (
       return { ...state, quote: action.payload };
     case GET_IN_ADDICTION:
       return { ...state, inAddiction: action.inAddiction };
-    case FETCH_CREATE_CURRENT_TIMER:
-      return { ...state };
-    case FETCH_UPDATE_CURRENT_TIMER:
-      return { ...state };
+
     case CLEAR_CURRENT_TIMER:
-      return { ...state };
     default:
       return state;
   }

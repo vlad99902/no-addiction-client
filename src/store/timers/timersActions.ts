@@ -1,7 +1,11 @@
+import {
+  fetchUpdateCurrentTimer,
+  fetchCreateCurrentTimer,
+} from '../storeFunctions/timersFunctions';
+import moment from 'moment';
+
 import { userHideLoader } from './../users/usersActions';
 import { userShowLoader } from '../users/usersActions';
-
-import moment from 'moment';
 
 import {
   TimersActionType,
@@ -13,8 +17,6 @@ import {
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
-  FETCH_CREATE_CURRENT_TIMER,
-  FETCH_UPDATE_CURRENT_TIMER,
   CLEAR_CURRENT_TIMER,
 } from './timersTypes';
 
@@ -54,14 +56,15 @@ export const getInAddiction = (): AsyncActionType => {
 };
 
 export const clearCurrentTimer = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     const timeNow = moment().format('YYYY-MM-DD HH:mm:ss');
     try {
       //delete current timer
-      await dispatch(fetchUpdateCurrentTimer(timeNow));
-      await dispatch(fetchCreateCurrentTimer(timeNow));
-      await dispatch(getCurrentTimer());
+      await fetchUpdateCurrentTimer(getState(), timeNow);
+      await fetchCreateCurrentTimer(getState(), timeNow);
+
       dispatch({ type: CLEAR_CURRENT_TIMER });
+      await dispatch(getCurrentTimer());
     } catch (error) {
       console.log(error);
     }
@@ -81,49 +84,6 @@ export const getCurrentTimer = (): AsyncActionType => {
   };
 };
 
-export const fetchCreateCurrentTimer = (
-  newBeginDate: string,
-): AsyncActionType => {
-  return async (dispatch, getState) => {
-    try {
-      await fetch('http://localhost:3000/api/timers/current/create', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId: getState().users.userId,
-          beginDate: newBeginDate,
-          categoryId: getState().users.currentCategoryId,
-        }),
-      });
-      dispatch({ type: FETCH_CREATE_CURRENT_TIMER });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
-export const fetchUpdateCurrentTimer = (endDate: string): AsyncActionType => {
-  return async (dispatch, getState) => {
-    try {
-      await fetch('http://localhost:3000/api/timers/current/update', {
-        method: 'PUT',
-        headers: {
-          'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-          id: getState().timers.currentTimer.timerId,
-          endDate: endDate,
-        }),
-      });
-      dispatch({ type: FETCH_UPDATE_CURRENT_TIMER });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-};
-
 export const inAddictionChange = (
   date: string | null = null,
 ): AsyncActionType => {
@@ -136,9 +96,9 @@ export const inAddictionChange = (
         date = moment().format('YYYY-MM-DD HH:mm:ss');
       }
       if (inAddiction) {
-        await dispatch(fetchCreateCurrentTimer(date));
+        await fetchCreateCurrentTimer(getState(), date);
       } else {
-        await dispatch(fetchUpdateCurrentTimer(date));
+        await fetchUpdateCurrentTimer(getState(), date);
       }
 
       dispatch({
