@@ -15,15 +15,29 @@ export const INIT_QUOTES = 'QUOTES/INIT_QUOTES';
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
 export const GET_RANDOM_GOOD_QUOTE = 'QUOTES/GET_RANDOM_GOOD_QUOTE';
 
+/**
+ * Quote object type
+ */
 type QuoteType = {
   quote: string;
   author: string | null;
   category: string;
 };
+
+/**
+ * Current timer storage type
+ */
+type CurrentTimerType = {
+  timerId: number;
+  beginDate: string;
+  endDate: string | null;
+};
+
+/**
+ * State Interface. Setting up state types
+ */
 export interface ITimersState {
-  currentTimer: {
-    begin_date: string;
-  };
+  currentTimer: CurrentTimerType;
   quote: QuoteType;
   inAddiction: boolean;
 }
@@ -57,9 +71,7 @@ interface initTimers {
 
 interface getCurrentTimer {
   type: typeof GET_CURENT_TIMER;
-  currentDate: {
-    begin_date: string;
-  };
+  currentDate: CurrentTimerType;
 }
 interface initQuotes {
   type: typeof INIT_QUOTES;
