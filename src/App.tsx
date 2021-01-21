@@ -25,9 +25,11 @@ export default function App() {
   );
 
   return (
-    <BrowserRouter>
-      {isAuth && <PageHeader />}
-      {loadingMain ? <Loader /> : routes}
-    </BrowserRouter>
+    <div className="root">
+      <BrowserRouter>
+        {isAuth && <PageHeader />}
+        {loadingMain ? <Loader /> : routes}
+      </BrowserRouter>
+    </div>
   );
 }

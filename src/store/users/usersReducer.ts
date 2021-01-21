@@ -12,6 +12,7 @@ const initialState: IUsersState = {
   loading: {
     main: true,
     component: false,
+    headerSwitcher: false,
   },
 };
 

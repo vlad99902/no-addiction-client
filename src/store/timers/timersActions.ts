@@ -22,7 +22,7 @@ import {
 export const initState = (): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
-      dispatch(userSetLoader({ main: true }));
+      dispatch(userSetLoader({ main: true, headerSwitcher: true }));
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
@@ -31,7 +31,10 @@ export const initState = (): AsyncActionType => {
         : await dispatch(getRandomGoodQuote());
 
       dispatch({ type: INIT_TIMERS });
-      await setTimeout(() => dispatch(userSetLoader({ main: false })), 1000);
+      await setTimeout(
+        () => dispatch(userSetLoader({ main: false, headerSwitcher: false })),
+        500
+      );
     } catch (error) {
       console.log(error);
       dispatch(userSetLoader({ main: false }));
@@ -88,6 +91,9 @@ export const inAddictionChange = (
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
+      if (!getState().users.loading.main) {
+        dispatch(userSetLoader({ main: true }));
+      }
       const inAddiction = getState().timers.inAddiction;
 
       //if now inAddiction
@@ -110,6 +116,9 @@ export const inAddictionChange = (
         : await dispatch(getRandomGoodQuote());
       //вот на фронет обработать сообщение с бэка
       await dispatch(getCurrentTimer());
+      if (getState().users.loading.main) {
+        setTimeout(() => dispatch(userSetLoader({ main: false })), 500);
+      }
     } catch (error) {
       console.log(error);
     }
