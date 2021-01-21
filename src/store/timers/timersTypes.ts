@@ -12,6 +12,13 @@ export const CLEAR_CURRENT_TIMER = 'TIMERS/CLEAR_CURRENT_TIMER';
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
 export const GET_RANDOM_GOOD_QUOTE = 'QUOTES/GET_RANDOM_GOOD_QUOTE';
 
+export type AsyncActionType = ThunkAction<
+  void,
+  RootState,
+  unknown,
+  Action<String>
+>;
+
 /**
  * Quote object type
  */
@@ -72,13 +79,6 @@ interface getRandomGoodQuote {
   type: typeof GET_RANDOM_GOOD_QUOTE;
   payload: QuoteType;
 }
-
-export type AsyncActionType = ThunkAction<
-  void,
-  RootState,
-  unknown,
-  Action<String>
->;
 
 export type TimersActionType =
   | inAddictionChange

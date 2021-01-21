@@ -1,4 +1,8 @@
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { RootState } from '../rootReducer';
 import {
+  ActionType,
   IUsersState,
   UserActionsType,
   UsersStateLoadingArgumentType,
@@ -13,15 +17,13 @@ export const userLanguageChange = (payload: IUsersState): UserActionsType => {
   };
 };
 
-export const userSetLoader = (payload: UsersStateLoadingArgumentType) => {
-  return (dispatch: any, getState: any) => {
-    let loading = {
-      ...getState().users.loading,
-      ...payload,
-    };
+export const userSetLoader = (
+  payload: UsersStateLoadingArgumentType
+): ActionType => {
+  return (dispatch, getState) => {
     dispatch({
       type: USER_SET_LOADER,
-      payload: loading,
+      payload: { ...getState().users.loading, ...payload },
     });
   };
 };

@@ -39,7 +39,7 @@ export const MainPage: React.FC = () => {
           <Quote marginBottom="60px" marginTop="60px" />
           <Button
             onClick={() => {
-              dispatch(userSetLoader({ component: true }));
+              dispatch(userSetLoader({ main: false, component: true }));
             }}
           >
             on true
