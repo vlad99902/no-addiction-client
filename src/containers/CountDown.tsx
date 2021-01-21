@@ -23,7 +23,7 @@ export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentTime = useSelector(
-    (state: RootState) => state.timers.currentTimer.begin_date,
+    (state: RootState) => state.timers.currentTimer.beginDate,
   );
 
   const [startDate, setStartDate] = useState(moment(currentTime));
