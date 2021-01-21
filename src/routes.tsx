@@ -10,6 +10,7 @@ export const useRoutes = (isAuth: boolean) => {
       <Switch>
         <Route path="/" exact>
           <MainPage />
+          <MainPage />
         </Route>
         <Redirect to="/" />
       </Switch>
