@@ -9,6 +9,7 @@ import {
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
   CLEAR_CURRENT_TIMER,
+  FETCH_RECORDS_LIST,
 } from './timersTypes';
 
 const initialState: ITimersState = {
@@ -22,6 +23,14 @@ const initialState: ITimersState = {
     author: null,
     category: '',
   },
+  records: [
+    {
+      recordId: -1,
+      beginDate: '',
+      endDate: '',
+      duration: null,
+    },
+  ],
   inAddiction: true,
 };
 
@@ -44,7 +53,8 @@ export const timersReducer = (
       return { ...state, quote: action.payload };
     case GET_IN_ADDICTION:
       return { ...state, inAddiction: action.inAddiction };
-
+    case FETCH_RECORDS_LIST:
+      return { ...state, records: action.records };
     case CLEAR_CURRENT_TIMER:
     default:
       return state;

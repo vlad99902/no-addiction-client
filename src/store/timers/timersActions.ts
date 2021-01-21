@@ -17,6 +17,7 @@ import {
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
   CLEAR_CURRENT_TIMER,
+  FETCH_RECORDS_LIST,
 } from './timersTypes';
 
 export const initState = (): AsyncActionType => {
@@ -25,6 +26,8 @@ export const initState = (): AsyncActionType => {
       dispatch(userSetLoader({ main: true }));
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
+
+      await dispatch(fetchRecordsList());
 
       getState().timers.inAddiction
         ? await dispatch(getRandomBadQuote())
@@ -39,11 +42,31 @@ export const initState = (): AsyncActionType => {
   };
 };
 
+export const fetchRecordsList = (): AsyncActionType => {
+  return async (dispatch) => {
+    try {
+      const result = await fetch('http://localhost:3000/api/timers/records');
+      let json = await result.json();
+
+      json = json.map((rec: any) => ({
+        ...rec,
+        duration: moment.duration(
+          +moment(rec.end_date) - +moment(rec.begin_date),
+        ),
+      }));
+
+      dispatch({ type: FETCH_RECORDS_LIST, records: json });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true'
+        'http://localhost:3000/api/timers/current?inAddiction=true',
       );
       const json = await res.json();
 
@@ -84,7 +107,7 @@ export const getCurrentTimer = (): AsyncActionType => {
 };
 
 export const inAddictionChange = (
-  date: string | null = null
+  date: string | null = null,
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
