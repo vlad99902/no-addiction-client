@@ -65,6 +65,8 @@ export const fetchRecordsList = (): AsyncActionType => {
   };
 };
 
+export const ifurrentTimerOneOfRecords = () => {};
+
 export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
     try {

@@ -89,7 +89,6 @@ export const RecordsPage: React.FC = () => {
             </React.Fragment>
           );
         })}
-        {/* <Line /> */}
       </Container>
     </Container>
   );
