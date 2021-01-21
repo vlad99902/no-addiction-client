@@ -1,35 +1,40 @@
-import React from "react";
+import React from 'react';
 
-import styled from "styled-components";
+import styled from 'styled-components';
 
-import { colors } from "../styles/colors";
+import { colors } from '../styles/colors';
 
-type TypeOfType = "small" | "medium" | "large";
+type TypeOfType = 'small' | 'medium' | 'large';
 
 interface ISwitchButton {
   onClick(): void;
   type?: TypeOfType;
   position: boolean;
+  visibility?: boolean;
 }
 type Position = {
   backgroundColor?: string;
   flexDirection?: string;
+  visibility?: string;
 };
 
 export const SwitchButton: React.FC<ISwitchButton> = ({
   onClick,
-  type = "small",
+  type = 'small',
   position,
+  visibility = false,
 }) => {
+  let disabled = !visibility;
+
   const getSwitchButtonPropStyles = (): { [key: string]: string } => {
     if (position) {
       return {
-        flexDirection: "row-reverse",
+        flexDirection: 'row-reverse',
         backgroundColor: colors.$red,
       };
     } else
       return {
-        flexDirection: "row",
+        flexDirection: 'row',
         backgroundColor: colors.$gray,
       };
   };
@@ -38,9 +43,11 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
     <MainPart
       flexDirection={getSwitchButtonPropStyles().flexDirection}
       onClick={() => onClick()}
+      disabled={disabled}
     >
       <Selector
         backgroundColor={getSwitchButtonPropStyles().backgroundColor}
+        visibility={visibility ? 'visible' : 'hidden'}
       ></Selector>
     </MainPart>
   );
@@ -64,4 +71,5 @@ const Selector = styled.div<Position>`
   border-radius: 100%;
   background-color: ${(props) => props.backgroundColor};
   margin: 0 3px;
+  visibility: ${(props) => props.visibility};
 `;

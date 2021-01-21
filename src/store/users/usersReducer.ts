@@ -10,12 +10,12 @@ const initialState: IUsersState = {
   userLanguage: 'ru',
   currentCategoryId: 1,
   userId: 0,
-  loading: false,
+  loading: true,
 };
 
 export const usersReducer = (
   state: IUsersState = initialState,
-  action: UserActionsType,
+  action: UserActionsType
 ): IUsersState => {
   switch (action.type) {
     case USER_LANGUAGE_CHANGE:

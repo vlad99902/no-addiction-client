@@ -22,7 +22,7 @@ import {
 export const initState = () => {
   return async (dispatch: any, getState: any) => {
     try {
-      // dispatch(userShowLoader());
+      dispatch(userShowLoader());
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
@@ -30,8 +30,8 @@ export const initState = () => {
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
 
-      // dispatch(userHideLoader());
       dispatch({ type: INIT_TIMERS });
+      await setTimeout(() => dispatch(userHideLoader()), 1000);
     } catch (error) {
       console.log(error);
       dispatch(userHideLoader());
@@ -43,7 +43,7 @@ export const getInAddiction = () => {
   return async (dispatch: any) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true',
+        'http://localhost:3000/api/timers/current?inAddiction=true'
       );
       const json = await res.json();
 
@@ -146,14 +146,14 @@ export const inAddictionChange = (date: string | null = null) => {
       //   : await dispatch(getRandomGoodQuote());
 
       //if now inAddiction
-      if (date === null) {
-        date = moment().format('YYYY-MM-DD HH:mm:ss');
-      }
-      if (inAddiction) {
-        await dispatch(fetchCreateCurrentTimer(date));
-      } else {
-        await dispatch(fetchUpdateCurrentTimer(date));
-      }
+      // if (date === null) {
+      //   date = moment().format('YYYY-MM-DD HH:mm:ss');
+      // }
+      // if (inAddiction) {
+      //   await dispatch(fetchCreateCurrentTimer(date));
+      // } else {
+      //   await dispatch(fetchUpdateCurrentTimer(date));
+      // }
 
       dispatch({
         type: IN_ADDICTION_CHANGE,
@@ -187,7 +187,7 @@ export const getRandomBadQuote = () => {
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
-      // dispatch(userHideLoader());
+      // await setTimeout(() => dispatch(userHideLoader()), 1000);
     } catch (error) {
       console.log(error);
       dispatch(userHideLoader());
@@ -198,10 +198,12 @@ export const getRandomBadQuote = () => {
 export const getRandomGoodQuote = () => {
   return async (dispatch: any) => {
     try {
+      // dispatch(userShowLoader());
       const res = await fetch('http://localhost:3000/api/quotes?isbad=false');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_GOOD_QUOTE, payload: json });
+      // await setTimeout(() => dispatch(userHideLoader()), 1000);
     } catch (error) {
       console.log(error);
     }

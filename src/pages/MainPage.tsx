@@ -15,7 +15,7 @@ import { Loader } from '../components/Loader';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
   const loading = useSelector((state: RootState) => state.users.loading);
   const dispatch = useDispatch();
@@ -25,11 +25,12 @@ export const MainPage: React.FC = () => {
   //     ? dispatch(getRandomBadQuote())
   //     : dispatch(getRandomGoodQuote());
   // }, [inAddiction]);
+  console.log(inAddiction);
 
   return (
     <Container
       maxWidth="1600px"
-      margin="200px auto 0px"
+      margin="100px auto 0px"
       pos="center"
       padding="18px 18px 0px"
       style={{ flexDirection: 'column' }}
@@ -37,10 +38,6 @@ export const MainPage: React.FC = () => {
       {inAddiction ? (
         <>
           <InAddiction />
-        </>
-      ) : loading ? (
-        <>
-          <Loader />
         </>
       ) : (
         <>

@@ -26,16 +26,12 @@ export const Quote: React.FC<IQuote> = ({
 
   return (
     <Container maxWidth="1400px" marginBottom="100px" height="50vh">
-      {loading ? (
-        <Loader />
-      ) : (
-        <Container>
-          <Text marginBottom={marginBottom} marginTop={marginTop}>
-            {quote.quote}
-          </Text>
-          <Author>{quote.author}</Author>
-        </Container>
-      )}
+      <Container>
+        <Text marginBottom={marginBottom} marginTop={marginTop}>
+          {quote.quote}
+        </Text>
+        <Author>{quote.author}</Author>
+      </Container>
     </Container>
   );
 };
