@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
@@ -15,14 +15,7 @@ export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
-  const loading = useSelector((state: RootState) => state.users.loading);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   inAddiction
-  //     ? dispatch(getRandomBadQuote())
-  //     : dispatch(getRandomGoodQuote());
-  // }, [inAddiction]);
 
   return (
     <Container
@@ -46,7 +39,7 @@ export const MainPage: React.FC = () => {
           <Quote marginBottom="60px" marginTop="60px" />
           <Button
             onClick={() => {
-              dispatch(userSetLoader({ main: true }));
+              dispatch(userSetLoader({ component: true }));
             }}
           >
             on true

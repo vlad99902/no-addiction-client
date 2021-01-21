@@ -4,8 +4,7 @@ import {
 } from '../storeFunctions/timersFunctions';
 import moment from 'moment';
 
-import { userHideLoader } from './../users/usersActions';
-import { userShowLoader } from '../users/usersActions';
+import { userSetLoader } from './../users/usersActions';
 
 import {
   TimersActionType,
@@ -23,7 +22,7 @@ import {
 export const initState = (): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
-      dispatch(userShowLoader());
+      dispatch(userSetLoader({ main: true }));
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
@@ -32,10 +31,10 @@ export const initState = (): AsyncActionType => {
         : await dispatch(getRandomGoodQuote());
 
       dispatch({ type: INIT_TIMERS });
-      await setTimeout(() => dispatch(userHideLoader()), 1000);
+      await setTimeout(() => dispatch(userSetLoader({ main: false })), 1000);
     } catch (error) {
       console.log(error);
-      dispatch(userHideLoader());
+      dispatch(userSetLoader({ main: false }));
     }
   };
 };
@@ -85,7 +84,7 @@ export const getCurrentTimer = (): AsyncActionType => {
 };
 
 export const inAddictionChange = (
-  date: string | null = null,
+  date: string | null = null
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
@@ -127,16 +126,12 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
 export const getRandomBadQuote = (): AsyncActionType => {
   return async (dispatch) => {
     try {
-      // dispatch(userShowLoader());
-
       const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
-      // await setTimeout(() => dispatch(userHideLoader()), 1000);
     } catch (error) {
       console.log(error);
-      dispatch(userHideLoader());
     }
   };
 };
@@ -144,12 +139,10 @@ export const getRandomBadQuote = (): AsyncActionType => {
 export const getRandomGoodQuote = (): AsyncActionType => {
   return async (dispatch) => {
     try {
-      // dispatch(userShowLoader());
       const res = await fetch('http://localhost:3000/api/quotes?isbad=false');
       const json = await res.json();
 
       dispatch({ type: GET_RANDOM_GOOD_QUOTE, payload: json });
-      // await setTimeout(() => dispatch(userHideLoader()), 1000);
     } catch (error) {
       console.log(error);
     }

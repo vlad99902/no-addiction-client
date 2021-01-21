@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import moment from 'moment';
 import styled from 'styled-components';
 
@@ -23,7 +23,7 @@ export const CountDown: React.FC = () => {
   const dispatch = useDispatch();
 
   const currentTime = useSelector(
-    (state: RootState) => state.timers.currentTimer.beginDate,
+    (state: RootState) => state.timers.currentTimer.beginDate
   );
 
   const [startDate, setStartDate] = useState(moment(currentTime));
@@ -36,7 +36,7 @@ export const CountDown: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(
       () => setDuration(+moment() - +startDate),
-      1000,
+      1000
     );
     return () => {
       clearInterval(interval);
@@ -66,15 +66,6 @@ export const CountDown: React.FC = () => {
         return 0;
     }
   };
-
-  // console.log(`
-  // ${durationIn.years} years
-  // ${durationIn.months} months
-  // ${durationIn.days} days
-  // ${durationIn.hours} hours
-  // ${durationIn.minutes} minutes
-  // ${durationIn.seconds} seconds
-  // 	`);
 
   return (
     <>

@@ -19,7 +19,7 @@ export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
-  const loading = useSelector((state: RootState) => state.users.loading);
+  const loading = useSelector((state: RootState) => state.users.loading.main);
   const dispatch = useDispatch();
 
   return (

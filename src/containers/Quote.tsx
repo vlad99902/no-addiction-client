@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { Container } from '../components/Container';
-import { Loader } from '../components/Loader';
 import { RootState } from '../store/rootReducer';
 
 interface IQuote {
@@ -22,7 +21,6 @@ export const Quote: React.FC<IQuote> = ({
   marginTop = '0px',
 }) => {
   const quote = useSelector((state: RootState) => state.timers.quote);
-  const loading = useSelector((state: RootState) => state.users.loading);
 
   return (
     <Container maxWidth="1400px" marginBottom="100px" height="50vh">
