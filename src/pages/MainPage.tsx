@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { Container } from '../components/Container';
@@ -8,14 +8,10 @@ import { InAddiction } from '../containers/InAddiction';
 import { Title } from '../components/Title';
 import { Quote } from '../containers/Quote';
 
-import { Button } from '../components/Button';
-import { userSetLoader } from '../store/users/usersActions';
-
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
-  const dispatch = useDispatch();
 
   return (
     <Container
@@ -27,6 +23,7 @@ export const MainPage: React.FC = () => {
     >
       {inAddiction ? (
         <>
+          <Quote marginBottom="60px" marginTop="60px" />
           <InAddiction />
         </>
       ) : (
@@ -36,21 +33,7 @@ export const MainPage: React.FC = () => {
           </Title>
 
           <CountDown />
-          <Quote marginBottom="60px" marginTop="60px" />
-          <Button
-            onClick={() => {
-              dispatch(userSetLoader({ main: false, component: true }));
-            }}
-          >
-            on true
-          </Button>
-          <Button
-            onClick={() => {
-              dispatch(userSetLoader({ component: false }));
-            }}
-          >
-            on false
-          </Button>
+          <Quote marginTop="60px" />
         </>
       )}
     </Container>

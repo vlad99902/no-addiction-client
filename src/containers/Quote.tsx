@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
 import { Container } from '../components/Container';
+
 import { RootState } from '../store/rootReducer';
 
 interface IQuote {
@@ -23,22 +24,23 @@ export const Quote: React.FC<IQuote> = ({
   const quote = useSelector((state: RootState) => state.timers.quote);
 
   return (
-    <Container maxWidth="1400px" marginBottom="100px" height="50vh">
+    <Container
+      maxWidth="1400px"
+      marginBottom={marginBottom}
+      marginTop={marginTop}
+    >
       <Container>
-        <Text marginBottom={marginBottom} marginTop={marginTop}>
-          {quote.quote}
-        </Text>
+        <Text>{quote.quote}</Text>
         <Author>{quote.author}</Author>
       </Container>
     </Container>
   );
 };
 
-const Text = styled.div<{ marginBottom: string; marginTop: string }>`
+const Text = styled.div`
   margin: 0 auto;
   font-size: 36px;
-  margin-bottom: ${(props) => props.marginBottom};
-  margin-top: ${(props) => props.marginTop};
+  margin-bottom: 60px;
 `;
 const Author = styled.div`
   font-size: 24px;

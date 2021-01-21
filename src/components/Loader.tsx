@@ -9,7 +9,9 @@ interface ILoader {
 export const Loader: React.FC<ILoader> = ({ display = 'block' }) => {
   return (
     <>
-      <div className="loader" style={{ display: display }}></div>
+      <div className="wrapper">
+        <div className="loader" style={{ display: display }}></div>
+      </div>
     </>
   );
 };

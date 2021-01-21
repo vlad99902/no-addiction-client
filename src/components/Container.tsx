@@ -9,6 +9,7 @@ type ContainerType = {
   display?: string;
   margin?: string;
   marginBottom?: string;
+  marginTop?: string;
   alignItems?: string;
   justifyContent?: string;
   pos?: string;
@@ -26,6 +27,7 @@ export const Container: React.FC<ContainerType> = ({
   display,
   margin,
   marginBottom,
+  marginTop,
   justifyContent,
   alignItems,
   pos,
@@ -51,6 +53,7 @@ export const Container: React.FC<ContainerType> = ({
       position={position}
       visibility={visibility}
       height={height}
+      marginTop={marginTop}
     >
       {children}
     </ContainerWrapper>
@@ -75,6 +78,7 @@ const ContainerWrapper = styled.div<ContainerType>`
   display: ${(props) => props.display};
   margin: ${(props) => props.margin};
   margin-bottom: ${(props) => props.marginBottom};
+  margin-top: ${(props) => props.marginTop};
   align-items: ${(props) => props.alignItems};
   justify-content: ${(props) => props.justifyContent};
   visibility: ${(props) => props.visibility};

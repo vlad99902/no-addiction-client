@@ -9,10 +9,12 @@ export type ActionType = ThunkAction<void, RootState, unknown, Action<String>>;
 export interface IUsersStateLoading {
   main: boolean;
   component: boolean;
+  headerSwitcher: boolean;
 }
 export type UsersStateLoadingArgumentType = {
   main?: boolean;
   component?: boolean;
+  headerSwitcher?: boolean;
 };
 export interface IUsersState {
   userLanguage: string;

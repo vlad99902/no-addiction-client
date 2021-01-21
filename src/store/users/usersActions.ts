@@ -1,6 +1,3 @@
-import { Action, ActionCreator } from 'redux';
-import { ThunkAction } from 'redux-thunk';
-import { RootState } from '../rootReducer';
 import {
   ActionType,
   IUsersState,

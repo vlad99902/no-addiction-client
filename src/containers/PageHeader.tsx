@@ -19,7 +19,7 @@ export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
-  const loading = useSelector((state: RootState) => state.users.loading.main);
+
   const dispatch = useDispatch();
 
   return (
@@ -47,7 +47,6 @@ export const PageHeader: React.FC = () => {
               onClick={() => {
                 dispatch(inAddictionChange());
               }}
-              visibility={!loading}
             />
           </Container>
         </Container>
@@ -59,7 +58,7 @@ export const PageHeader: React.FC = () => {
 };
 
 const Content = styled.div`
-  position: sticky;
+  position: fixed;
   top: 0;
   width: 100%;
   /* padding-top: 100px; */

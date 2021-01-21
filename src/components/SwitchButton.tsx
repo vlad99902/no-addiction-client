@@ -1,6 +1,8 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import styled from 'styled-components';
+import { RootState } from '../store/rootReducer';
 
 import { colors } from '../styles/colors';
 
@@ -10,7 +12,6 @@ interface ISwitchButton {
   onClick(): void;
   type?: TypeOfType;
   position: boolean;
-  visibility?: boolean;
 }
 type Position = {
   backgroundColor?: string;
@@ -22,9 +23,10 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
   onClick,
   type = 'small',
   position,
-  visibility = false,
 }) => {
-  let disabled = !visibility;
+  const loading = useSelector(
+    (state: RootState) => state.users.loading.headerSwitcher
+  );
 
   const getSwitchButtonPropStyles = (): { [key: string]: string } => {
     if (position) {
@@ -43,11 +45,10 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
     <MainPart
       flexDirection={getSwitchButtonPropStyles().flexDirection}
       onClick={() => onClick()}
-      disabled={disabled}
     >
       <Selector
         backgroundColor={getSwitchButtonPropStyles().backgroundColor}
-        visibility={visibility ? 'visible' : 'hidden'}
+        visibility={!loading ? 'visible' : 'hidden'}
       ></Selector>
     </MainPart>
   );
