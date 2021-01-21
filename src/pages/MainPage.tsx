@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
-import {
-  getRandomBadQuote,
-  getRandomGoodQuote,
-} from '../store/timers/timersActions';
 
 import { Container } from '../components/Container';
 import { CountDown } from '../containers/CountDown';
 import { InAddiction } from '../containers/InAddiction';
 import { Title } from '../components/Title';
 import { Quote } from '../containers/Quote';
-import { Loader } from '../components/Loader';
+
+import { Button } from '../components/Button';
+import { userSetLoader } from '../store/users/usersActions';
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
@@ -25,7 +23,6 @@ export const MainPage: React.FC = () => {
   //     ? dispatch(getRandomBadQuote())
   //     : dispatch(getRandomGoodQuote());
   // }, [inAddiction]);
-  console.log(inAddiction);
 
   return (
     <Container
@@ -47,6 +44,20 @@ export const MainPage: React.FC = () => {
 
           <CountDown />
           <Quote marginBottom="60px" marginTop="60px" />
+          <Button
+            onClick={() => {
+              dispatch(userSetLoader({ main: true }));
+            }}
+          >
+            on true
+          </Button>
+          <Button
+            onClick={() => {
+              dispatch(userSetLoader({ component: false }));
+            }}
+          >
+            on false
+          </Button>
         </>
       )}
     </Container>

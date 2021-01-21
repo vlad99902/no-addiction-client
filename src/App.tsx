@@ -20,12 +20,14 @@ export default function App() {
     dispatch(initState());
   }, []);
 
-  const loading = useSelector((state: RootState) => state.users.loading);
+  const loadingMain = useSelector(
+    (state: RootState) => state.users.loading.main
+  );
 
   return (
     <BrowserRouter>
       {isAuth && <PageHeader />}
-      {loading ? <Loader /> : routes}
+      {loadingMain ? <Loader /> : routes}
     </BrowserRouter>
   );
 }
