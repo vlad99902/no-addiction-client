@@ -3,13 +3,14 @@ import { RootState } from '../rootReducer';
 import { ThunkAction } from 'redux-thunk';
 import moment from 'moment';
 
-export const INIT_TIMERS = 'TIMERS/INIT_TIMERS';
+export const APP_INIT = 'TIMERS/APP_INIT';
 export const IN_ADDICTION_CHANGE = 'TIMERS/IN_ADDICTION_CHANGE';
 export const SET_IN_ADDICTION = 'TIMERS/SET_IN_ADDICTION';
 export const GET_CURENT_TIMER = 'TIMERS/GET_CURENT_TIMER';
 export const GET_IN_ADDICTION = 'TIMERS/GET_IN_ADDICTION';
 export const CLEAR_CURRENT_TIMER = 'TIMERS/CLEAR_CURRENT_TIMER';
 export const FETCH_RECORDS_LIST = 'TIMERS/FETCH_RECORDS_LIST';
+export const FETCH_DELETE_TIMER = 'TIMERS/FETCH_DELETE_TIMER';
 // export const IS_CURRENT_TIMER_RECORD = 'TIMERS/IS_CURRENT_TIMER_RECORD'
 
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
@@ -67,6 +68,13 @@ interface fetchRecordsList {
   records: RecordsType;
 }
 
+/**
+ * Delete one timer by id
+ */
+interface fetchDeleteTimer {
+  type: typeof FETCH_DELETE_TIMER;
+}
+
 interface clearCurrentTimer {
   type: typeof CLEAR_CURRENT_TIMER;
 }
@@ -85,7 +93,7 @@ interface setInAddiction {
 }
 
 interface initTimers {
-  type: typeof INIT_TIMERS;
+  type: typeof APP_INIT;
 }
 
 interface getCurrentTimer {
@@ -108,6 +116,7 @@ export type TimersActionType =
   | getCurrentTimer
   | getRandomBadQuote
   | fetchRecordsList
+  | fetchDeleteTimer
   | clearCurrentTimer
   | getInAddiction
   | getRandomGoodQuote;

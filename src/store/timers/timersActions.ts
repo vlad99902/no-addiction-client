@@ -1,6 +1,7 @@
 import {
   fetchUpdateCurrentTimer,
   fetchCreateCurrentTimer,
+  deleteTimerById,
 } from '../storeFunctions/timersFunctions';
 import moment from 'moment';
 
@@ -10,13 +11,14 @@ import {
   TimersActionType,
   AsyncActionType,
   GET_CURENT_TIMER,
-  INIT_TIMERS,
+  APP_INIT,
   IN_ADDICTION_CHANGE,
   SET_IN_ADDICTION,
   GET_RANDOM_BAD_QUOTE,
   GET_RANDOM_GOOD_QUOTE,
   GET_IN_ADDICTION,
   CLEAR_CURRENT_TIMER,
+  FETCH_DELETE_TIMER,
   FETCH_RECORDS_LIST,
 } from './timersTypes';
 
@@ -33,9 +35,11 @@ export const initState = (): AsyncActionType => {
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
 
-      dispatch({ type: INIT_TIMERS });
+
+      dispatch({ type: APP_INIT });
 
       dispatch(userSetLoader({ main: false, headerSwitcher: false }));
+
     } catch (error) {
       console.log(error);
       dispatch(userSetLoader({ main: false }));
@@ -63,7 +67,24 @@ export const fetchRecordsList = (): AsyncActionType => {
   };
 };
 
-export const ifurrentTimerOneOfRecords = () => {};
+/**
+ * Calling fetch to delete timer. After that fetching new records list.
+ * @param {number} timerId - timer Id to delete
+ */
+export const fetchDeleteTimer = (timerId: number): AsyncActionType => {
+  return async (dispatch) => {
+    try {
+      const res = await deleteTimerById(timerId);
+
+      await dispatch(fetchRecordsList());
+      dispatch({ type: FETCH_DELETE_TIMER });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// export const ifurrentTimerOneOfRecords = () => {};
 
 export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
