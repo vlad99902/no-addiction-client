@@ -34,10 +34,8 @@ export const initState = (): AsyncActionType => {
         : await dispatch(getRandomGoodQuote());
 
       dispatch({ type: INIT_TIMERS });
-      await setTimeout(
-        () => dispatch(userSetLoader({ main: false, headerSwitcher: false })),
-        500,
-      );
+
+      dispatch(userSetLoader({ main: false, headerSwitcher: false }));
     } catch (error) {
       console.log(error);
       dispatch(userSetLoader({ main: false }));
@@ -54,7 +52,7 @@ export const fetchRecordsList = (): AsyncActionType => {
       json = json.map((rec: any) => ({
         ...rec,
         duration: moment.duration(
-          +moment(rec.endDate) - +moment(rec.beginDate),
+          +moment(rec.endDate) - +moment(rec.beginDate)
         ),
       }));
 
@@ -71,7 +69,7 @@ export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true',
+        'http://localhost:3000/api/timers/current?inAddiction=true'
       );
       const json = await res.json();
 
@@ -113,7 +111,7 @@ export const getCurrentTimer = (): AsyncActionType => {
 };
 
 export const inAddictionChange = (
-  date: string | null = null,
+  date: string | null = null
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
@@ -145,7 +143,7 @@ export const inAddictionChange = (
 
       await dispatch(fetchRecordsList());
       if (getState().users.loading.main) {
-        setTimeout(() => dispatch(userSetLoader({ main: false })), 500);
+        dispatch(userSetLoader({ main: false }));
       }
     } catch (error) {
       console.log(error);
