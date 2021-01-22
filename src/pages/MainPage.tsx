@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useSelector, useStore } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { Container } from '../components/Container';
@@ -32,6 +32,12 @@ export const MainPage: React.FC = () => {
   });
 
   useEffect(() => {
+    console.log('down ', param.down);
+    console.log('scrollHeight ', param.scrollHeight);
+    console.log('scrollTop ', param.scrollTop);
+    console.log('clientHeight ', param.clientHeight);
+    console.log('direction ', param.direction);
+
     if (param.down <= 0) {
       document.location.href = '#records';
     }
@@ -40,9 +46,9 @@ export const MainPage: React.FC = () => {
     }
 
     if (param.direction > 0) {
-      window.scroll(0, param.scrollTop - param.scrollHeight / 100);
+      window.scroll(0, param.scrollTop - param.scrollHeight / 100); // scroll up
     } else if (param.direction < 0) {
-      window.scroll(0, param.scrollTop + param.scrollHeight / 100);
+      window.scroll(0, param.scrollTop + param.scrollHeight / 100); // scroll down
     } else window.scrollBy(0, 0);
   });
 
@@ -55,7 +61,7 @@ export const MainPage: React.FC = () => {
       scrollHeight: document.documentElement.scrollHeight,
       scrollTop: document.documentElement.scrollTop,
       clientHeight: document.documentElement.clientHeight,
-      direction: 0,
+      direction: (document.location.href = '#records') ? 1 : -1,
     });
     document.addEventListener('scroll', setParamOnScroll);
     return () => {
