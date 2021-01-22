@@ -14,6 +14,9 @@ import { SwitchButton } from '../components/SwitchButton';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
+import { Button } from '../components/Button';
+
+import animateScrollTo from 'animated-scroll-to';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -50,8 +53,17 @@ export const PageHeader: React.FC = () => {
             />
           </Container>
         </Container>
-
-        <Image src={profileIcon} width="100px" />
+        <Container pos="end">
+          <Title
+            onClick={() => {
+              /* @ts-ignore */
+              animateScrollTo(document.getElementById('records'));
+            }}
+          >
+            Leaderboard
+          </Title>
+          <Image src={profileIcon} width="100px" />
+        </Container>
       </Container>
     </Content>
   );
@@ -62,6 +74,6 @@ const Content = styled.div`
   top: 0;
   width: 100%;
   /* padding-top: 100px; */
-  /* height: 100px; */
+  height: 100px;
   background-color: ${colors.$gray};
 `;
