@@ -8,7 +8,6 @@ import { initState } from './store/timers/timersActions';
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
 import { RootState } from './store/rootReducer';
-import { Loader } from './components/Loader';
 import { Container } from './components/Container';
 
 export default function App() {

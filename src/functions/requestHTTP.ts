@@ -11,7 +11,7 @@ export async function requestHTTP(
   url: string,
   method = 'GET',
   token: string,
-  data: any = null,
+  data: any = null
 ) {
   try {
     const headers: { [key: string]: string } = {};
@@ -43,4 +43,4 @@ export async function requestHTTP(
   }
 }
 
-export const backEndLink = 'http://localhost3000';
+export const backEndLink = 'http://localhost:3000';
