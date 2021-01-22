@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { useSelector, useStore } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { Container } from '../components/Container';
@@ -7,35 +7,82 @@ import { InAddiction } from '../containers/InAddiction';
 
 import { OutAddiction } from '../containers/OutAddiction';
 import RecordsPage from './RecordsPage';
+interface IParam {
+  down: number;
+  scrollHeight: number;
+  clientHeight: number;
+  scrollTop: number;
+  direction: number;
+}
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
 
+  const [param, setParam] = useState<IParam>({
+    down:
+      document.documentElement.scrollHeight -
+      document.documentElement.scrollTop -
+      document.documentElement.clientHeight,
+    scrollHeight: document.documentElement.scrollHeight,
+    scrollTop: document.documentElement.scrollTop,
+    clientHeight: document.documentElement.clientHeight,
+    direction: 0,
+  });
+
   useEffect(() => {
-    document.addEventListener('scroll', handleScroll);
+    if (param.down <= 0) {
+      document.location.href = '#records';
+    }
+    if (!!!param.scrollTop) {
+      document.location.href = '#';
+    }
+
+    if (param.direction > 0) {
+      window.scroll(0, param.scrollTop - param.scrollHeight / 100);
+    } else if (param.direction < 0) {
+      window.scroll(0, param.scrollTop + param.scrollHeight / 100);
+    } else window.scrollBy(0, 0);
+  });
+
+  useEffect(() => {
+    setParam({
+      down:
+        document.documentElement.scrollHeight -
+        document.documentElement.scrollTop -
+        document.documentElement.clientHeight,
+      scrollHeight: document.documentElement.scrollHeight,
+      scrollTop: document.documentElement.scrollTop,
+      clientHeight: document.documentElement.clientHeight,
+      direction: 0,
+    });
+    document.addEventListener('scroll', setParamOnScroll);
     return () => {
-      document.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', setParamOnScroll);
     };
   }, []);
 
-  function handleScroll(e: any) {
-    const node = e.target;
-    const down =
-      node.documentElement.scrollHeight -
-      node.documentElement.scrollTop -
-      node.documentElement.clientHeight;
-    if (down === 0) {
-      document.location.href = '#records';
-    }
-    if (node.documentElement.scrollTop === 0) {
-      document.location.href = '#';
-    }
-  }
+  const setParamOnScroll = () => {
+    setParam((prev) => {
+      return {
+        down:
+          document.documentElement.scrollHeight -
+          document.documentElement.scrollTop -
+          document.documentElement.clientHeight,
+        scrollHeight: document.documentElement.scrollHeight,
+        scrollTop: document.documentElement.scrollTop,
+        clientHeight: document.documentElement.clientHeight,
+        direction:
+          prev.scrollTop - document.documentElement.scrollTop === 0
+            ? prev.direction
+            : prev.scrollTop - document.documentElement.scrollTop,
+      };
+    });
+  };
 
   return (
-    <div onScroll={handleScroll}>
+    <div>
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
           <Container
