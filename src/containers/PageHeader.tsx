@@ -14,7 +14,6 @@ import { SwitchButton } from '../components/SwitchButton';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
-import { Button } from '../components/Button';
 
 import animateScrollTo from 'animated-scroll-to';
 
@@ -26,46 +25,65 @@ export const PageHeader: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <Content>
-      <Container
-        maxWidth="1600px"
-        margin="0 auto"
-        pos="space-between"
-        position="realative"
-        padding="0 18px"
-      >
-        <Container style={{}}>
-          <Image src={logo} width="300px" />
-        </Container>
+    <div id="#">
+      <Content>
         <Container
-          position="absolute"
-          style={{ left: '50%', transform: 'translateX(-50%)' }}
+          maxWidth="1600px"
+          margin="0 auto"
           pos="space-between"
-          maxWidth="600px"
+          position="realative"
+          padding="0 18px"
         >
-          <Title fz="36px">Сейчас я пью</Title>
-          <Container margin="0 0 0 40px">
-            <SwitchButton
-              position={inAddiction}
+          <Container style={{}}>
+            <Image
+              src={logo}
+              width="300px"
               onClick={() => {
-                dispatch(inAddictionChange());
+                if (
+                  document.location.href === 'http://localhost:3001/#records'
+                ) {
+                  //@ts-ignore
+                  animateScrollTo(document.getElementById('#'), {
+                    speed: 1500,
+                  });
+                }
               }}
             />
           </Container>
-        </Container>
-        <Container pos="end">
-          <Title
-            onClick={() => {
-              /* @ts-ignore */
-              animateScrollTo(document.getElementById('records'));
-            }}
+          <Container
+            position="absolute"
+            style={{ left: '50%', transform: 'translateX(-50%)' }}
+            pos="space-between"
+            maxWidth="600px"
           >
-            Leaderboard
-          </Title>
-          <Image src={profileIcon} width="100px" />
+            <Title fz="36px">Сейчас я пью</Title>
+            <Container margin="0 0 0 40px">
+              <SwitchButton
+                position={inAddiction}
+                onClick={() => {
+                  dispatch(inAddictionChange());
+                }}
+              />
+            </Container>
+          </Container>
+          <Container pos="end">
+            <Title
+              onClick={() => {
+                if (document.location.href === 'http://localhost:3001/#') {
+                  //@ts-ignore
+                  animateScrollTo(document.getElementById('records'), {
+                    speed: 1500,
+                  });
+                }
+              }}
+            >
+              Leaderboard
+            </Title>
+            <Image src={profileIcon} width="100px" />
+          </Container>
         </Container>
-      </Container>
-    </Content>
+      </Content>
+    </div>
   );
 };
 
