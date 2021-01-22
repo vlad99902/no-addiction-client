@@ -1,11 +1,8 @@
-import React, { Suspense } from 'react';
+import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import { Container } from './components/Container';
-import { Loader } from './components/Loader';
 
 import { AuthPage } from './pages/AuthPage';
-import MainPage from './pages/MainPage';
-import RecordsPage from './pages/RecordsPage';
+import { MainPage } from './pages/MainPage';
 
 export const useRoutes = (isAuth: boolean) => {
   if (isAuth)
@@ -13,10 +10,6 @@ export const useRoutes = (isAuth: boolean) => {
       <Switch>
         <Route path="/" exact>
           <MainPage />
-          <RecordsPage />
-        </Route>
-        <Route path="/records">
-          <RecordsPage />
         </Route>
         <Redirect to="/" />
       </Switch>

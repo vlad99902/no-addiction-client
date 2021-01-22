@@ -11,6 +11,7 @@ import App from './App';
 
 import './index.sass';
 import reportWebVitals from './reportWebVitals';
+import { HashRouter } from 'react-router-dom';
 
 const store = createStore(
   rootReducer,
