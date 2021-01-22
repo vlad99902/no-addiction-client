@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.sass';
 
@@ -9,6 +9,7 @@ import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
 import { RootState } from './store/rootReducer';
 import { Loader } from './components/Loader';
+import { Container } from './components/Container';
 
 export default function App() {
   const isAuth: boolean = true;
@@ -28,7 +29,11 @@ export default function App() {
     <div className="root">
       <BrowserRouter>
         {isAuth && <PageHeader />}
-        {loadingMain ? <Loader /> : routes}
+        {/* {loadingMain ? (
+          <Loader />
+        ) : ( */}
+        <Container margin="100px auto 0">{routes}</Container>
+        {/* )} */}
       </BrowserRouter>
     </div>
   );
