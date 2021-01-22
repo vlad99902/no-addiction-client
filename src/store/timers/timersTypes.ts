@@ -37,7 +37,7 @@ type QuoteType = {
  */
 type CurrentTimerType = {
   timerId: number;
-  beginDate: string;
+  beginDate: string | null;
   endDate: string | null;
 };
 

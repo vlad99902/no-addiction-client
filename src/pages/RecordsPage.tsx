@@ -9,9 +9,14 @@ import { useSelector } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { Title } from '../components/Title';
+import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
 
 const RecordsPage: React.FC = () => {
   const records = useSelector((state: RootState) => state.timers.records);
+
+  const [duration, str] = useCurrentDuration();
+
+  // console.log(duration, str);
 
   return (
     <Container

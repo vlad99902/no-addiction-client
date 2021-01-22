@@ -16,8 +16,8 @@ import {
 const initialState: ITimersState = {
   currentTimer: {
     timerId: -1,
-    beginDate: '',
-    endDate: '',
+    beginDate: null,
+    endDate: null,
   },
   quote: {
     quote: '',

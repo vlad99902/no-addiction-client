@@ -1,41 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import moment from 'moment';
+import React from 'react';
 import styled from 'styled-components';
 import { getDurationNormalize } from '../functions/moment';
 
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/rootReducer';
-
 import { TimerView } from '../containers/TimerView';
 import { Container } from '../components/Container';
+import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
 
 export const CountDown: React.FC = () => {
-  const currentTime = useSelector(
-    (state: RootState) => state.timers.currentTimer.beginDate
-  );
-
-  const [startDate, setStartDate] = useState(moment(currentTime));
-
-  const [duration, setDuration] = useState(+moment() - +startDate);
-
-  /**
-   * Effect to countdown timer
-   */
-  useEffect(() => {
-    const interval = setInterval(
-      () => setDuration(+moment() - +startDate),
-      1000
-    );
-    return () => {
-      clearInterval(interval);
-    };
-  }, [duration]);
-
-  useEffect(() => {
-    setStartDate(moment(currentTime));
-    setDuration(+moment() - +moment(currentTime));
-  }, [currentTime]);
-
+  const [currentDuration] = useCurrentDuration();
   return (
     <>
       <TimerViewGrid>
@@ -43,18 +15,18 @@ export const CountDown: React.FC = () => {
           <TimerView
             type="date"
             time={{
-              time1: +getDurationNormalize('years', duration),
-              time2: +getDurationNormalize('months', duration),
-              time3: +getDurationNormalize('days', duration),
+              time1: +getDurationNormalize('years', currentDuration),
+              time2: +getDurationNormalize('months', currentDuration),
+              time3: +getDurationNormalize('days', currentDuration),
             }}
           />
         </Container>
         <TimerView
           type="time"
           time={{
-            time1: +getDurationNormalize('hours', duration),
-            time2: +getDurationNormalize('minutes', duration),
-            time3: +getDurationNormalize('seconds', duration),
+            time1: +getDurationNormalize('hours', currentDuration),
+            time2: +getDurationNormalize('minutes', currentDuration),
+            time3: +getDurationNormalize('seconds', currentDuration),
           }}
         />
       </TimerViewGrid>

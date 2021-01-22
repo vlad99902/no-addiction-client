@@ -25,23 +25,18 @@ export const fetchCreateCurrentTimer = async (
   newBeginDate: string,
 ): Promise<void> => {
   try {
-    const res = await requestHTTP(
-      `${backEndLink}/api/timers/current/create`,
-      'POST',
-      '_',
-      {
-        userId: state.users.userId,
-        beginDate: newBeginDate,
-        categoryId: state.users.currentCategoryId,
-      },
-    );
+    await requestHTTP(`${backEndLink}/api/timers/current/create`, 'POST', '_', {
+      userId: state.users.userId,
+      beginDate: newBeginDate,
+      categoryId: state.users.currentCategoryId,
+    });
   } catch (error) {
     console.log(error);
   }
 };
 
 export const deleteTimerById = async (timerId: number): Promise<void> => {
-  const body = { timerId: timerId };
+  const body = { timerId };
   try {
     return await requestHTTP(
       `${backEndLink}/api/timers/delete`,
