@@ -7,25 +7,18 @@ import { InAddiction } from '../containers/InAddiction';
 
 import { OutAddiction } from '../containers/OutAddiction';
 import RecordsPage from './RecordsPage';
-import { debounce } from 'lodash';
-
 interface IParam {
   down: number;
   scrollHeight: number;
   clientHeight: number;
   scrollTop: number;
-  direction: string;
+  direction: number;
 }
 
 export const MainPage: React.FC = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
-
-  // const [height, setHeight] = useState(window.innerHeight - 100);
-  // const [element, setElement] = useState();
-
-  const [direction, setDirection] = useState('');
 
   const [param, setParam] = useState<IParam>({
     down:
@@ -35,44 +28,23 @@ export const MainPage: React.FC = () => {
     scrollHeight: document.documentElement.scrollHeight,
     scrollTop: document.documentElement.scrollTop,
     clientHeight: document.documentElement.clientHeight,
-    direction: 'stop',
+    direction: 0,
   });
 
-  // const animationToBottom = () => {
-  //     window.scrollBy(0, 10);
-  // };
-
   useEffect(() => {
-    console.log('in use eff param.down = ', param.down);
-    console.log('in use eff param.scrollHeight = ', param.scrollHeight);
-    console.log('in use eff param.scrollTop = ', param.scrollTop);
-    console.log('in use eff param.clientHeight = ', param.clientHeight);
-    console.log('in use eff param.direction = ', param.direction);
-
-    switch (param.direction) {
-      case 'up':
-        window.scroll(0, param.scrollTop - 10);
-        break;
-      // case 'down':
-
-      //   break;
-      default:
-        window.scroll(0, param.scrollTop + 10);
-        break;
+    if (param.down <= 0) {
+      document.location.href = '#records';
     }
-    // (param.direction > 0)
-    // ? param =
-    // if (param.direction < 0) {
-    //   if (param.scrollTop >= 100) {
-    //     window.scrollBy(0, 15);
-    //   }
-    // }
-    // if (param.direction > 0) {
-    //   if (param.down >= 100) {
-    //     window.scrollBy(0, -15);
-    //   }
-    // }
-  }, [param.down]);
+    if (!!!param.scrollTop) {
+      document.location.href = '#';
+    }
+
+    if (param.direction > 0) {
+      window.scroll(0, param.scrollTop - param.scrollHeight / 100);
+    } else if (param.direction < 0) {
+      window.scroll(0, param.scrollTop + param.scrollHeight / 100);
+    } else window.scrollBy(0, 0);
+  });
 
   useEffect(() => {
     setParam({
@@ -83,7 +55,7 @@ export const MainPage: React.FC = () => {
       scrollHeight: document.documentElement.scrollHeight,
       scrollTop: document.documentElement.scrollTop,
       clientHeight: document.documentElement.clientHeight,
-      direction: 'stop',
+      direction: 0,
     });
     document.addEventListener('scroll', setParamOnScroll);
     return () => {
@@ -91,8 +63,7 @@ export const MainPage: React.FC = () => {
     };
   }, []);
 
-  const setParamOnScroll = debounce((e: any) => {
-    console.log('setParamOnScroll work');
+  const setParamOnScroll = () => {
     setParam((prev) => {
       return {
         down:
@@ -103,22 +74,12 @@ export const MainPage: React.FC = () => {
         scrollTop: document.documentElement.scrollTop,
         clientHeight: document.documentElement.clientHeight,
         direction:
-          prev.scrollTop - document.documentElement.scrollTop > 0
-            ? 'up'
-            : 'down',
+          prev.scrollTop - document.documentElement.scrollTop === 0
+            ? prev.direction
+            : prev.scrollTop - document.documentElement.scrollTop,
       };
     });
-  }, 0);
-
-  // const records = document.getElementById('records');
-  // if (records) {
-  //   if (down <= 0) {
-  //     document.location.href = '#records';
-  //   }
-  //   if (!!!node.documentElement.scrollTop) {
-  //     document.location.href = '#';
-  //   }
-  // }
+  };
 
   return (
     <div>
