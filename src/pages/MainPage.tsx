@@ -1,5 +1,5 @@
 import animateScrollTo from 'animated-scroll-to';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import RecordsPage from './RecordsPage';
 import StatusPage from './StatusPage';
 interface IParam {
@@ -9,70 +9,66 @@ interface IParam {
   scrollTop: number;
   direction: number;
 }
+const param = {
+  animation: false,
+  speed: Math.round(document.documentElement.scrollHeight / 0.7),
+  action: 0,
+};
 
 const MainPage: React.FC = () => {
-  const [param, setParam] = useState<IParam>({
-    down: 0,
-    scrollHeight: 0,
-    scrollTop: 0,
-    clientHeight: 0,
-    direction: 0,
-  });
-
-  useEffect(() => {
-    setParam({
-      down:
+  const scroll = () => {
+    if (param.action === 1 || document.location.hash === '') {
+      param.action = 1;
+      if (param.animation) {
+        if (document.location.hash === '') {
+          param.animation = false;
+          // @ts-ignore
+          animateScrollTo(document.getElementById('records'), {
+            cancelOnUserAction: false,
+            speed: param.speed,
+          });
+        } else if (document.location.hash === '#records') {
+          param.animation = false;
+          //@ts-ignore
+          animateScrollTo(document.getElementById('#'), {
+            cancelOnUserAction: false,
+            speed: param.speed,
+          });
+        }
+      }
+      if (document.documentElement.scrollTop === 0) {
+        param.animation = true;
+      }
+      if (
+        document.documentElement.scrollTop ===
         document.documentElement.scrollHeight -
-        document.documentElement.scrollTop -
-        document.documentElement.clientHeight,
-      scrollHeight: document.documentElement.scrollHeight,
-      scrollTop: document.documentElement.scrollTop,
-      clientHeight: document.documentElement.clientHeight,
-      direction: 0,
-    });
-    console.log('component did mount');
-    document.addEventListener('scroll', setParamOnScroll);
-    return () => {
-      document.removeEventListener('scroll', setParamOnScroll);
-    };
-  }, []);
-
-  useEffect(() => {
-    if (param.direction !== 0)
-      if (param.scrollTop <= 0) {
+          document.documentElement.clientHeight
+      ) {
+        param.animation = true;
+      }
+      if (document.documentElement.scrollTop <= 0) {
         document.location.href = '#';
-      } else if (param.down <= 0) {
+      } else if (
+        document.documentElement.scrollHeight -
+          document.documentElement.scrollTop -
+          document.documentElement.clientHeight <=
+        0
+      ) {
         document.location.href = '#records';
       }
-
-    if (param.direction > 0) {
-      window.scroll(0, param.scrollTop - param.scrollHeight / 50); // scroll up
-    } else if (param.direction < 0) {
-      window.scroll(0, param.scrollTop + param.scrollHeight / 50); // scroll down
+    } else if (param.action === 0) {
+      param.action = 1;
+      console.log('param.action changed, action = ', param.action);
     }
-    // else window.scrollBy(0, 0);
-  });
-
-  const setParamOnScroll = () => {
-    console.count('setParamOnScroll worked');
-
-    setParam((prev) => {
-      return {
-        down:
-          document.documentElement.scrollHeight -
-          document.documentElement.scrollTop -
-          document.documentElement.clientHeight,
-        scrollHeight: document.documentElement.scrollHeight,
-        scrollTop: document.documentElement.scrollTop,
-        clientHeight: document.documentElement.clientHeight,
-        direction:
-          prev.scrollTop - document.documentElement.scrollTop === 0
-            ? prev.direction
-            : prev.scrollTop - document.documentElement.scrollTop,
-      };
-    });
   };
-
+  useEffect(() => {
+    param.animation = true;
+    console.log('component did mount');
+    document.addEventListener('scroll', scroll);
+    return () => {
+      document.removeEventListener('scroll', scroll);
+    };
+  }, []);
   return (
     <div>
       <div style={{ height: 'calc(100% - 100px)' }}>
