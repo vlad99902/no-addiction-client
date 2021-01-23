@@ -32,6 +32,7 @@ const initialState: ITimersState = {
       duration: null,
     },
   ],
+  currentRecordIndex: -1,
   inAddiction: true,
 };
 
@@ -53,7 +54,11 @@ export const timersReducer = (
     case GET_IN_ADDICTION:
       return { ...state, inAddiction: action.inAddiction };
     case FETCH_RECORDS_LIST:
-      return { ...state, records: action.records };
+      return {
+        ...state,
+        records: action.records,
+        currentRecordIndex: action.currentRecordIndex,
+      };
 
     //Actions that do not changing store
     case CLEAR_CURRENT_TIMER:

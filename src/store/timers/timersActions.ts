@@ -35,11 +35,9 @@ export const initState = (): AsyncActionType => {
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
 
-
       dispatch({ type: APP_INIT });
 
       dispatch(userSetLoader({ main: false, headerSwitcher: false }));
-
     } catch (error) {
       console.log(error);
       dispatch(userSetLoader({ main: false }));
@@ -48,7 +46,7 @@ export const initState = (): AsyncActionType => {
 };
 
 export const fetchRecordsList = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
       const result = await fetch('http://localhost:3000/api/timers/records');
       let json = await result.json();
@@ -56,11 +54,51 @@ export const fetchRecordsList = (): AsyncActionType => {
       json = json.map((rec: any) => ({
         ...rec,
         duration: moment.duration(
-          +moment(rec.endDate) - +moment(rec.beginDate)
+          +moment(rec.endDate) - +moment(rec.beginDate),
         ),
       }));
 
-      dispatch({ type: FETCH_RECORDS_LIST, records: json });
+      let currentIndex: number = -1;
+      if (!getState().timers.inAddiction) {
+        const currentTimer = getState().timers.currentTimer;
+        // let resArray: any[] = [];
+        const currentDuration = moment.duration(
+          +moment() - +moment(currentTimer.beginDate),
+        );
+        json.forEach((el: any, i: number, ar: any) => {
+          if (el.duration > currentDuration) {
+            ++currentIndex;
+          }
+        });
+        ++currentIndex;
+
+        // console.log(currentIndex);
+
+        // let isInserted: boolean = false;
+        // let iMax: number = 0;
+        // json.length < 10 ? (iMax = json.length) : (iMax = 10);
+        // for (let i: number = 0; i < iMax; i++) {
+        //   if (i === currentIndex && !isInserted) {
+        //     resArray[i] = {
+        //       recordId: currentTimer.timerId,
+
+        //       ...currentTimer,
+        //       duration: currentDuration,
+        //     };
+        //     isInserted = true;
+        //   }
+        //   isInserted ? (resArray[i + 1] = json[i]) : (resArray[i] = json[i]);
+        // }
+
+        // json = resArray;
+        // console.log(resArray);
+      }
+
+      dispatch({
+        type: FETCH_RECORDS_LIST,
+        records: json,
+        currentRecordIndex: currentIndex,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -90,7 +128,7 @@ export const getInAddiction = (): AsyncActionType => {
   return async (dispatch) => {
     try {
       const res = await fetch(
-        'http://localhost:3000/api/timers/current?inAddiction=true'
+        'http://localhost:3000/api/timers/current?inAddiction=true',
       );
       const json = await res.json();
 
@@ -132,7 +170,7 @@ export const getCurrentTimer = (): AsyncActionType => {
 };
 
 export const inAddictionChange = (
-  date: string | null = null
+  date: string | null = null,
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
