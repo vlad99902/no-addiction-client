@@ -25,7 +25,7 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
   position,
 }) => {
   const loading = useSelector(
-    (state: RootState) => state.users.loading.headerSwitcher
+    (state: RootState) => state.users.loading.headerSwitcher,
   );
 
   const getSwitchButtonPropStyles = (): { [key: string]: string } => {

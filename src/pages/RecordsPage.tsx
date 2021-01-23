@@ -5,13 +5,21 @@ import moment from 'moment';
 import { getDurationNormalize } from '../functions/moment';
 
 import { RootState } from '../store/rootReducer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Container } from '../components/Container';
 import { Title } from '../components/Title';
+import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
+import { DeleteIcon } from '../assets/DeleteIcon';
+import { fetchDeleteTimer } from '../store/timers/timersActions';
 
 const RecordsPage: React.FC = () => {
   const records = useSelector((state: RootState) => state.timers.records);
+
+  const [duration, str] = useCurrentDuration();
+  const dispatch = useDispatch();
+
+  // console.log(duration, str);
 
   return (
     <Container
@@ -38,9 +46,8 @@ const RecordsPage: React.FC = () => {
         </Container>
         <Line />
         {records.map((record, i) => {
-          // console.log(record.duration);
           return (
-            <React.Fragment key={record.recordId}>
+            <TableElWrapper key={record.recordId}>
               <Container display="flex" alignItems="flex-end">
                 <Container style={{ width: '80px' }}>
                   <Title fz="32px">{i + 1}</Title>
@@ -56,10 +63,15 @@ const RecordsPage: React.FC = () => {
                       getDurationNormalize('full', record.duration)}
                   </Title>
                 </Container>
-              </Container>
 
+                <DeleteIconContainer
+                  onClick={() => dispatch(fetchDeleteTimer(record.recordId))}
+                >
+                  <DeleteIcon />
+                </DeleteIconContainer>
+              </Container>
               <Line color={colors.$darkGray} />
-            </React.Fragment>
+            </TableElWrapper>
           );
         })}
       </Container>
@@ -74,6 +86,19 @@ const Line = styled.hr`
   :last-child {
     border: 3px ${colors.$black} solid;
   }
+`;
+
+const TableElWrapper = styled.div`
+  position: relative;
+`;
+
+const DeleteIconContainer = styled.div`
+  width: 16px;
+  position: absolute;
+  right: -30px;
+  top: 16px;
+  z-index: 1;
+  cursor: pointer;
 `;
 
 export default RecordsPage;

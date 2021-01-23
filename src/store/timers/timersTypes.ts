@@ -37,7 +37,7 @@ type QuoteType = {
  */
 type CurrentTimerType = {
   timerId: number;
-  beginDate: string;
+  beginDate: string | null;
   endDate: string | null;
 };
 
@@ -57,6 +57,7 @@ export interface ITimersState {
   currentTimer: CurrentTimerType;
   quote: QuoteType;
   records: RecordsType;
+  currentRecordIndex: number;
   inAddiction: boolean;
 }
 
@@ -66,6 +67,7 @@ export interface ITimersState {
 interface fetchRecordsList {
   type: typeof FETCH_RECORDS_LIST;
   records: RecordsType;
+  currentRecordIndex: number;
 }
 
 /**

@@ -9,6 +9,12 @@ type DurationInType =
   | 'minutes'
   | 'seconds';
 
+/**
+ * Function to convert duraion object to format 'YYYY-MM-DD HH:mm:ss'. This function also delete
+ * zero date if duration for example '0-0-1 12:34:23'
+ * @param {string} type - period you wont to take, or all duration. For example 'full' or 'years'
+ * @param {moment.Duration | number} duration
+ */
 export const getDurationNormalize = (
   type: DurationInType,
   duration: moment.Duration | number,
@@ -40,7 +46,7 @@ export const getDurationNormalize = (
       )}:${getTimeZeroDigit(
         getDurationNormalize('minutes', duration),
         'time',
-      )}`;
+      )}`.trim();
     default:
       return '';
   }
