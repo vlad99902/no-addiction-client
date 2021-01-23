@@ -101,4 +101,4 @@ const DeleteIconContainer = styled.div`
   cursor: pointer;
 `;
 
-export default RecordsPage;
+export default React.memo(RecordsPage);

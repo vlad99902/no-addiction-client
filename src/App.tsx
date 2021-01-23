@@ -31,7 +31,9 @@ export default function App() {
         {/* {loadingMain ? (
           <Loader />
         ) : ( */}
-        <Container margin="100px auto 0">{routes}</Container>
+        <Container margin="100px auto 0" height="calc(200vh - 200px)">
+          {routes}
+        </Container>
         {/* )} */}
       </BrowserRouter>
     </div>
