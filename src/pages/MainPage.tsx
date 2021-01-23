@@ -7,6 +7,7 @@ import { InAddiction } from '../containers/InAddiction';
 
 import { OutAddiction } from '../containers/OutAddiction';
 import RecordsPage from './RecordsPage';
+import { StatusPage } from './StatusPage';
 interface IParam {
   down: number;
   scrollHeight: number;
@@ -16,27 +17,32 @@ interface IParam {
 }
 
 export const MainPage: React.FC = () => {
-  const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
-  );
-
   const [param, setParam] = useState<IParam>({
     down:
       document.documentElement.scrollHeight -
       document.documentElement.scrollTop -
       document.documentElement.clientHeight,
-    scrollHeight: document.documentElement.scrollHeight,
+    scrollHeight: document.documentElement.scrollHeight * 2 - 100,
     scrollTop: document.documentElement.scrollTop,
     clientHeight: document.documentElement.clientHeight,
     direction: 0,
   });
 
+  console.log(
+    'param = ',
+    param
+    // ' param.scrollHeight = ',
+    // param.scrollHeight,
+    // 'param.clientHeight = ',
+    // param.clientHeight
+  );
+
   useEffect(() => {
-    console.log('down ', param.down);
-    console.log('scrollHeight ', param.scrollHeight);
-    console.log('scrollTop ', param.scrollTop);
-    console.log('clientHeight ', param.clientHeight);
-    console.log('direction ', param.direction);
+    // console.log('down ', param.down);
+    // console.log('scrollHeight ', param.scrollHeight);
+    // console.log('scrollTop ', param.scrollTop);
+    // console.log('clientHeight ', param.clientHeight);
+    // console.log('direction ', param.direction);
 
     if (param.down <= 0) {
       document.location.href = '#records';
@@ -63,6 +69,14 @@ export const MainPage: React.FC = () => {
       clientHeight: document.documentElement.clientHeight,
       direction: (document.location.href = '#records') ? 1 : -1,
     });
+    console.log(
+      'param on render = ',
+      param
+      // 'on init param.scrollHeight = ',
+      // param.scrollHeight * 2 - 100,
+      // 'param.clientHeight = ',
+      // param.clientHeight
+    );
     document.addEventListener('scroll', setParamOnScroll);
     return () => {
       document.removeEventListener('scroll', setParamOnScroll);
@@ -91,14 +105,7 @@ export const MainPage: React.FC = () => {
     <div>
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
-          <Container
-            maxWidth="1600px"
-            margin="0 auto"
-            padding="100px 18px 0px"
-            height="calc(100vh - 100px)"
-          >
-            {inAddiction ? <InAddiction /> : <OutAddiction />}
-          </Container>
+          <StatusPage />
         </section>
         <section id="records">
           <RecordsPage />
