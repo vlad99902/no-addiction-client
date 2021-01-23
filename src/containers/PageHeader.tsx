@@ -73,6 +73,7 @@ export const PageHeader: React.FC = () => {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('records'), {
                     speed: 1500,
+                    cancelOnUserAction: true,
                   });
                 }
               }}

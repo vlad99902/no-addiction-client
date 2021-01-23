@@ -5,7 +5,7 @@ import { InAddiction } from '../containers/InAddiction';
 import { OutAddiction } from '../containers/OutAddiction';
 import { RootState } from '../store/rootReducer';
 
-export const StatusPage = () => {
+const StatusPage = () => {
   const inAddiction = useSelector(
     (state: RootState) => state.timers.inAddiction
   );
@@ -20,3 +20,5 @@ export const StatusPage = () => {
     </Container>
   );
 };
+
+export default React.memo(StatusPage);
