@@ -1,9 +1,8 @@
 import animateScrollTo from 'animated-scroll-to';
 import React, { useEffect } from 'react';
 import { Loader } from '../components/Loader';
-import RecordsPage from './RecordsPage';
-import StatusPage from './StatusPage';
-
+import { RecordsPage } from './RecordsPage';
+import { StatusPage } from './StatusPage';
 
 const param = {
   animation: false,
@@ -11,7 +10,7 @@ const param = {
   action: 0,
 };
 
-const MainPage: React.FC = () => {
+export const MainPage: React.FC = () => {
   const scroll = () => {
     if (param.action === 1 || document.location.hash === '') {
       param.action = 1;
@@ -69,7 +68,6 @@ const MainPage: React.FC = () => {
     <div>
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
-          {console.count('mainPage render')}
           <Loader isLoading={false} />
           <StatusPage />
         </section>
@@ -81,5 +79,3 @@ const MainPage: React.FC = () => {
     </div>
   );
 };
-
-export default React.memo(MainPage);

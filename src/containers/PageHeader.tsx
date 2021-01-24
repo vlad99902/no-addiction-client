@@ -1,7 +1,6 @@
 import React from 'react';
-
+import animateScrollTo from 'animated-scroll-to';
 import styled from 'styled-components';
-import { colors } from '../styles/colors';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
@@ -11,16 +10,15 @@ import { Container } from '../components/Container';
 import { Image } from '../components/Image';
 import { Title } from '../components/Title';
 import { SwitchButton } from '../components/SwitchButton';
+import { colors } from '../styles/colors';
+import { Button } from '../components/Button';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
 
-import animateScrollTo from 'animated-scroll-to';
-import { Loader } from '../components/Loader';
-
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
 
   const dispatch = useDispatch();
@@ -46,7 +44,7 @@ export const PageHeader: React.FC = () => {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('#'), {
                     speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7
+                      document.documentElement.scrollHeight / 0.7,
                     ),
                   });
                 }
@@ -71,20 +69,21 @@ export const PageHeader: React.FC = () => {
             </Container>
           </Container>
           <Container pos="end">
-            <Title
+            <Button
+              type="extraSmallText"
               onClick={() => {
                 if (document.location.href === 'http://localhost:3001/#') {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('records'), {
                     speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7
+                      document.documentElement.scrollHeight / 0.7,
                     ),
                   });
                 }
               }}
             >
               Leaderboard
-            </Title>
+            </Button>
             <Image src={profileIcon} width="100px" />
           </Container>
         </Container>

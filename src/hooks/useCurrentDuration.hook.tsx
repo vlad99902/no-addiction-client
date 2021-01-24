@@ -17,7 +17,6 @@ export const useCurrentDuration = (): any[] => {
     (state: RootState) => state.timers.currentRecordIndex,
   );
 
-  // console.log(currentRecordIndex);
   const dispatch = useDispatch();
 
   const records = useSelector((state: RootState) => state.timers.records);
@@ -37,7 +36,7 @@ export const useCurrentDuration = (): any[] => {
         setDuration({
           milliseconds: +moment() - +startDate,
         });
-        // console.log(records);
+
         if (
           records[currentRecordIndex - 1] &&
           +moment() - +startDate > +records[currentRecordIndex - 1].duration &&

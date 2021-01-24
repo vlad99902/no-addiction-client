@@ -99,7 +99,7 @@ export const setCurrentRecordIndex = (index: number): TimersActionType => {
 export const fetchDeleteTimer = (timerId: number): AsyncActionType => {
   return async (dispatch) => {
     try {
-      const res = await deleteTimerById(timerId);
+      await deleteTimerById(timerId);
 
       await dispatch(fetchRecordsList());
       dispatch({ type: FETCH_DELETE_TIMER });

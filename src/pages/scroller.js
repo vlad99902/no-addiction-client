@@ -44,8 +44,6 @@ useEffect(() => {
 });
 
 const setParamOnScroll = () => {
-  // console.count('setParamOnScroll worked');
-
   setParam((prev) => {
     return {
       down:

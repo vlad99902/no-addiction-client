@@ -1,22 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { colors } from '../styles/colors';
 import moment from 'moment';
-import { getDurationNormalize } from '../functions/moment';
 
 import { RootState } from '../store/rootReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import { RecordsType, CurrentTimerType } from '../store/timers/timersTypes';
+import { fetchDeleteTimer } from '../store/timers/timersActions';
 
+import { getDurationNormalize } from '../functions/moment';
 import { Container } from '../components/Container';
 import { Title } from '../components/Title';
-import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
 import { DeleteIcon } from '../assets/DeleteIcon';
-import { fetchDeleteTimer } from '../store/timers/timersActions';
-import { Loader } from '../components/Loader';
+import { colors } from '../styles/colors';
+import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
 
-import { RecordsType, CurrentTimerType } from '../store/timers/timersTypes';
-
-const RecordsPage: React.FC = () => {
+export const RecordsPage: React.FC = () => {
   const records = useSelector((state: RootState) => state.timers.records);
   const currentActiveDate = useSelector(
     (state: RootState) => state.timers.currentTimer,
@@ -26,10 +24,8 @@ const RecordsPage: React.FC = () => {
     (state: RootState) => state.timers.currentRecordIndex,
   );
 
-  const [duration, str] = useCurrentDuration();
+  const [duration] = useCurrentDuration();
   const dispatch = useDispatch();
-
-  // console.log(duration, str);
 
   const insert = (arr: any[], index: number, newItem: any) => [
     // part of the array before the specified index
@@ -177,5 +173,3 @@ const DeleteIconContainer = styled.div`
   z-index: 1;
   cursor: pointer;
 `;
-
-export default React.memo(RecordsPage);

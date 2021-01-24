@@ -2,15 +2,12 @@ import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import './App.sass';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { initState } from './store/timers/timersActions';
 
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
-import { RootState } from './store/rootReducer';
 import { Container } from './components/Container';
-import { Loader } from './components/Loader';
-import { FullScreenLoader } from './components/FullScreenLoader';
 
 export default function App() {
   const isAuth: boolean = true;
@@ -21,10 +18,6 @@ export default function App() {
   useEffect(() => {
     dispatch(initState());
   }, []);
-
-  const loadingMain = useSelector(
-    (state: RootState) => state.users.loading.main
-  );
 
   return (
     <div className="root">

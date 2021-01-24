@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
 import { AuthPage } from './pages/AuthPage';
-import MainPage from './pages/MainPage';
+import { MainPage } from './pages/MainPage';
 
 export const useRoutes = (isAuth: boolean) => {
   if (isAuth)

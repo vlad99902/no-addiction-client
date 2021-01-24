@@ -2,7 +2,7 @@ import React from 'react';
 
 import { colors } from '../styles/colors';
 
-type TypeOfType = 'main' | 'smallText' | 'oneWordOneLine';
+type TypeOfType = 'main' | 'smallText' | 'oneWordOneLine' | 'extraSmallText';
 
 type ButtonType = {
   children: React.ReactNode;
@@ -40,6 +40,13 @@ const styleType = (type: string): React.CSSProperties => {
         fontSize: '24px',
         textAlign: 'center',
         padding: '24px 52px',
+      };
+    case 'extraSmallText':
+      return {
+        fontSize: '16px',
+        textAlign: 'center',
+        padding: '10px 14px',
+        borderRadius: '12px',
       };
     case 'oneWordOneLine':
       return {

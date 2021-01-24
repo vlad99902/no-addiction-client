@@ -1,21 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import { applyMiddleware, createStore } from 'redux';
-import { Provider } from 'react-redux';
-
-import thunk from 'redux-thunk';
-import { composeWithDevTools } from 'redux-devtools-extension';
-import { rootReducer } from './store/rootReducer';
-import App from './App';
-
 import './index.sass';
 import reportWebVitals from './reportWebVitals';
-import { HashRouter } from 'react-router-dom';
+
+import thunk from 'redux-thunk';
+import { applyMiddleware, createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+import { rootReducer } from './store/rootReducer';
+
+import App from './App';
 
 const store = createStore(
   rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
+  composeWithDevTools(applyMiddleware(thunk)),
 );
 
 ReactDOM.render(
@@ -24,7 +23,7 @@ ReactDOM.render(
       <App />
     </Provider>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
 
 // If you want to start measuring performance in your app, pass a function
