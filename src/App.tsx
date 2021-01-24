@@ -9,6 +9,8 @@ import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
 import { RootState } from './store/rootReducer';
 import { Container } from './components/Container';
+import { Loader } from './components/Loader';
+import { FullScreenLoader } from './components/FullScreenLoader';
 
 export default function App() {
   const isAuth: boolean = true;
@@ -28,13 +30,9 @@ export default function App() {
     <div className="root">
       <BrowserRouter>
         {isAuth && <PageHeader />}
-        {/* {loadingMain ? (
-          <Loader />
-        ) : ( */}
         <Container margin="100px auto 0" height="calc(200vh - 200px)">
           {routes}
         </Container>
-        {/* )} */}
       </BrowserRouter>
     </div>
   );

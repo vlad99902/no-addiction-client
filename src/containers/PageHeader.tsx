@@ -16,6 +16,7 @@ import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
 
 import animateScrollTo from 'animated-scroll-to';
+import { Loader } from '../components/Loader';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -44,10 +45,13 @@ export const PageHeader: React.FC = () => {
                 ) {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('#'), {
-                    speed: 1500,
+                    speed: Math.round(
+                      document.documentElement.scrollHeight / 0.7
+                    ),
                   });
                 }
               }}
+              cursor="pointer"
             />
           </Container>
           <Container
@@ -72,8 +76,9 @@ export const PageHeader: React.FC = () => {
                 if (document.location.href === 'http://localhost:3001/#') {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('records'), {
-                    speed: 1500,
-                    cancelOnUserAction: true,
+                    speed: Math.round(
+                      document.documentElement.scrollHeight / 0.7
+                    ),
                   });
                 }
               }}
@@ -92,7 +97,7 @@ const Content = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
-  /* padding-top: 100px; */
   height: 100px;
   background-color: ${colors.$gray};
+  z-index: 11;
 `;
