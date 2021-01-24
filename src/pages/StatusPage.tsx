@@ -10,15 +10,13 @@ export const StatusPage: React.FC = () => {
     (state: RootState) => state.timers.inAddiction,
   );
   return (
-    <React.Fragment>
-      <Container
-        maxWidth="1600px"
-        margin="0 auto"
-        padding="100px 18px 0px"
-        height="calc(100vh - 100px)"
-      >
-        {inAddiction ? <InAddiction /> : <OutAddiction />}
-      </Container>
-    </React.Fragment>
+    <Container
+      maxWidth="1600px"
+      margin="0 auto"
+      padding="100px 18px 0px"
+      height="calc(100vh - 100px)"
+    >
+      {inAddiction ? <InAddiction /> : <OutAddiction />}
+    </Container>
   );
 };

@@ -12,36 +12,26 @@ export const useCurrentDuration = (): any[] => {
     shallowEqual,
   );
 
-  const [startDate, setStartDate] = useState(moment(beginDate));
-
   const [duration, setDuration] = useState({
-    milliseconds: +moment() - +startDate,
+    milliseconds: +moment() - +moment(beginDate),
   });
 
   /**
    * Effect to countdown timer
    */
   useEffect(() => {
-    if (beginDate) {
-      const interval = setInterval(() => {
-        setDuration({
-          milliseconds: +moment() - +startDate,
-        });
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [startDate]);
-
-  useEffect(() => {
-    if (beginDate) {
+    setDuration({
+      milliseconds: +moment() - +moment(beginDate),
+    });
+    const interval = setInterval(() => {
       setDuration({
         milliseconds: +moment() - +moment(beginDate),
       });
-      setStartDate(moment(beginDate));
-    }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
   }, [beginDate]);
 
   return [
