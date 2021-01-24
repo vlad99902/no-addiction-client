@@ -11,6 +11,7 @@ import {
   CLEAR_CURRENT_TIMER,
   FETCH_RECORDS_LIST,
   FETCH_DELETE_TIMER,
+  SET_CURRENT_RECORD_INDEX,
 } from './timersTypes';
 
 const initialState: ITimersState = {
@@ -29,7 +30,7 @@ const initialState: ITimersState = {
       recordId: -1,
       beginDate: '',
       endDate: '',
-      duration: null,
+      duration: '',
     },
   ],
   currentRecordIndex: -1,
@@ -57,8 +58,9 @@ export const timersReducer = (
       return {
         ...state,
         records: action.records,
-        currentRecordIndex: action.currentRecordIndex,
       };
+    case SET_CURRENT_RECORD_INDEX:
+      return { ...state, currentRecordIndex: action.currentRecordIndex };
 
     //Actions that do not changing store
     case CLEAR_CURRENT_TIMER:

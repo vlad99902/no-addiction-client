@@ -46,6 +46,9 @@ export const getDurationNormalize = (
       )}:${getTimeZeroDigit(
         getDurationNormalize('minutes', duration),
         'time',
+      )}:${getTimeZeroDigit(
+        getDurationNormalize('seconds', duration),
+        'time',
       )}`.trim();
     default:
       return '';

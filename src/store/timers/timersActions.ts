@@ -20,6 +20,7 @@ import {
   CLEAR_CURRENT_TIMER,
   FETCH_DELETE_TIMER,
   FETCH_RECORDS_LIST,
+  SET_CURRENT_RECORD_INDEX,
 } from './timersTypes';
 
 export const initState = (): AsyncActionType => {
@@ -58,10 +59,14 @@ export const fetchRecordsList = (): AsyncActionType => {
         ),
       }));
 
+      dispatch({
+        type: FETCH_RECORDS_LIST,
+        records: json,
+      });
+
       let currentIndex: number = -1;
       if (!getState().timers.inAddiction) {
         const currentTimer = getState().timers.currentTimer;
-        // let resArray: any[] = [];
         const currentDuration = moment.duration(
           +moment() - +moment(currentTimer.beginDate),
         );
@@ -70,38 +75,20 @@ export const fetchRecordsList = (): AsyncActionType => {
             ++currentIndex;
           }
         });
-        ++currentIndex;
 
-        // console.log(currentIndex);
-
-        // let isInserted: boolean = false;
-        // let iMax: number = 0;
-        // json.length < 10 ? (iMax = json.length) : (iMax = 10);
-        // for (let i: number = 0; i < iMax; i++) {
-        //   if (i === currentIndex && !isInserted) {
-        //     resArray[i] = {
-        //       recordId: currentTimer.timerId,
-
-        //       ...currentTimer,
-        //       duration: currentDuration,
-        //     };
-        //     isInserted = true;
-        //   }
-        //   isInserted ? (resArray[i + 1] = json[i]) : (resArray[i] = json[i]);
-        // }
-
-        // json = resArray;
-        // console.log(resArray);
+        console.log('index: ', currentIndex + 1);
+        dispatch(setCurrentRecordIndex(currentIndex + 1));
       }
-
-      dispatch({
-        type: FETCH_RECORDS_LIST,
-        records: json,
-        currentRecordIndex: currentIndex,
-      });
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const setCurrentRecordIndex = (index: number): TimersActionType => {
+  return {
+    type: SET_CURRENT_RECORD_INDEX,
+    currentRecordIndex: index,
   };
 };
 
@@ -148,8 +135,8 @@ export const clearCurrentTimer = (): AsyncActionType => {
       await fetchCreateCurrentTimer(getState(), timeNow);
 
       dispatch({ type: CLEAR_CURRENT_TIMER });
-      await dispatch(fetchRecordsList());
       await dispatch(getCurrentTimer());
+      await dispatch(fetchRecordsList());
     } catch (error) {
       console.log(error);
     }

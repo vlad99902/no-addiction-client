@@ -4,6 +4,7 @@ import { Loader } from '../components/Loader';
 import RecordsPage from './RecordsPage';
 import StatusPage from './StatusPage';
 
+
 const param = {
   animation: false,
   speed: Math.round(document.documentElement.scrollHeight / 2),
