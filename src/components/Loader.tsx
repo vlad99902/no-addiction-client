@@ -3,14 +3,14 @@ import React from 'react';
 import '../styles/loader.css';
 
 interface ILoader {
-  display?: string;
+  isLoading?: boolean;
 }
 
-export const Loader: React.FC<ILoader> = ({ display = 'block' }) => {
+export const Loader: React.FC<ILoader> = ({ isLoading = false }) => {
   return (
     <>
-      <div className="wrapper">
-        <div className="loader" style={{ display: display }}></div>
+      <div className="wrapper" style={{ display: isLoading ? 'flex' : 'none' }}>
+        <div className="loader" />
       </div>
     </>
   );

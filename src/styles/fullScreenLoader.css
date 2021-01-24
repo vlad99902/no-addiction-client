@@ -1,18 +1,18 @@
-.wrapper {
+.full-screen-loader--wrapper {
+  width: 100%;
+  height: calc(200vh - 200px);
   margin: 0 auto;
   display: flex;
   align-items: center;
-  z-index: 10;
-  width: 100%;
-  height: calc(100vh - 100px);
-  background-color: #fafafa;
   position: absolute;
+  z-index: 2;
+  background-color: #ffffff;
 }
 
-.loader {
+.full-screen-loader {
   color: #343434;
   font-size: 20px;
-  margin: 0px auto;
+  margin: 100px auto;
   width: 1em;
   height: 1em;
   border-radius: 50%;

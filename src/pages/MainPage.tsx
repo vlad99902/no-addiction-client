@@ -1,17 +1,12 @@
 import animateScrollTo from 'animated-scroll-to';
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useEffect } from 'react';
+import { Loader } from '../components/Loader';
 import RecordsPage from './RecordsPage';
 import StatusPage from './StatusPage';
-interface IParam {
-  down: number;
-  scrollHeight: number;
-  clientHeight: number;
-  scrollTop: number;
-  direction: number;
-}
+
 const param = {
   animation: false,
-  speed: Math.round(document.documentElement.scrollHeight / 0.7),
+  speed: Math.round(document.documentElement.scrollHeight / 2),
   action: 0,
 };
 
@@ -58,25 +53,27 @@ const MainPage: React.FC = () => {
       }
     } else if (param.action === 0) {
       param.action = 1;
-      console.log('param.action changed, action = ', param.action);
     }
   };
+
   useEffect(() => {
     param.animation = true;
-    console.log('component did mount');
     document.addEventListener('scroll', scroll);
     return () => {
       document.removeEventListener('scroll', scroll);
     };
   }, []);
+
   return (
     <div>
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
           {console.count('mainPage render')}
+          <Loader isLoading={false} />
           <StatusPage />
         </section>
-        <section id="records">
+        <section id="records" style={{}}>
+          <Loader isLoading={false} />
           <RecordsPage />
         </section>
       </div>
