@@ -76,9 +76,9 @@ export const fetchRecordsList = (): AsyncActionType => {
           }
         });
 
-        console.log('index: ', currentIndex + 1);
         dispatch(setCurrentRecordIndex(currentIndex + 1));
-      }
+      } else dispatch(setCurrentRecordIndex(currentIndex));
+      //if inAddiction
     } catch (error) {
       console.log(error);
     }
@@ -184,10 +184,11 @@ export const inAddictionChange = (
       getState().timers.inAddiction
         ? await dispatch(getRandomBadQuote())
         : await dispatch(getRandomGoodQuote());
-      //вот на фронет обработать сообщение с бэка
+
       await dispatch(getCurrentTimer());
 
       await dispatch(fetchRecordsList());
+
       if (getState().users.loading.main) {
         dispatch(userSetLoader({ main: false }));
       }

@@ -21,6 +21,7 @@
     "@types/redux-thunk": "^2.1.0",
     "@types/styled-components": "^5.1.7",
     "animated-scroll-to": "^2.0.12",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "i18next": "^19.8.4",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
