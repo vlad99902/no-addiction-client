@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Loader } from '../components/Loader';
 import { RecordsPage } from './RecordsPage';
 import { StatusPage } from './StatusPage';
+import { Container } from '../components/Container';
 
 const param = {
   animation: false,
@@ -65,7 +66,7 @@ export const MainPage: React.FC = () => {
   // }, []);
 
   return (
-    <div>
+    <Container margin="100px auto 0" height="calc(200vh - 200px)">
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
           <Loader isLoading={false} />
@@ -76,6 +77,6 @@ export const MainPage: React.FC = () => {
           <RecordsPage />
         </section>
       </div>
-    </div>
+    </Container>
   );
 };

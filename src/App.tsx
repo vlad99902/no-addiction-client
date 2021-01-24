@@ -10,7 +10,7 @@ import { PageHeader } from './containers/PageHeader';
 import { Container } from './components/Container';
 
 export default function App() {
-  const isAuth: boolean = true;
+  const isAuth: boolean = false;
   const routes = useRoutes(isAuth);
 
   const dispatch = useDispatch();
@@ -23,9 +23,8 @@ export default function App() {
     <div className="root">
       <BrowserRouter>
         {isAuth && <PageHeader />}
-        <Container margin="100px auto 0" height="calc(200vh - 200px)">
-          {routes}
-        </Container>
+
+        {routes}
       </BrowserRouter>
     </div>
   );
