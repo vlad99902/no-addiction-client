@@ -9,6 +9,7 @@ type ImageType = {
   margin?: string;
   fixedSize?: boolean;
   onClick?(): void;
+  cursor?: 'pointer';
 };
 
 export const Image: React.FC<ImageType> = ({
@@ -18,6 +19,7 @@ export const Image: React.FC<ImageType> = ({
   margin,
   fixedSize = false,
   onClick,
+  cursor,
 }) => {
   return (
     <ImageWrapper width={width} margin={margin}>
@@ -26,6 +28,7 @@ export const Image: React.FC<ImageType> = ({
         alt={alt}
         widthFixed={fixedSize && width}
         onClick={onClick}
+        cursor={cursor}
       />
     </ImageWrapper>
   );
@@ -38,8 +41,9 @@ const ImageWrapper = styled.div<ImageWrapperType>`
   margin: ${(props) => props.margin};
 `;
 
-const Img = styled.img<{ widthFixed?: string | false }>`
+const Img = styled.img<{ widthFixed?: string | false; cursor?: string }>`
   width: ${(props) => props.widthFixed};
+  cursor: ${(props) => props.cursor};
   max-width: 100%;
   height: auto;
   display: block;

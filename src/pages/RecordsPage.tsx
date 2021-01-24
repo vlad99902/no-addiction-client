@@ -12,6 +12,7 @@ import { Title } from '../components/Title';
 import { useCurrentDuration } from '../hooks/useCurrentDuration.hook';
 import { DeleteIcon } from '../assets/DeleteIcon';
 import { fetchDeleteTimer } from '../store/timers/timersActions';
+import { Loader } from '../components/Loader';
 
 import { RecordsType, CurrentTimerType } from '../store/timers/timersTypes';
 
@@ -177,4 +178,4 @@ const DeleteIconContainer = styled.div`
   cursor: pointer;
 `;
 
-export default RecordsPage;
+export default React.memo(RecordsPage);
