@@ -28,14 +28,14 @@ export const MainPage: React.FC = () => {
     direction: 0,
   });
 
-  console.log(
-    'param = ',
-    param
-    // ' param.scrollHeight = ',
-    // param.scrollHeight,
-    // 'param.clientHeight = ',
-    // param.clientHeight
-  );
+  // console.log(
+  //   'param = ',
+  //   param
+  //   // ' param.scrollHeight = ',
+  //   // param.scrollHeight,
+  //   // 'param.clientHeight = ',
+  //   // param.clientHeight
+  // );
 
   useEffect(() => {
     // console.log('down ', param.down);
@@ -69,14 +69,14 @@ export const MainPage: React.FC = () => {
       clientHeight: document.documentElement.clientHeight,
       direction: (document.location.href = '#records') ? 1 : -1,
     });
-    console.log(
-      'param on render = ',
-      param
-      // 'on init param.scrollHeight = ',
-      // param.scrollHeight * 2 - 100,
-      // 'param.clientHeight = ',
-      // param.clientHeight
-    );
+    // console.log(
+    //   'param on render = ',
+    //   param,
+    //   // 'on init param.scrollHeight = ',
+    //   // param.scrollHeight * 2 - 100,
+    //   // 'param.clientHeight = ',
+    //   // param.clientHeight
+    // );
     document.addEventListener('scroll', setParamOnScroll);
     return () => {
       document.removeEventListener('scroll', setParamOnScroll);

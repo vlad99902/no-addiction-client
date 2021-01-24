@@ -11,6 +11,7 @@ export const GET_IN_ADDICTION = 'TIMERS/GET_IN_ADDICTION';
 export const CLEAR_CURRENT_TIMER = 'TIMERS/CLEAR_CURRENT_TIMER';
 export const FETCH_RECORDS_LIST = 'TIMERS/FETCH_RECORDS_LIST';
 export const FETCH_DELETE_TIMER = 'TIMERS/FETCH_DELETE_TIMER';
+export const SET_CURRENT_RECORD_INDEX = 'TIMERS/SET_CURRENT_RECORD_INDEX';
 // export const IS_CURRENT_TIMER_RECORD = 'TIMERS/IS_CURRENT_TIMER_RECORD'
 
 export const GET_RANDOM_BAD_QUOTE = 'QUOTES/GET_RANDOM_BAD_QUOTE';
@@ -35,18 +36,18 @@ type QuoteType = {
 /**
  * Current timer storage type
  */
-type CurrentTimerType = {
+export type CurrentTimerType = {
   timerId: number;
   beginDate: string | null;
   endDate: string | null;
 };
 
-type RecordsType = [
+export type RecordsType = [
   {
     recordId: number;
     beginDate: string;
     endDate: string;
-    duration: moment.Duration | null;
+    duration: moment.Duration | string;
   },
 ];
 
@@ -67,6 +68,10 @@ export interface ITimersState {
 interface fetchRecordsList {
   type: typeof FETCH_RECORDS_LIST;
   records: RecordsType;
+}
+
+interface setCurrentRecordIndex {
+  type: typeof SET_CURRENT_RECORD_INDEX;
   currentRecordIndex: number;
 }
 
@@ -121,4 +126,5 @@ export type TimersActionType =
   | fetchDeleteTimer
   | clearCurrentTimer
   | getInAddiction
+  | setCurrentRecordIndex
   | getRandomGoodQuote;

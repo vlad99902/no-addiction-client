@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector, shallowEqual, useDispatch } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { getDurationNormalize } from '../functions/moment';
+import { setCurrentRecordIndex } from '../store/timers/timersActions';
 
 export const useCurrentDuration = (): any[] => {
   const currentTime = useSelector(
@@ -15,6 +16,11 @@ export const useCurrentDuration = (): any[] => {
   const currentRecordIndex = useSelector(
     (state: RootState) => state.timers.currentRecordIndex,
   );
+
+  // console.log(currentRecordIndex);
+  const dispatch = useDispatch();
+
+  const records = useSelector((state: RootState) => state.timers.records);
 
   const [startDate, setStartDate] = useState(moment(currentTime));
 
@@ -31,6 +37,16 @@ export const useCurrentDuration = (): any[] => {
         setDuration({
           milliseconds: +moment() - +startDate,
         });
+        // console.log(records);
+        if (
+          records[currentRecordIndex - 1] &&
+          +moment() - +startDate > +records[currentRecordIndex - 1].duration &&
+          currentRecordIndex !== 0 &&
+          currentRecordIndex !== -1
+        ) {
+          dispatch(setCurrentRecordIndex(currentRecordIndex - 1));
+          console.log('dispatched');
+        }
       }, 1000);
       return () => {
         clearInterval(interval);
