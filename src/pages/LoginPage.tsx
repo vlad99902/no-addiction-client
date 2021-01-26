@@ -39,13 +39,15 @@ export const LoginPage: React.FC = () => {
         login: validator.isEmail(form.login),
         password: validator.isStrongPassword(form.password),
       });
-      console.log(form);
-      if (inputValidation.login && inputValidation.password)
+      if (inputValidation.login && inputValidation.password) {
+        console.log(form);
         setForm({ login: '', password: '' });
+      }
     } else console.log('Заполните все поля');
   };
 
   const changeHandler = (event: any) => {
+    setInputValidation({ ...inputValidation, [event.target.name]: true });
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
