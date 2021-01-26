@@ -11,7 +11,7 @@ export async function requestHTTP(
   url: string,
   method = 'GET',
   token: string,
-  data: any = null
+  data: any = null,
 ) {
   try {
     const headers: { [key: string]: string } = {};

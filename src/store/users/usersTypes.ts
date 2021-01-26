@@ -4,6 +4,7 @@ import { RootState } from '../rootReducer';
 
 export const USER_LANGUAGE_CHANGE = 'USER_LANGUAGE_CHANGE';
 export const USER_SET_LOADER = 'USER_SET_LOADER';
+export const FETCH_REGISTER_WITH_EMAIL = 'USER/FETCH_REGISTER_WITH_EMAIL';
 
 export type ActionType = ThunkAction<void, RootState, unknown, Action<String>>;
 export interface IUsersStateLoading {
@@ -20,6 +21,8 @@ export interface IUsersState {
   userLanguage: string;
   userId: number;
   currentCategoryId: number;
+  token: string;
+  isAuth: boolean;
   loading: IUsersStateLoading;
 }
 
@@ -33,4 +36,11 @@ interface userSetLoader {
   payload: IUsersStateLoading;
 }
 
-export type UserActionsType = userLanguageChange | userSetLoader;
+interface registerWithEmal {
+  type: typeof FETCH_REGISTER_WITH_EMAIL;
+}
+
+export type UserActionsType =
+  | userLanguageChange
+  | userSetLoader
+  | registerWithEmal;

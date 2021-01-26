@@ -7,7 +7,6 @@ import { initState } from './store/timers/timersActions';
 
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
-import { Container } from './components/Container';
 
 export default function App() {
   const isAuth: boolean = false;
