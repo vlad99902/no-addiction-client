@@ -11,7 +11,7 @@ type TypeOfStyleType =
 type ButtonType = {
   children: React.ReactNode;
   styleType?: TypeOfStyleType;
-  onClick(): void;
+  onClick(e: any): void;
   type?: 'submit';
   form?: string;
 };

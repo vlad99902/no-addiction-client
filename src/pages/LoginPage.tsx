@@ -11,6 +11,7 @@ import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
+import { passwordOptions } from '../constants/validationConst';
 
 interface IForm {
   login?: string;
@@ -37,7 +38,7 @@ export const LoginPage: React.FC = () => {
     if (form.login && form.password) {
       setInputValidation({
         login: validator.isEmail(form.login),
-        password: validator.isStrongPassword(form.password),
+        password: validator.isStrongPassword(form.password, passwordOptions),
       });
       if (inputValidation.login && inputValidation.password) {
         console.log(form);
@@ -73,7 +74,7 @@ export const LoginPage: React.FC = () => {
         </Container>
         <Container>
           <Container marginBottom="32px" margin="0 auto">
-            <Title fz="64px">Войти</Title>
+            <Title fz="64px">Авторизоваться</Title>
           </Container>
           <form onSubmit={(e) => submitLoginForm(e)} id="loginForm">
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
@@ -86,7 +87,12 @@ export const LoginPage: React.FC = () => {
                 valid={inputValidation.login}
               />
             </Container>
-            <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
+            <Container
+              marginBottom="32px"
+              maxWidth="360px"
+              margin="0 auto"
+              position="relative"
+            >
               <Input
                 placeholder="Password"
                 type={visible ? 'text' : 'password'}
@@ -100,7 +106,8 @@ export const LoginPage: React.FC = () => {
                 width="22px"
                 style={{
                   position: 'absolute',
-                  margin: '-34px 0px 0px 238px',
+                  right: '15px',
+                  top: '12px',
                   userSelect: 'none',
                 }}
                 onClick={changeVisible}
@@ -115,7 +122,7 @@ export const LoginPage: React.FC = () => {
                 type="submit"
                 form="loginForm"
               >
-                Войти
+                Авторизоваться
               </Button>
             </Container>
           </form>
