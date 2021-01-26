@@ -3,30 +3,56 @@ import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 
 import styled from 'styled-components';
-import { colors } from '../styles/colors';
+import validator from 'validator';
 
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
-import { TargetElement } from '@testing-library/user-event';
+import { VisibilityOn } from '../assets/VisibilityOn';
+import { VisibilityOff } from '../assets/VisibilityOff';
 
 interface IForm {
   login?: string;
   password?: string;
 }
+interface IInputValidation {
+  login?: boolean;
+  password?: boolean;
+}
 
 export const LoginPage: React.FC = () => {
-  const [form, setForm] = useState<IForm>({ login: '', password: '' });
+  const [form, setForm] = useState<IForm>({
+    login: '',
+    password: '',
+  });
+  const [inputValidation, setInputValidation] = useState<IInputValidation>({
+    login: true,
+    password: true,
+  });
+  const [visible, setVisible] = useState<boolean>(false);
 
   const submitLoginForm = (e: any) => {
-    console.log(form);
     e.preventDefault();
-    setForm({ login: '', password: '' });
+    if (form.login && form.password) {
+      setInputValidation({
+        login: validator.isEmail(form.login),
+        password: validator.isStrongPassword(form.password),
+      });
+      if (inputValidation.login && inputValidation.password) {
+        console.log(form);
+        setForm({ login: '', password: '' });
+      }
+    } else console.log('Заполните все поля');
   };
 
   const changeHandler = (event: any) => {
+    setInputValidation({ ...inputValidation, [event.target.name]: true });
     setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const changeVisible = (e: any) => {
+    setVisible((pre) => !pre);
   };
 
   return (
@@ -57,16 +83,30 @@ export const LoginPage: React.FC = () => {
                 name="login"
                 onChange={(e) => changeHandler(e)}
                 value={form.login}
+                valid={inputValidation.login}
               />
             </Container>
             <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
               <Input
                 placeholder="Password"
-                type="password"
+                type={visible ? 'text' : 'password'}
                 name="password"
                 onChange={(e) => changeHandler(e)}
                 value={form.password}
+                style={{ paddingRight: '36px' }}
+                valid={inputValidation.password}
               />
+              <Container
+                width="22px"
+                style={{
+                  position: 'absolute',
+                  margin: '-34px 0px 0px 238px',
+                  userSelect: 'none',
+                }}
+                onClick={changeVisible}
+              >
+                {visible ? <VisibilityOn /> : <VisibilityOff />}
+              </Container>
             </Container>
             <Container pos="center">
               <Button

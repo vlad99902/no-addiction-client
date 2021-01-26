@@ -19,6 +19,7 @@ type ContainerType = {
   visibility?: string;
   height?: string;
   onScroll?(): void;
+  onClick?(e: any): void;
 };
 
 export const Container: React.FC<ContainerType> = ({
@@ -39,6 +40,7 @@ export const Container: React.FC<ContainerType> = ({
   visibility,
   height,
   onScroll,
+  onClick,
 }) => {
   return (
     <ContainerWrapper
@@ -60,6 +62,7 @@ export const Container: React.FC<ContainerType> = ({
       height={height}
       marginTop={marginTop}
       onScroll={onScroll}
+      onClick={onClick}
     >
       {children}
     </ContainerWrapper>

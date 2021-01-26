@@ -12,10 +12,30 @@ interface IStyleProps {
 }
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {
   styleProps?: IInputArea;
+  style?: React.CSSProperties;
+  valid?: boolean;
 }
 
-export const Input: React.FC<IInput> = ({ styleProps, ...rest }) => {
-  return <InputArea style={styleProps} {...rest} />;
+export const Input: React.FC<IInput> = ({
+  styleProps,
+  style,
+  valid = true,
+  ...rest
+}) => {
+  const invalidStyle: React.CSSProperties = {
+    border: `2px solid ${colors.$red}`,
+  };
+  valid ? (style = style) : (style = { ...style, ...invalidStyle });
+  return (
+    <>
+      <InputArea
+        styleProps={styleProps}
+        {...rest}
+        autoComplete="off"
+        style={{ ...style }}
+      />
+    </>
+  );
 };
 
 const InputArea = styled.input<IStyleProps>`
@@ -28,7 +48,7 @@ const InputArea = styled.input<IStyleProps>`
   border-radius: 16px;
   outline: none;
   color: ${colors.$black};
-  :focus {
+  /* :focus {
     border: 2px solid ${colors.$black};
   }
   ::placeholder {
@@ -37,5 +57,5 @@ const InputArea = styled.input<IStyleProps>`
   }
   :invalid {
     border: 2px solid ${colors.$red};
-  }
+  } */
 `;
