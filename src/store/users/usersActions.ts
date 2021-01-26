@@ -6,6 +6,7 @@ import {
   UsersStateLoadingArgumentType,
   USER_LANGUAGE_CHANGE,
   USER_SET_LOADER,
+  GET_TOKEN_FROM_LOCALSTORAGE,
 } from './usersTypes';
 
 import { requestHTTP } from '../../functions/requestHTTP';
@@ -30,6 +31,12 @@ export const userSetLoader = (
   };
 };
 
+/**
+ * Register with email and save token
+ * @param {string} username
+ * @param {string} email
+ * @param {string} password
+ */
 export const registerWithEmail = (
   username: string = '',
   email: string = '',
@@ -55,5 +62,16 @@ export const registerWithEmail = (
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const getTokenFromLocalstorage = (): UserActionsType => {
+  const data = JSON.parse('' + localStorage.getItem('userData'));
+  // if (!data || !data.token) {
+
+  // }
+  return {
+    type: GET_TOKEN_FROM_LOCALSTORAGE,
+    payload: { token: data.token, isAuth: true },
   };
 };

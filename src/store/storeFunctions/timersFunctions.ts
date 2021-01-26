@@ -9,7 +9,7 @@ export const fetchUpdateCurrentTimer = async (
     const res = await requestHTTP(
       `${backEndLink}/api/timers/current/update`,
       'PUT',
-      '_',
+      state.users.token,
       {
         id: state.timers.currentTimer.timerId,
         endDate: endDate,
@@ -26,23 +26,31 @@ export const fetchCreateCurrentTimer = async (
   newBeginDate: string,
 ): Promise<void> => {
   try {
-    await requestHTTP(`${backEndLink}/api/timers/current/create`, 'POST', '_', {
-      userId: state.users.userId,
-      beginDate: newBeginDate,
-      categoryId: state.users.currentCategoryId,
-    });
+    await requestHTTP(
+      `${backEndLink}/api/timers/current/create`,
+      'POST',
+      state.users.token,
+      {
+        userId: state.users.userId,
+        beginDate: newBeginDate,
+        categoryId: state.users.currentCategoryId,
+      },
+    );
   } catch (error) {
     console.log(error);
   }
 };
 
-export const deleteTimerById = async (timerId: number): Promise<void> => {
+export const deleteTimerById = async (
+  state: RootState,
+  timerId: number,
+): Promise<void> => {
   const body = { timerId };
   try {
     return await requestHTTP(
       `${backEndLink}/api/timers/delete`,
       'DELETE',
-      '_',
+      state.users.token,
       body,
     );
   } catch (error) {

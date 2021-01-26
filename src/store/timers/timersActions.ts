@@ -5,7 +5,10 @@ import {
 } from '../storeFunctions/timersFunctions';
 import moment from 'moment';
 
-import { userSetLoader } from './../users/usersActions';
+import {
+  userSetLoader,
+  getTokenFromLocalstorage,
+} from './../users/usersActions';
 
 import {
   TimersActionType,
@@ -23,10 +26,14 @@ import {
   SET_CURRENT_RECORD_INDEX,
 } from './timersTypes';
 
+import { requestHTTP } from '../../functions/requestHTTP';
+
 export const initState = (): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
       dispatch(userSetLoader({ main: true, headerSwitcher: true }));
+      dispatch(getTokenFromLocalstorage());
+
       await dispatch(getCurrentTimer());
       await dispatch(getInAddiction());
 
@@ -49,8 +56,12 @@ export const initState = (): AsyncActionType => {
 export const fetchRecordsList = (): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
-      const result = await fetch('http://localhost:3000/api/timers/records');
-      let json = await result.json();
+      const result = await requestHTTP(
+        'http://localhost:3000/api/timers/records',
+        'GET',
+        getState().users.token,
+      );
+      let json = result;
 
       json = json.map((rec: any) => ({
         ...rec,
@@ -97,9 +108,9 @@ export const setCurrentRecordIndex = (index: number): TimersActionType => {
  * @param {number} timerId - timer Id to delete
  */
 export const fetchDeleteTimer = (timerId: number): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      await deleteTimerById(timerId);
+      await deleteTimerById(getState(), timerId);
 
       await dispatch(fetchRecordsList());
       dispatch({ type: FETCH_DELETE_TIMER });
@@ -112,14 +123,15 @@ export const fetchDeleteTimer = (timerId: number): AsyncActionType => {
 // export const ifurrentTimerOneOfRecords = () => {};
 
 export const getInAddiction = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const res = await fetch(
+      const res = await requestHTTP(
         'http://localhost:3000/api/timers/current?inAddiction=true',
+        'GET',
+        getState().users.token,
       );
-      const json = await res.json();
 
-      dispatch({ type: GET_IN_ADDICTION, ...json });
+      dispatch({ type: GET_IN_ADDICTION, ...res });
     } catch (error) {
       console.log(error);
     }
@@ -144,12 +156,16 @@ export const clearCurrentTimer = (): AsyncActionType => {
 };
 
 export const getCurrentTimer = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const res = await fetch('http://localhost:3000/api/timers/current');
-      const json = await res.json();
+      const token = getState().users.token;
+      const res = await requestHTTP(
+        'http://localhost:3000/api/timers/current',
+        'GET',
+        token,
+      );
 
-      dispatch({ type: GET_CURENT_TIMER, currentDate: json });
+      dispatch({ type: GET_CURENT_TIMER, currentDate: res });
     } catch (error) {
       console.log(error);
     }
@@ -206,12 +222,15 @@ export const setInAddiction = (inAddiction: boolean): TimersActionType => {
 };
 
 export const getRandomBadQuote = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const res = await fetch('http://localhost:3000/api/quotes?isbad=true');
-      const json = await res.json();
+      const res = await requestHTTP(
+        'http://localhost:3000/api/quotes?isbad=true',
+        'GET',
+        getState().users.token,
+      );
 
-      dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: json });
+      dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: res });
     } catch (error) {
       console.log(error);
     }
@@ -219,12 +238,15 @@ export const getRandomBadQuote = (): AsyncActionType => {
 };
 
 export const getRandomGoodQuote = (): AsyncActionType => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     try {
-      const res = await fetch('http://localhost:3000/api/quotes?isbad=false');
-      const json = await res.json();
+      const res = await requestHTTP(
+        'http://localhost:3000/api/quotes?isbad=false',
+        'GET',
+        getState().users.token,
+      );
 
-      dispatch({ type: GET_RANDOM_GOOD_QUOTE, payload: json });
+      dispatch({ type: GET_RANDOM_GOOD_QUOTE, payload: res });
     } catch (error) {
       console.log(error);
     }

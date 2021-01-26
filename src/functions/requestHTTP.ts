@@ -9,12 +9,13 @@
 
 export async function requestHTTP(
   url: string,
-  method = 'GET',
+  method: string = 'GET',
   token: string,
   data: any = null,
 ) {
   try {
     const headers: { [key: string]: string } = {};
+
     if (token) {
       headers['Authorization'] = `Bearer ${token}`;
     }
@@ -44,3 +45,10 @@ export async function requestHTTP(
 }
 
 export const backEndLink = 'http://localhost:3000';
+
+interface IRequestParams {
+  url: string;
+  method: string;
+  token: string;
+  data: {};
+}
