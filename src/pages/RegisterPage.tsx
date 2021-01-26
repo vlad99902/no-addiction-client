@@ -4,7 +4,7 @@ import { Title } from '../components/Title';
 
 import styled from 'styled-components';
 
-import { registerWithEmail } from '../store/users/usersActions';
+import { authWithEmail } from '../store/users/usersActions';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '../components/Button';
@@ -30,7 +30,7 @@ export const RegisterPage: React.FC = () => {
 
   const submitRegistrationForm = (e: any) => {
     e.preventDefault();
-    dispatch(registerWithEmail(form.login, form.eMail, form.password));
+    dispatch(authWithEmail('register', form.login, form.eMail, form.password));
     setForm({ login: '', password: '', eMail: '' });
   };
 
