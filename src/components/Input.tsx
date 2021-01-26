@@ -35,4 +35,7 @@ const InputArea = styled.input<IStyleProps>`
     font-weight: 400;
     color: ${colors.$gray};
   }
+  :invalid {
+    border: 2px solid ${colors.$red};
+  }
 `;

@@ -60,7 +60,7 @@ export const RegisterPage: React.FC = () => {
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
               <Input
                 placeholder="E-Mail"
-                type="text"
+                type="email"
                 name="eMail"
                 onChange={(e) => changeHandler(e)}
                 value={form.eMail}
