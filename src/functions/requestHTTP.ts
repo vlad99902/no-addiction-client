@@ -15,9 +15,9 @@ export async function requestHTTP(
 ) {
   try {
     const headers: { [key: string]: string } = {};
-    // if (token) {
-    //   headers['Authorization'] = `Bearer ${token}`;
-    // }
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
     let body = null;
 
     if (data) {

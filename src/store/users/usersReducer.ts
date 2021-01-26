@@ -29,7 +29,7 @@ export const usersReducer = (
     case USER_SET_LOADER:
       return { ...state, loading: action.payload };
     case FETCH_REGISTER_WITH_EMAIL:
-      return { ...state };
+      return { ...state, ...action.payload };
     default:
       return state;
   }

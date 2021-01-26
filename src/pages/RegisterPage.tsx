@@ -3,7 +3,9 @@ import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 
 import styled from 'styled-components';
-import { colors } from '../styles/colors';
+
+import { registerWithEmail } from '../store/users/usersActions';
+import { useDispatch } from 'react-redux';
 
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
@@ -24,9 +26,11 @@ export const RegisterPage: React.FC = () => {
     eMail: '',
   });
 
+  const dispatch = useDispatch();
+
   const submitRegistrationForm = (e: any) => {
-    console.log(form);
     e.preventDefault();
+    dispatch(registerWithEmail(form.login, form.eMail, form.password));
     setForm({ login: '', password: '', eMail: '' });
   };
 
@@ -59,6 +63,7 @@ export const RegisterPage: React.FC = () => {
           >
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
               <Input
+                required
                 placeholder="E-Mail"
                 type="email"
                 name="eMail"
@@ -68,6 +73,7 @@ export const RegisterPage: React.FC = () => {
             </Container>
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
               <Input
+                required
                 placeholder="Login"
                 type="text"
                 name="login"
@@ -77,6 +83,7 @@ export const RegisterPage: React.FC = () => {
             </Container>
             <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
               <Input
+                required
                 placeholder="Password"
                 type="password"
                 name="password"

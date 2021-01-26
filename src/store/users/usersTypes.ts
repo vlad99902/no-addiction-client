@@ -38,6 +38,7 @@ interface userSetLoader {
 
 interface registerWithEmal {
   type: typeof FETCH_REGISTER_WITH_EMAIL;
+  payload: { token: string; isAuth: boolean };
 }
 
 export type UserActionsType =
