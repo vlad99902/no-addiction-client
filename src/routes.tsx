@@ -1,7 +1,8 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 
-import { AuthPage } from './pages/AuthPage';
+import { RegisterPage } from './pages/RegisterPage';
+import { LoginPage } from './pages/LoginPage';
 import { MainPage } from './pages/MainPage';
 
 export const useRoutes = (isAuth: boolean) => {
@@ -17,10 +18,13 @@ export const useRoutes = (isAuth: boolean) => {
   else
     return (
       <Switch>
-        <Route path="/auth">
-          <AuthPage />
+        <Route path="/login">
+          <LoginPage />
         </Route>
-        <Redirect to="/auth" />
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
+        <Redirect to="/login" />
       </Switch>
     );
 };

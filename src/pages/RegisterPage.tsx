@@ -8,8 +8,9 @@ import { colors } from '../styles/colors';
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
+import { Input } from '../components/Input';
 
-export const AuthPage: React.FC = () => {
+export const RegisterPage: React.FC = () => {
   return (
     <>
       <Container
@@ -31,39 +32,50 @@ export const AuthPage: React.FC = () => {
             <Title fz="64px">Регистрация</Title>
           </Container>
           <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
-            <Input placeholder="Login" />
+            <Input
+              placeholder="Login"
+              type="text"
+              styleProps={{ width: '100%' }}
+            />
+          </Container>
+          <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+            <Input
+              placeholder="Password"
+              type="text"
+              styleProps={{ width: '100%' }}
+            />
           </Container>
           <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
-            <Input placeholder="Password" />
+            <Input
+              placeholder="E-Mail"
+              type="text"
+              styleProps={{ width: '100%' }}
+            />
           </Container>
           <Container pos="center">
             <Button type="extraSmallText" onClick={() => {}}>
               Регистрация
             </Button>
           </Container>
+          <Container margin="60px auto 0" style={{ textAlign: 'center' }}>
+            <Text>Есть учетная запись NoAddiction?</Text>
+            <a
+              style={{
+                fontFamily: 'Arial, Helvetica, sans-serif',
+                fontSize: ' 14px',
+                margin: '0px auto',
+                textAlign: 'center',
+              }}
+              href="http://localhost:3001/login"
+            >
+              Войти
+            </a>
+          </Container>
         </Container>
       </Container>
     </>
   );
 };
-
-const Input = styled.input`
-  width: 100%;
-  font-size: 16px;
-  padding: 12px 16px;
-  border: 2px solid ${colors.$gray};
-  border-radius: 16px;
-  outline: none;
-
-  color: ${colors.$black};
-  :focus {
-    border: 2px solid ${colors.$black};
-  }
-  ::placeholder {
-    font-weight: 400;
-    color: ${colors.$gray};
-  }
-`;
 
 const LoginGoogleButton = styled.button`
   background-color: #df6961;
@@ -75,4 +87,12 @@ const LoginGoogleButton = styled.button`
   font-size: 16px;
   color: #ffffff;
   display: flex;
+`;
+
+const Text = styled.div`
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  margin: 0px auto 0px;
+  text-align: center;
+  color: #616161;
 `;
