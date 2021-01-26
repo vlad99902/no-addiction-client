@@ -18,7 +18,7 @@ import profileIcon from '../assets/profileIcon.png';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
 
   const dispatch = useDispatch();
@@ -44,8 +44,9 @@ export const PageHeader: React.FC = () => {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('#'), {
                     speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7,
+                      document.documentElement.scrollHeight / 0.7
                     ),
+                    cancelOnUserAction: false,
                   });
                 }
               }}
@@ -70,14 +71,17 @@ export const PageHeader: React.FC = () => {
           </Container>
           <Container pos="end">
             <Button
-              type="extraSmallText"
+              styleType="extraSmallText"
               onClick={() => {
-                if (document.location.href === 'http://localhost:3001/#') {
+                if (
+                  document.location.href !== 'http://localhost:3001/#records'
+                ) {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('records'), {
                     speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7,
+                      document.documentElement.scrollHeight / 0.7
                     ),
+                    cancelOnUserAction: false,
                   });
                 }
               }}

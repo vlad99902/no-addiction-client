@@ -10,7 +10,7 @@ import { PageHeader } from './containers/PageHeader';
 import { Container } from './components/Container';
 
 export default function App() {
-  const isAuth: boolean = true;
+  const isAuth: boolean = false;
   const routes = useRoutes(isAuth);
 
   const dispatch = useDispatch();
