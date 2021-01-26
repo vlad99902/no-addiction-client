@@ -71,7 +71,7 @@ export const PageHeader: React.FC = () => {
           </Container>
           <Container pos="end">
             <Button
-              type="extraSmallText"
+              styleType="extraSmallText"
               onClick={() => {
                 if (
                   document.location.href !== 'http://localhost:3001/#records'

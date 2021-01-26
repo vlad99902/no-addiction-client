@@ -13,7 +13,7 @@ export const OutAddiction: React.FC = () => {
     <Container>
       <CountDown />
       <Container margin="0 auto" pos="center">
-        <Button onClick={() => dispatch(clearCurrentTimer())} type="main">
+        <Button onClick={() => dispatch(clearCurrentTimer())} styleType="main">
           выпил
         </Button>
       </Container>

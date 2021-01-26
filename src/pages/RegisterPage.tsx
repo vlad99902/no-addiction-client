@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 
@@ -9,8 +9,30 @@ import { Button } from '../components/Button';
 import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
+import { Link } from 'react-router-dom';
+
+interface IForm {
+  login?: string;
+  password?: string;
+  eMail?: string;
+}
 
 export const RegisterPage: React.FC = () => {
+  const [form, setForm] = useState<IForm>({
+    login: '',
+    password: '',
+    eMail: '',
+  });
+
+  const submitRegistrationForm = (e: any) => {
+    console.log(form);
+    e.preventDefault();
+    setForm({ login: '', password: '', eMail: '' });
+  };
+
+  const changeHandler = (event: any) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
+  };
   return (
     <>
       <Container
@@ -31,45 +53,61 @@ export const RegisterPage: React.FC = () => {
           <Container marginBottom="32px" margin="0 auto" width="600px">
             <Title fz="64px">Регистрация</Title>
           </Container>
-          <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
-            <Input
-              placeholder="Login"
-              type="text"
-              styleProps={{ width: '100%' }}
-            />
-          </Container>
-          <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
-            <Input
-              placeholder="Password"
-              type="text"
-              styleProps={{ width: '100%' }}
-            />
-          </Container>
-          <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
-            <Input
-              placeholder="E-Mail"
-              type="text"
-              styleProps={{ width: '100%' }}
-            />
-          </Container>
-          <Container pos="center">
-            <Button type="extraSmallText" onClick={() => {}}>
-              Регистрация
-            </Button>
-          </Container>
+          <form
+            onSubmit={(e) => submitRegistrationForm(e)}
+            id="registrationForm"
+          >
+            <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+              <Input
+                placeholder="E-Mail"
+                type="text"
+                name="eMail"
+                onChange={(e) => changeHandler(e)}
+                value={form.eMail}
+              />
+            </Container>
+            <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+              <Input
+                placeholder="Login"
+                type="text"
+                name="login"
+                onChange={(e) => changeHandler(e)}
+                value={form.login}
+              />
+            </Container>
+            <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
+              <Input
+                placeholder="Password"
+                type="password"
+                name="password"
+                onChange={(e) => changeHandler(e)}
+                value={form.password}
+              />
+            </Container>
+
+            <Container pos="center">
+              <Button
+                styleType="extraSmallText"
+                onClick={() => {}}
+                form="registrationForm"
+              >
+                Регистрация
+              </Button>
+            </Container>
+          </form>
           <Container margin="60px auto 0" style={{ textAlign: 'center' }}>
             <Text>Есть учетная запись NoAddiction?</Text>
-            <a
+            <Link
               style={{
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 fontSize: ' 14px',
                 margin: '0px auto',
                 textAlign: 'center',
               }}
-              href="http://localhost:3001/login"
+              to="http://localhost:3001/login"
             >
               Войти
-            </a>
+            </Link>
           </Container>
         </Container>
       </Container>

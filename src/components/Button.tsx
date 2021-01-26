@@ -2,18 +2,26 @@ import React from 'react';
 
 import { colors } from '../styles/colors';
 
-type TypeOfType = 'main' | 'smallText' | 'oneWordOneLine' | 'extraSmallText';
+type TypeOfStyleType =
+  | 'main'
+  | 'smallText'
+  | 'oneWordOneLine'
+  | 'extraSmallText';
 
 type ButtonType = {
   children: React.ReactNode;
-  type?: TypeOfType;
+  styleType?: TypeOfStyleType;
   onClick(): void;
+  type?: 'submit';
+  form?: string;
 };
 
 export const Button: React.FC<ButtonType> = ({
   children,
-  type = 'main',
+  styleType = 'main',
   onClick,
+  type,
+  form,
 }) => {
   const setNewLines = (children: React.ReactNode): React.ReactNode => {
     const line = String(children).trim();
@@ -27,13 +35,18 @@ export const Button: React.FC<ButtonType> = ({
   };
 
   return (
-    <button style={{ ...style, ...styleType(type) }} onClick={onClick}>
-      {type === 'oneWordOneLine' ? setNewLines(children) : children}
+    <button
+      style={{ ...style, ...styleTypeFunction(styleType) }}
+      onClick={onClick}
+      type={type}
+      form={form}
+    >
+      {styleType === 'oneWordOneLine' ? setNewLines(children) : children}
     </button>
   );
 };
 
-const styleType = (type: string): React.CSSProperties => {
+const styleTypeFunction = (type: string): React.CSSProperties => {
   switch (type) {
     case 'smallText':
       return {

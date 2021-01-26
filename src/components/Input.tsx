@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { colors } from '../styles/colors';
 
@@ -7,37 +7,21 @@ interface IInputArea {
   width?: string;
   height?: string;
 }
-
 interface IStyleProps {
   styleProps?: IInputArea;
 }
-
-interface IInpint extends IStyleProps {
-  placeholder: string;
-  type: 'text' | 'password';
-  style?: React.CSSProperties;
+interface IInput extends InputHTMLAttributes<HTMLInputElement> {
+  styleProps?: IInputArea;
 }
 
-export const Input: React.FC<IInpint> = ({
-  placeholder,
-  type,
-  styleProps,
-  style,
-}) => {
-  return (
-    <InputArea
-      type={type}
-      placeholder={placeholder}
-      styleProps={styleProps}
-      style={{ ...style }}
-    />
-  );
+export const Input: React.FC<IInput> = ({ styleProps, ...rest }) => {
+  return <InputArea style={styleProps} {...rest} />;
 };
 
 const InputArea = styled.input<IStyleProps>`
-  width: ${(props) => props.styleProps?.width};
-  height: ${(props) => props.styleProps?.height};
-  margin: ${(props) => props.styleProps?.margin};
+  width: ${(props) => props.styleProps?.width || '100%'};
+  height: ${(props) => props.styleProps?.height || '100%'};
+  margin: ${(props) => props.styleProps?.margin || '0 auto'};
   font-size: 16px;
   padding: 12px 16px;
   border: 2px solid ${colors.$gray};
