@@ -63,9 +63,6 @@ export const RegisterPage: React.FC = () => {
 
   const submitRegistrationForm = (e: any) => {
     e.preventDefault();
-    console.log(inputValidation.email, 'inputValidation.email');
-    console.log(inputValidation.password, 'inputValidation.password');
-    console.log(inputValidation.login, 'inputValidation.login');
     if (
       inputValidation.email &&
       inputValidation.password > 15 &&
@@ -177,8 +174,6 @@ export const RegisterPage: React.FC = () => {
               <Button
                 styleType="extraSmallText"
                 onClick={(e) => {
-                  e.preventDefault();
-                  console.log('burron');
                   validationCheck(e);
                 }}
                 form="registrationForm"
