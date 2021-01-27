@@ -4,8 +4,8 @@ import { RootState } from '../rootReducer';
 
 export const USER_LANGUAGE_CHANGE = 'USER_LANGUAGE_CHANGE';
 export const USER_SET_LOADER = 'USER_SET_LOADER';
-export const FETCH_REGISTER_OR_LOGIN_WITH_EMAIL =
-  'USER/FETCH_REGISTER_OR_LOGIN_WITH_EMAIL';
+export const FETCH_REGISTER_EMAIL = 'USER/FETCH_REGISTER_EMAIL';
+export const FETCH_LOGIN_EMAIL = 'USER/FETCH_LOGIN_EMAIL';
 export const CLEAR_AUTH_SESSION = 'USER/CLEAR_AUTH_SESSION';
 export const GET_TOKEN_FROM_LOCALSTORAGE = 'USER/GET_TOKEN_FROM_LOCALSTORAGE';
 
@@ -40,7 +40,11 @@ interface userSetLoader {
 }
 
 interface registerWithEmail {
-  type: typeof FETCH_REGISTER_OR_LOGIN_WITH_EMAIL;
+  type: typeof FETCH_REGISTER_EMAIL;
+  payload: { token: string; isAuth: boolean };
+}
+interface loginWithEmail {
+  type: typeof FETCH_LOGIN_EMAIL;
   payload: { token: string; isAuth: boolean };
 }
 interface getTokenFromLocalStorage {
@@ -57,4 +61,5 @@ export type UserActionsType =
   | userSetLoader
   | clearAuthSession
   | getTokenFromLocalStorage
+  | loginWithEmail
   | registerWithEmail;

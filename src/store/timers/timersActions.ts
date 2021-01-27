@@ -32,18 +32,16 @@ export const initState = (): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
       dispatch(userSetLoader({ main: true, headerSwitcher: true }));
-      dispatch(getTokenFromLocalstorage());
+      if (!getState().users.isAuth) dispatch(getTokenFromLocalstorage());
 
-      if (getState().users.isAuth) {
-        await dispatch(getCurrentTimer());
-        await dispatch(getInAddiction());
+      await dispatch(getCurrentTimer());
+      await dispatch(getInAddiction());
 
-        await dispatch(fetchRecordsList());
+      await dispatch(fetchRecordsList());
 
-        getState().timers.inAddiction
-          ? await dispatch(getRandomBadQuote())
-          : await dispatch(getRandomGoodQuote());
-      }
+      getState().timers.inAddiction
+        ? await dispatch(getRandomBadQuote())
+        : await dispatch(getRandomGoodQuote());
 
       dispatch({ type: APP_INIT });
     } catch (error) {

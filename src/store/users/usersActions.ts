@@ -1,6 +1,6 @@
 import {
   ActionType,
-  FETCH_REGISTER_OR_LOGIN_WITH_EMAIL,
+  FETCH_REGISTER_EMAIL,
   IUsersState,
   UserActionsType,
   UsersStateLoadingArgumentType,
@@ -38,26 +38,52 @@ export const userSetLoader = (
  * @param {string} email
  * @param {string} password
  */
-export const authWithEmail = (
-  type: 'register' | 'login',
+export const registerWithEmail = (
   username: string = '',
   email: string = '',
   password: string = '',
 ): AsyncActionType => {
   return async (dispatch) => {
-    let link: string = '';
-    type === 'register'
-      ? (link = 'http://localhost:3000/api/register')
-      : (link = 'http://localhost:3000/api/login');
     try {
-      const res = await requestHTTP(link, 'POST', '', {
-        username,
-        email,
-        password,
-      });
+      const res = await requestHTTP(
+        'http://localhost:3000/api/register',
+        'POST',
+        '',
+        {
+          username,
+          email,
+          password,
+        },
+      );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
-        type: FETCH_REGISTER_OR_LOGIN_WITH_EMAIL,
+        type: FETCH_REGISTER_EMAIL,
+        payload: { token: res.token, isAuth: true },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const loginWithEmail = (
+  usernameOrEmail: string,
+  password: string,
+): AsyncActionType => {
+  return async (dispatch) => {
+    try {
+      const res = await requestHTTP(
+        'http://localhost:3000/api/login',
+        'POST',
+        '',
+        {
+          usernameOrEmail,
+          password,
+        },
+      );
+      localStorage.setItem('userData', JSON.stringify({ token: res.token }));
+      dispatch({
+        type: FETCH_REGISTER_EMAIL,
         payload: { token: res.token, isAuth: true },
       });
     } catch (error) {
