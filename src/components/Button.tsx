@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { ButtonHTMLAttributes, InputHTMLAttributes } from 'react';
+import styled from 'styled-components';
 
 import { colors } from '../styles/colors';
 
@@ -8,20 +9,17 @@ type TypeOfStyleType =
   | 'oneWordOneLine'
   | 'extraSmallText';
 
-type ButtonType = {
+interface ButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   styleType?: TypeOfStyleType;
-  onClick(e: any): void;
-  type?: 'submit';
-  form?: string;
-};
+  style?: React.CSSProperties;
+}
 
 export const Button: React.FC<ButtonType> = ({
   children,
   styleType = 'main',
-  onClick,
-  type,
-  form,
+  style,
+  ...rest
 }) => {
   const setNewLines = (children: React.ReactNode): React.ReactNode => {
     const line = String(children).trim();
@@ -35,14 +33,12 @@ export const Button: React.FC<ButtonType> = ({
   };
 
   return (
-    <button
+    <StyledButton
       style={{ ...style, ...styleTypeFunction(styleType) }}
-      onClick={onClick}
-      type={type}
-      form={form}
+      {...rest}
     >
       {styleType === 'oneWordOneLine' ? setNewLines(children) : children}
-    </button>
+    </StyledButton>
   );
 };
 
@@ -75,14 +71,13 @@ const styleTypeFunction = (type: string): React.CSSProperties => {
   }
 };
 
-const style: React.CSSProperties = {
-  backgroundColor: colors.$black,
-  color: colors.$red,
-  cursor: 'pointer',
-  userSelect: 'none',
-
-  border: 'none',
-  borderRadius: '20px',
-  padding: '6px 52px',
-  fontSize: '72px',
-};
+const StyledButton = styled.button`
+  background-color: ${colors.$black};
+  color: ${colors.$red};
+  cursor: pointer;
+  user-select: none;
+  border: none;
+  border-radius: '20px';
+  padding: '6px 52px';
+  font-size: '72px';
+`;

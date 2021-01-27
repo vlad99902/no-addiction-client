@@ -71,10 +71,11 @@ export const RegisterPage: React.FC = () => {
       inputValidation.password > 15 &&
       inputValidation.login
     ) {
-      dispatch(registerWithEmail(form.login, form.email, form.password));
+      dispatch(
+        authWithEmail('register', form.login, form.email, form.password)
+      );
       setForm({ login: '', password: '', email: '' });
     }
-
   };
 
   const changeHandler = (event: any) => {
@@ -176,9 +177,12 @@ export const RegisterPage: React.FC = () => {
               <Button
                 styleType="extraSmallText"
                 onClick={(e) => {
+                  e.preventDefault();
+                  console.log('burron');
                   validationCheck(e);
                 }}
                 form="registrationForm"
+                type="submit"
               >
                 Зарегистрироваться
               </Button>
