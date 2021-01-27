@@ -5,10 +5,11 @@ import { RecordsPage } from './RecordsPage';
 import { StatusPage } from './StatusPage';
 import { Container } from '../components/Container';
 import { Input } from '../components/Input';
+import { animationSpeed } from '../constants/validationConst';
 
 const param = {
   animation: false,
-  speed: Math.round(document.documentElement.scrollHeight / 2),
+  speed: animationSpeed,
   action: 0,
 };
 
