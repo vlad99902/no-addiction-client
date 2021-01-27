@@ -68,9 +68,7 @@ export const RegisterPage: React.FC = () => {
       inputValidation.password > 15 &&
       inputValidation.login
     ) {
-      dispatch(
-        authWithEmail('register', form.login, form.email, form.password)
-      );
+      dispatch(registerWithEmail(form.login, form.email, form.password));
       setForm({ login: '', password: '', email: '' });
     }
   };
