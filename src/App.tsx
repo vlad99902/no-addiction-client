@@ -4,6 +4,7 @@ import './App.sass';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { initState } from './store/timers/timersActions';
+import { getTokenFromLocalstorage } from './store/users/usersActions';
 import { RootState } from './store/rootReducer';
 
 import { useRoutes } from './routes';
@@ -16,8 +17,12 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(initState());
+    dispatch(getTokenFromLocalstorage());
   }, []);
+
+  useEffect(() => {
+    if (isAuth) dispatch(initState());
+  }, [isAuth]);
 
   return (
     <div className="root">
