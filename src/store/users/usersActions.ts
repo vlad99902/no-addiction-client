@@ -93,13 +93,16 @@ export const loginWithEmail = (
 };
 
 export const getTokenFromLocalstorage = (): UserActionsType => {
-  const data = JSON.parse('' + localStorage.getItem('userData'));
-  // if (data &&data.token) {
+  let data: { [key: string]: any } = { token: '', isAuth: false };
 
-  // }
+  if (localStorage.getItem('userData')) {
+    data = JSON.parse('' + localStorage.getItem('userData'));
+    data.isAuth = true;
+  }
+
   return {
     type: GET_TOKEN_FROM_LOCALSTORAGE,
-    payload: { token: data.token, isAuth: true },
+    payload: { token: data.token, isAuth: data.isAuth },
   };
 };
 
