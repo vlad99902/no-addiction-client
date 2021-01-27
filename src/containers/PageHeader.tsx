@@ -20,7 +20,7 @@ import { animationSpeed } from '../constants/validationConst';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
 
   const dispatch = useDispatch();
@@ -40,9 +40,7 @@ export const PageHeader: React.FC = () => {
               src={logo}
               width="300px"
               onClick={() => {
-                if (
-                  document.location.href === 'http://localhost:3001/#records'
-                ) {
+                if (document.location.href !== 'http://localhost:3001/#') {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('#'), {
                     speed: animationSpeed,
