@@ -34,21 +34,22 @@ export const initState = (): AsyncActionType => {
       dispatch(userSetLoader({ main: true, headerSwitcher: true }));
       dispatch(getTokenFromLocalstorage());
 
-      await dispatch(getCurrentTimer());
-      await dispatch(getInAddiction());
+      if (getState().users.isAuth) {
+        await dispatch(getCurrentTimer());
+        await dispatch(getInAddiction());
 
-      await dispatch(fetchRecordsList());
+        await dispatch(fetchRecordsList());
 
-      getState().timers.inAddiction
-        ? await dispatch(getRandomBadQuote())
-        : await dispatch(getRandomGoodQuote());
+        getState().timers.inAddiction
+          ? await dispatch(getRandomBadQuote())
+          : await dispatch(getRandomGoodQuote());
+      }
 
       dispatch({ type: APP_INIT });
-
-      dispatch(userSetLoader({ main: false, headerSwitcher: false }));
     } catch (error) {
       console.log(error);
-      dispatch(userSetLoader({ main: false }));
+    } finally {
+      dispatch(userSetLoader({ main: false, headerSwitcher: false }));
     }
   };
 };

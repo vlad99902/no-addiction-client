@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
+import { clearAuthSession } from '../store/users/usersActions';
 
 import { Container } from '../components/Container';
 import { Image } from '../components/Image';
@@ -19,7 +20,7 @@ import { animationSpeed } from '../constants/validationConst';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
 
   const dispatch = useDispatch();
@@ -85,7 +86,14 @@ export const PageHeader: React.FC = () => {
             >
               Leaderboard
             </Button>
-            <Image src={profileIcon} width="100px" />
+            <div
+              onClick={() => {
+                dispatch(clearAuthSession());
+              }}
+              style={{ cursor: 'pointer' }}
+            >
+              <Image src={profileIcon} width="100px" />
+            </div>
           </Container>
         </Container>
       </Content>

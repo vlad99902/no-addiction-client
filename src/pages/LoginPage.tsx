@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { Container } from '../components/Container';
-import { Title } from '../components/Title';
-
 import styled from 'styled-components';
 import validator from 'validator';
+
+import { useDispatch } from 'react-redux';
+import { authWithEmail } from '../store/users/usersActions';
 
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
+import { Container } from '../components/Container';
+import { Title } from '../components/Title';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
@@ -24,6 +26,8 @@ interface IInputValidation {
 }
 
 export const LoginPage: React.FC = () => {
+  const dispatch = useDispatch();
+
   const [form, setForm] = useState<IForm>({
     login: '',
     password: '',
@@ -43,10 +47,12 @@ export const LoginPage: React.FC = () => {
 
   const submitLoginForm = (e: any) => {
     e.preventDefault();
+
     if (inputValidation.login && inputValidation.password) {
-      console.log(form);
+      dispatch(authWithEmail('login', '', form.login, form.password));
       setForm({ login: '', password: '' });
     }
+
   };
 
   const changeHandler = (event: any) => {

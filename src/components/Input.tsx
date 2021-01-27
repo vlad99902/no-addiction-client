@@ -25,7 +25,7 @@ export const Input: React.FC<IInput> = ({
   const invalidStyle: React.CSSProperties = {
     border: `2px solid ${colors.$red}`,
   };
-  valid ? (style = style) : (style = { ...style, ...invalidStyle });
+  !valid && (style = { ...style, ...invalidStyle });
   return (
     <>
       <InputArea
