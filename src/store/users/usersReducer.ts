@@ -4,8 +4,9 @@ import {
   USER_LANGUAGE_CHANGE,
   USER_SET_LOADER,
   GET_TOKEN_FROM_LOCALSTORAGE,
-  FETCH_REGISTER_OR_LOGIN_WITH_EMAIL,
+  FETCH_REGISTER_EMAIL,
   CLEAR_AUTH_SESSION,
+  FETCH_LOGIN_EMAIL,
 } from './usersTypes';
 
 const initialState: IUsersState = {
@@ -30,7 +31,9 @@ export const usersReducer = (
       return { ...state, userLanguage: action.payload.userLanguage };
     case USER_SET_LOADER:
       return { ...state, loading: action.payload };
-    case FETCH_REGISTER_OR_LOGIN_WITH_EMAIL:
+    case FETCH_REGISTER_EMAIL:
+      return { ...state, ...action.payload };
+    case FETCH_LOGIN_EMAIL:
       return { ...state, ...action.payload };
     case GET_TOKEN_FROM_LOCALSTORAGE:
       return { ...state, ...action.payload };

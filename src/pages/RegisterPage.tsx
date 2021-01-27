@@ -5,7 +5,7 @@ import { Title } from '../components/Title';
 import styled from 'styled-components';
 import validator from 'validator';
 
-import { authWithEmail } from '../store/users/usersActions';
+import { registerWithEmail } from '../store/users/usersActions';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '../components/Button';
@@ -74,7 +74,6 @@ export const RegisterPage: React.FC = () => {
       dispatch(registerWithEmail(form.login, form.email, form.password));
       setForm({ login: '', password: '', email: '' });
     }
-
   };
 
   const changeHandler = (event: any) => {

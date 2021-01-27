@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import validator from 'validator';
 
 import { useDispatch } from 'react-redux';
-import { authWithEmail } from '../store/users/usersActions';
+import { loginWithEmail } from '../store/users/usersActions';
 
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
@@ -49,10 +49,9 @@ export const LoginPage: React.FC = () => {
     e.preventDefault();
 
     if (inputValidation.login && inputValidation.password) {
-      dispatch(authWithEmail('login', '', form.login, form.password));
+      dispatch(loginWithEmail(form.login, form.password));
       setForm({ login: '', password: '' });
     }
-
   };
 
   const changeHandler = (event: any) => {
