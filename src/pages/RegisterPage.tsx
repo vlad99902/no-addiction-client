@@ -63,18 +63,16 @@ export const RegisterPage: React.FC = () => {
 
   const submitRegistrationForm = (e: any) => {
     e.preventDefault();
-    console.log(inputValidation.email, 'inputValidation.email');
-    console.log(inputValidation.password, 'inputValidation.password');
-    console.log(inputValidation.login, 'inputValidation.login');
     if (
       inputValidation.email &&
       inputValidation.password > 15 &&
       inputValidation.login
     ) {
-      dispatch(registerWithEmail(form.login, form.email, form.password));
+      dispatch(
+        authWithEmail('register', form.login, form.email, form.password)
+      );
       setForm({ login: '', password: '', email: '' });
     }
-
   };
 
   const changeHandler = (event: any) => {
@@ -179,6 +177,7 @@ export const RegisterPage: React.FC = () => {
                   validationCheck(e);
                 }}
                 form="registrationForm"
+                type="submit"
               >
                 Зарегистрироваться
               </Button>
