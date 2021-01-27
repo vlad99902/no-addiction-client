@@ -16,31 +16,34 @@ import { Link } from 'react-router-dom';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
+import { ProgressBar } from '../components/ProgressBar';
 
 interface IForm {
+  email: string;
   login: string;
   password: string;
-  email: string;
 }
 
 interface IInputValidation {
   email: boolean;
-  password: boolean;
   login: boolean;
+  password: number;
 }
 
 export const RegisterPage: React.FC = () => {
   const [form, setForm] = useState<IForm>({
+    email: '',
     login: '',
     password: '',
-    email: '',
   });
 
   const [inputValidation, setInputValidation] = useState<IInputValidation>({
-    password: true,
     email: true,
     login: true,
+    password: 20,
   });
+
+  const [passStrong, setPassStrong] = useState<number>(0);
 
   const [visible, setVisible] = useState<boolean>(false);
 
@@ -49,27 +52,41 @@ export const RegisterPage: React.FC = () => {
   const validationCheck = (e: any) => {
     setInputValidation({
       email: validator.isEmail(form.email),
-      password: validator.isStrongPassword(form.password, passwordOptions),
       login: validator.isLength(form.login, loginOptions),
+      //@ts-ignore
+      password: validator.isStrongPassword(form.password, {
+        ...passwordOptions,
+        returnScore: true,
+      }),
     });
   };
 
   const submitRegistrationForm = (e: any) => {
     e.preventDefault();
+    console.log(inputValidation.email, 'inputValidation.email');
+    console.log(inputValidation.password, 'inputValidation.password');
+    console.log(inputValidation.login, 'inputValidation.login');
     if (
       inputValidation.email &&
-      inputValidation.password &&
+      inputValidation.password > 15 &&
       inputValidation.login
     ) {
-      console.log(inputValidation.email, 'inputValidation.email');
-      console.log(inputValidation.password, 'inputValidation.password');
       // dispatch(registerWithEmail(form.login, form.email, form.password));
       setForm({ login: '', password: '', email: '' });
     }
   };
 
   const changeHandler = (event: any) => {
-    setInputValidation({ ...inputValidation, [event.target.name]: true });
+    if (event.target.name === 'password') {
+      //@ts-ignore
+      let strong: number = validator.isStrongPassword(event.target.value, {
+        ...passwordOptions,
+        returnScore: true,
+      });
+      setInputValidation({ ...inputValidation, password: strong });
+      setPassStrong(strong);
+    } else
+      setInputValidation({ ...inputValidation, [event.target.name]: true });
     setForm({ ...form, [event.target.name]: event.target.value });
   };
 
@@ -123,9 +140,9 @@ export const RegisterPage: React.FC = () => {
               />
             </Container>
             <Container
-              marginBottom="16px"
               maxWidth="360px"
               margin="0 auto"
+              marginBottom="40px"
               position="relative"
             >
               <Input
@@ -134,7 +151,7 @@ export const RegisterPage: React.FC = () => {
                 name="password"
                 onChange={(e) => changeHandler(e)}
                 value={form.password}
-                valid={inputValidation.password}
+                valid={inputValidation.password > 15 ? true : false}
                 style={{ paddingRight: '36px' }}
               />
               <Container
@@ -148,6 +165,9 @@ export const RegisterPage: React.FC = () => {
                 onClick={changeVisible}
               >
                 {visible ? <VisibilityOn /> : <VisibilityOff />}
+              </Container>
+              <Container maxWidth="360px" margin="10px auto 0px">
+                <ProgressBar fill={passStrong} maxFill={50} />
               </Container>
             </Container>
 
@@ -172,7 +192,7 @@ export const RegisterPage: React.FC = () => {
                 margin: '0px auto',
                 textAlign: 'center',
               }}
-              to="http://localhost:3001/login"
+              to="/login"
             >
               Войти
             </Link>

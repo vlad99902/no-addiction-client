@@ -11,11 +11,12 @@ import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
-import { passwordOptions } from '../constants/validationConst';
+import { loginOptions, passwordOptions } from '../constants/validationConst';
+import { Link } from 'react-router-dom';
 
 interface IForm {
-  login?: string;
-  password?: string;
+  login: string;
+  password: string;
 }
 interface IInputValidation {
   login?: boolean;
@@ -33,18 +34,19 @@ export const LoginPage: React.FC = () => {
   });
   const [visible, setVisible] = useState<boolean>(false);
 
+  const validationCheck = (e: any) => {
+    setInputValidation({
+      login: validator.isLength(form.login, loginOptions),
+      password: validator.isLength(form.password, { min: 6 }),
+    });
+  };
+
   const submitLoginForm = (e: any) => {
     e.preventDefault();
-    if (form.login && form.password) {
-      setInputValidation({
-        login: validator.isEmail(form.login),
-        password: validator.isStrongPassword(form.password, passwordOptions),
-      });
-      if (inputValidation.login && inputValidation.password) {
-        console.log(form);
-        setForm({ login: '', password: '' });
-      }
-    } else console.log('Заполните все поля');
+    if (inputValidation.login && inputValidation.password) {
+      console.log(form);
+      setForm({ login: '', password: '' });
+    }
   };
 
   const changeHandler = (event: any) => {
@@ -118,7 +120,9 @@ export const LoginPage: React.FC = () => {
             <Container pos="center">
               <Button
                 styleType="extraSmallText"
-                onClick={() => {}}
+                onClick={(e) => {
+                  validationCheck(e);
+                }}
                 type="submit"
                 form="loginForm"
               >
@@ -129,17 +133,17 @@ export const LoginPage: React.FC = () => {
 
           <Container margin="60px auto 0" style={{ textAlign: 'center' }}>
             <Text>Нет учетной записи NoAddiction?</Text>
-            <a
+            <Link
               style={{
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 fontSize: ' 14px',
                 margin: '0px auto',
                 textAlign: 'center',
               }}
-              href="http://localhost:3001/register"
+              to="/register"
             >
               Зарегистрироваться
-            </a>
+            </Link>
           </Container>
         </Container>
       </Container>
