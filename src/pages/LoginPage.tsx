@@ -13,10 +13,12 @@ import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
+import { loginOptions, passwordOptions } from '../constants/validationConst';
+import { Link } from 'react-router-dom';
 
 interface IForm {
-  login?: string;
-  password?: string;
+  login: string;
+  password: string;
 }
 interface IInputValidation {
   login?: boolean;
@@ -36,18 +38,21 @@ export const LoginPage: React.FC = () => {
   });
   const [visible, setVisible] = useState<boolean>(false);
 
+  const validationCheck = (e: any) => {
+    setInputValidation({
+      login: validator.isLength(form.login, loginOptions),
+      password: validator.isLength(form.password, { min: 6 }),
+    });
+  };
+
   const submitLoginForm = (e: any) => {
     e.preventDefault();
-    if (form.login && form.password) {
-      setInputValidation({
-        login: validator.isEmail(form.login),
-        password: validator.isStrongPassword(form.password),
-      });
-      if (inputValidation.login && inputValidation.password) {
-        dispatch(authWithEmail('login', '', form.login, form.password));
-        setForm({ login: '', password: '' });
-      }
-    } else console.log('Заполните все поля');
+
+    if (inputValidation.login && inputValidation.password) {
+      dispatch(authWithEmail('login', '', form.login, form.password));
+      setForm({ login: '', password: '' });
+    }
+
   };
 
   const changeHandler = (event: any) => {
@@ -77,7 +82,7 @@ export const LoginPage: React.FC = () => {
         </Container>
         <Container>
           <Container marginBottom="32px" margin="0 auto">
-            <Title fz="64px">Войти</Title>
+            <Title fz="64px">Авторизоваться</Title>
           </Container>
           <form onSubmit={(e) => submitLoginForm(e)} id="loginForm">
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
@@ -90,7 +95,12 @@ export const LoginPage: React.FC = () => {
                 valid={inputValidation.login}
               />
             </Container>
-            <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
+            <Container
+              marginBottom="32px"
+              maxWidth="360px"
+              margin="0 auto"
+              position="relative"
+            >
               <Input
                 placeholder="Password"
                 type={visible ? 'text' : 'password'}
@@ -104,7 +114,8 @@ export const LoginPage: React.FC = () => {
                 width="22px"
                 style={{
                   position: 'absolute',
-                  margin: '-34px 0px 0px 238px',
+                  right: '15px',
+                  top: '12px',
                   userSelect: 'none',
                 }}
                 onClick={changeVisible}
@@ -115,28 +126,30 @@ export const LoginPage: React.FC = () => {
             <Container pos="center">
               <Button
                 styleType="extraSmallText"
-                onClick={() => {}}
+                onClick={(e) => {
+                  validationCheck(e);
+                }}
                 type="submit"
                 form="loginForm"
               >
-                Войти
+                Авторизоваться
               </Button>
             </Container>
           </form>
 
           <Container margin="60px auto 0" style={{ textAlign: 'center' }}>
             <Text>Нет учетной записи NoAddiction?</Text>
-            <a
+            <Link
               style={{
                 fontFamily: 'Arial, Helvetica, sans-serif',
                 fontSize: ' 14px',
                 margin: '0px auto',
                 textAlign: 'center',
               }}
-              href="http://localhost:3001/register"
+              to="/register"
             >
               Зарегистрироваться
-            </a>
+            </Link>
           </Container>
         </Container>
       </Container>

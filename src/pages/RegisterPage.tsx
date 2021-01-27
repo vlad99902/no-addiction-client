@@ -3,6 +3,7 @@ import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 
 import styled from 'styled-components';
+import validator from 'validator';
 
 import { authWithEmail } from '../store/users/usersActions';
 import { useDispatch } from 'react-redux';
@@ -12,30 +13,86 @@ import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
 import { Link } from 'react-router-dom';
+import { VisibilityOn } from '../assets/VisibilityOn';
+import { VisibilityOff } from '../assets/VisibilityOff';
+import { loginOptions, passwordOptions } from '../constants/validationConst';
+import { ProgressBar } from '../components/ProgressBar';
 
 interface IForm {
-  login?: string;
-  password?: string;
-  eMail?: string;
+  email: string;
+  login: string;
+  password: string;
+}
+
+interface IInputValidation {
+  email: boolean;
+  login: boolean;
+  password: number;
 }
 
 export const RegisterPage: React.FC = () => {
   const [form, setForm] = useState<IForm>({
+    email: '',
     login: '',
     password: '',
-    eMail: '',
   });
+
+  const [inputValidation, setInputValidation] = useState<IInputValidation>({
+    email: true,
+    login: true,
+    password: 20,
+  });
+
+  const [passStrong, setPassStrong] = useState<number>(0);
+
+  const [visible, setVisible] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
+  const validationCheck = (e: any) => {
+    setInputValidation({
+      email: validator.isEmail(form.email),
+      login: validator.isLength(form.login, loginOptions),
+      //@ts-ignore
+      password: validator.isStrongPassword(form.password, {
+        ...passwordOptions,
+        returnScore: true,
+      }),
+    });
+  };
+
   const submitRegistrationForm = (e: any) => {
     e.preventDefault();
-    dispatch(authWithEmail('register', form.login, form.eMail, form.password));
-    setForm({ login: '', password: '', eMail: '' });
+    console.log(inputValidation.email, 'inputValidation.email');
+    console.log(inputValidation.password, 'inputValidation.password');
+    console.log(inputValidation.login, 'inputValidation.login');
+    if (
+      inputValidation.email &&
+      inputValidation.password > 15 &&
+      inputValidation.login
+    ) {
+      dispatch(registerWithEmail(form.login, form.email, form.password));
+      setForm({ login: '', password: '', email: '' });
+    }
+
   };
 
   const changeHandler = (event: any) => {
+    if (event.target.name === 'password') {
+      //@ts-ignore
+      let strong: number = validator.isStrongPassword(event.target.value, {
+        ...passwordOptions,
+        returnScore: true,
+      });
+      setInputValidation({ ...inputValidation, password: strong });
+      setPassStrong(strong);
+    } else
+      setInputValidation({ ...inputValidation, [event.target.name]: true });
     setForm({ ...form, [event.target.name]: event.target.value });
+  };
+
+  const changeVisible = (e: any) => {
+    setVisible((pre) => !pre);
   };
   return (
     <>
@@ -54,51 +111,76 @@ export const RegisterPage: React.FC = () => {
           </LoginGoogleButton>
         </Container>
         <Container>
-          <Container marginBottom="32px" margin="0 auto" width="600px">
-            <Title fz="64px">Регистрация</Title>
+          <Container marginBottom="32px" margin="0 auto">
+            <Title fz="64px">Зарегистрироваться</Title>
           </Container>
           <form
-            onSubmit={(e) => submitRegistrationForm(e)}
+            onSubmit={(e) => {
+              submitRegistrationForm(e);
+            }}
             id="registrationForm"
           >
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
               <Input
-                required
                 placeholder="E-Mail"
-                type="email"
-                name="eMail"
+                type="text"
+                name="email"
                 onChange={(e) => changeHandler(e)}
-                value={form.eMail}
+                value={form.email}
+                valid={inputValidation.email}
               />
             </Container>
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
               <Input
-                required
                 placeholder="Login"
                 type="text"
                 name="login"
                 onChange={(e) => changeHandler(e)}
                 value={form.login}
+                valid={inputValidation.login}
               />
             </Container>
-            <Container marginBottom="32px" maxWidth="360px" margin="0 auto">
+            <Container
+              maxWidth="360px"
+              margin="0 auto"
+              marginBottom="40px"
+              position="relative"
+            >
               <Input
-                required
                 placeholder="Password"
-                type="password"
+                type={visible ? 'text' : 'password'}
                 name="password"
                 onChange={(e) => changeHandler(e)}
                 value={form.password}
+                valid={inputValidation.password > 15 ? true : false}
+                style={{ paddingRight: '36px' }}
               />
+              <Container
+                width="22px"
+                style={{
+                  position: 'absolute',
+                  right: '15px',
+                  top: '12px',
+                  userSelect: 'none',
+                }}
+                onClick={changeVisible}
+              >
+                {visible ? <VisibilityOn /> : <VisibilityOff />}
+              </Container>
+              <Container maxWidth="360px" margin="10px auto 0px">
+                <ProgressBar fill={passStrong} maxFill={50} />
+              </Container>
             </Container>
 
             <Container pos="center">
               <Button
                 styleType="extraSmallText"
-                onClick={() => {}}
+                onClick={(e) => {
+                  validationCheck(e);
+                }}
                 form="registrationForm"
               >
-                Регистрация
+                Зарегистрироваться
               </Button>
             </Container>
           </form>
@@ -111,7 +193,7 @@ export const RegisterPage: React.FC = () => {
                 margin: '0px auto',
                 textAlign: 'center',
               }}
-              to="http://localhost:3001/login"
+              to="/login"
             >
               Войти
             </Link>

@@ -16,6 +16,7 @@ import { Button } from '../components/Button';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
+import { animationSpeed } from '../constants/validationConst';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -44,9 +45,7 @@ export const PageHeader: React.FC = () => {
                 ) {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('#'), {
-                    speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7,
-                    ),
+                    speed: animationSpeed,
                     cancelOnUserAction: false,
                   });
                 }
@@ -79,9 +78,7 @@ export const PageHeader: React.FC = () => {
                 ) {
                   //@ts-ignore
                   animateScrollTo(document.getElementById('records'), {
-                    speed: Math.round(
-                      document.documentElement.scrollHeight / 0.7,
-                    ),
+                    speed: animationSpeed,
                     cancelOnUserAction: false,
                   });
                 }
