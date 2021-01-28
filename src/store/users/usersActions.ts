@@ -8,6 +8,7 @@ import {
   USER_SET_LOADER,
   GET_TOKEN_FROM_LOCALSTORAGE,
   CLEAR_AUTH_SESSION,
+  FETCH_LOGIN_EMAIL,
 } from './usersTypes';
 
 import { requestHTTP } from '../../functions/requestHTTP';
@@ -22,7 +23,7 @@ export const userLanguageChange = (payload: IUsersState): UserActionsType => {
 };
 
 export const userSetLoader = (
-  payload: UsersStateLoadingArgumentType,
+  payload: UsersStateLoadingArgumentType
 ): ActionType => {
   return (dispatch, getState) => {
     dispatch({
@@ -41,7 +42,7 @@ export const userSetLoader = (
 export const registerWithEmail = (
   username: string = '',
   email: string = '',
-  password: string = '',
+  password: string = ''
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -53,7 +54,7 @@ export const registerWithEmail = (
           username,
           email,
           password,
-        },
+        }
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
@@ -68,7 +69,7 @@ export const registerWithEmail = (
 
 export const loginWithEmail = (
   usernameOrEmail: string,
-  password: string,
+  password: string
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -79,11 +80,11 @@ export const loginWithEmail = (
         {
           usernameOrEmail,
           password,
-        },
+        }
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
-        type: FETCH_REGISTER_EMAIL,
+        type: FETCH_LOGIN_EMAIL,
         payload: { token: res.token, isAuth: true },
       });
     } catch (error) {

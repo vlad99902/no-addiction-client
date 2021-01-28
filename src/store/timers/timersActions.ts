@@ -47,7 +47,9 @@ export const initState = (): AsyncActionType => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(userSetLoader({ main: false, headerSwitcher: false }));
+      setTimeout(() => {
+        dispatch(userSetLoader({ main: false, headerSwitcher: false }));
+      }, 1000);
     }
   };
 };
@@ -58,14 +60,14 @@ export const fetchRecordsList = (): AsyncActionType => {
       const result = await requestHTTP(
         'http://localhost:3000/api/timers/records',
         'GET',
-        getState().users.token,
+        getState().users.token
       );
       let json = result;
 
       json = json.map((rec: any) => ({
         ...rec,
         duration: moment.duration(
-          +moment(rec.endDate) - +moment(rec.beginDate),
+          +moment(rec.endDate) - +moment(rec.beginDate)
         ),
       }));
 
@@ -78,7 +80,7 @@ export const fetchRecordsList = (): AsyncActionType => {
       if (!getState().timers.inAddiction) {
         const currentTimer = getState().timers.currentTimer;
         const currentDuration = moment.duration(
-          +moment() - +moment(currentTimer.beginDate),
+          +moment() - +moment(currentTimer.beginDate)
         );
         json.forEach((el: any, i: number, ar: any) => {
           if (el.duration > currentDuration) {
@@ -127,7 +129,7 @@ export const getInAddiction = (): AsyncActionType => {
       const res = await requestHTTP(
         'http://localhost:3000/api/timers/current?inAddiction=true',
         'GET',
-        getState().users.token,
+        getState().users.token
       );
 
       dispatch({ type: GET_IN_ADDICTION, ...res });
@@ -161,7 +163,7 @@ export const getCurrentTimer = (): AsyncActionType => {
       const res = await requestHTTP(
         'http://localhost:3000/api/timers/current',
         'GET',
-        token,
+        token
       );
 
       dispatch({ type: GET_CURENT_TIMER, currentDate: res });
@@ -172,12 +174,12 @@ export const getCurrentTimer = (): AsyncActionType => {
 };
 
 export const inAddictionChange = (
-  date: string | null = null,
+  date: string | null = null
 ): AsyncActionType => {
   return async (dispatch, getState) => {
     try {
-      if (!getState().users.loading.main) {
-        dispatch(userSetLoader({ main: true }));
+      if (!getState().users.loading.component) {
+        dispatch(userSetLoader({ component: true }));
       }
       const inAddiction = getState().timers.inAddiction;
 
@@ -203,12 +205,14 @@ export const inAddictionChange = (
       await dispatch(getCurrentTimer());
 
       await dispatch(fetchRecordsList());
-
-      if (getState().users.loading.main) {
-        dispatch(userSetLoader({ main: false }));
-      }
     } catch (error) {
       console.log(error);
+    } finally {
+      if (getState().users.loading.component) {
+        await setTimeout(() => {
+          dispatch(userSetLoader({ component: false }));
+        }, 500);
+      }
     }
   };
 };
@@ -226,7 +230,7 @@ export const getRandomBadQuote = (): AsyncActionType => {
       const res = await requestHTTP(
         'http://localhost:3000/api/quotes?isbad=true',
         'GET',
-        getState().users.token,
+        getState().users.token
       );
 
       dispatch({ type: GET_RANDOM_BAD_QUOTE, payload: res });
@@ -242,7 +246,7 @@ export const getRandomGoodQuote = (): AsyncActionType => {
       const res = await requestHTTP(
         'http://localhost:3000/api/quotes?isbad=false',
         'GET',
-        getState().users.token,
+        getState().users.token
       );
 
       dispatch({ type: GET_RANDOM_GOOD_QUOTE, payload: res });

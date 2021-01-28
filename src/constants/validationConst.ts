@@ -15,7 +15,7 @@ export const passwordOptions = {
 
 export const loginOptions = {
   min: 5,
-  max: 20,
+  max: 30,
 };
 
 export const animationSpeed = Math.round(
