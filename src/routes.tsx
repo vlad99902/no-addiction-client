@@ -15,6 +15,7 @@ export const useRoutes = (isAuth: boolean) => {
     return (
       <Switch>
         <Route path="/" exact>
+          <Loader isLoading={loading} />
           <MainPage />
         </Route>
         <Redirect to="/" />
@@ -24,6 +25,7 @@ export const useRoutes = (isAuth: boolean) => {
     return (
       <Switch>
         <Route path="/login">
+          <Loader isLoading={loading} />
           <LoginPage />
         </Route>
         <Route path="/register">

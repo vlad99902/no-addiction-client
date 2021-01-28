@@ -8,6 +8,7 @@ import {
   USER_SET_LOADER,
   GET_TOKEN_FROM_LOCALSTORAGE,
   CLEAR_AUTH_SESSION,
+  FETCH_LOGIN_EMAIL,
 } from './usersTypes';
 
 import { requestHTTP } from '../../functions/requestHTTP';
@@ -45,7 +46,6 @@ export const registerWithEmail = (
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
-      dispatch(userSetLoader({ main: true }));
       const res = await requestHTTP(
         'http://localhost:3000/api/register',
         'POST',
@@ -63,10 +63,6 @@ export const registerWithEmail = (
       });
     } catch (error) {
       console.log(error);
-    } finally {
-      await setTimeout(() => {
-        dispatch(userSetLoader({ main: false }));
-      }, 500);
     }
   };
 };
@@ -88,7 +84,7 @@ export const loginWithEmail = (
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
-        type: FETCH_REGISTER_EMAIL,
+        type: FETCH_LOGIN_EMAIL,
         payload: { token: res.token, isAuth: true },
       });
     } catch (error) {

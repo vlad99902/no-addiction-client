@@ -47,7 +47,9 @@ export const initState = (): AsyncActionType => {
     } catch (error) {
       console.log(error);
     } finally {
-      dispatch(userSetLoader({ main: false, headerSwitcher: false }));
+      setTimeout(() => {
+        dispatch(userSetLoader({ main: false, headerSwitcher: false }));
+      }, 1000);
     }
   };
 };
