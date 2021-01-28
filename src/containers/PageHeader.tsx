@@ -32,7 +32,7 @@ export const PageHeader: React.FC = () => {
           maxWidth="1600px"
           margin="0 auto"
           pos="space-between"
-          position="realative"
+          position="relative"
           padding="0 18px"
         >
           <Container style={{}}>

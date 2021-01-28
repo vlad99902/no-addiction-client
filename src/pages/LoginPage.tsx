@@ -15,6 +15,7 @@ import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
 import { Link } from 'react-router-dom';
+import { Notice } from '../components/Notice';
 
 interface IForm {
   loginAuth: string;
@@ -84,7 +85,12 @@ export const LoginPage: React.FC = () => {
             <Title fz="64px">Авторизоваться</Title>
           </Container>
           <form onSubmit={(e) => submitLoginForm(e)} id="loginForm">
-            <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+            <Container
+              marginBottom="16px"
+              maxWidth="360px"
+              margin="0 auto"
+              position="relative"
+            >
               <Input
                 placeholder="E-Mail or Login"
                 type="text"
@@ -94,6 +100,7 @@ export const LoginPage: React.FC = () => {
                 valid={inputValidation.loginAuth}
                 id="loginAuth"
               />
+              <Notice />
             </Container>
             <Container
               marginBottom="32px"

@@ -75,12 +75,11 @@ export const MainPage: React.FC = () => {
   return (
     <Container margin="100px auto 0" height="calc(200vh - 200px)">
       <div style={{ height: 'calc(100% - 100px)' }}>
+        <Loader isLoading={loading} />
         <section id="">
-          <Loader isLoading={loading} />
           <StatusPage />
         </section>
         <section id="records" style={{}}>
-          <Loader isLoading={loading} />
           <RecordsPage />
         </section>
       </div>

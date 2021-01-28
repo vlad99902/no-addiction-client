@@ -5,12 +5,12 @@
   z-index: 10;
   width: 100%;
   height: calc(100vh - 100px);
-  background-color: #fafafa;
-  position: absolute;
+  /* background-color: #fafafa; */
+  position: fixed;
 }
 
 .loader {
-  color: #343434;
+  color: #575757;
   font-size: 20px;
   margin: 0px auto;
   width: 1em;
