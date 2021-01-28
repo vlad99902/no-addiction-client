@@ -48,14 +48,14 @@ const InputArea = styled.input<IStyleProps>`
   border-radius: 16px;
   outline: none;
   color: ${colors.$black};
-  /* :focus {
+  :focus {
     border: 2px solid ${colors.$black};
   }
   ::placeholder {
     font-weight: 400;
     color: ${colors.$gray};
   }
-  :invalid {
+  /*:invalid {
     border: 2px solid ${colors.$red};
   } */
 `;
