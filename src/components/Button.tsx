@@ -77,7 +77,7 @@ const StyledButton = styled.button`
   cursor: pointer;
   user-select: none;
   border: none;
-  border-radius: '20px';
-  padding: '6px 52px';
-  font-size: '72px';
+  border-radius: 20px;
+  padding: 6px 52px;
+  font-size: 72px;
 `;
