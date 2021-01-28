@@ -28,10 +28,12 @@ export default function App() {
   return (
     <div className="root">
       <BrowserRouter>
-        <Background />
-        {isAuth && <PageHeader />}
+        <div className="scroll-bar">
+          {/* <Background /> */}
+          {isAuth && <PageHeader />}
 
-        {routes}
+          {routes}
+        </div>
       </BrowserRouter>
     </div>
   );
