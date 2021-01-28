@@ -6,6 +6,8 @@ import { StatusPage } from './StatusPage';
 import { Container } from '../components/Container';
 import { Input } from '../components/Input';
 import { animationSpeed } from '../constants/validationConst';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store/rootReducer';
 
 const param = {
   animation: false,
@@ -14,6 +16,9 @@ const param = {
 };
 
 export const MainPage: React.FC = () => {
+  const loading = useSelector(
+    (state: RootState) => state.users.loading.component
+  );
   /*const scroll = () => {
     if (param.action === 1 || document.location.hash === '') {
       param.action = 1;
@@ -65,17 +70,17 @@ export const MainPage: React.FC = () => {
     return () => {
       document.removeEventListener('scroll', scroll);
     };
-  }, []);*/
+	}, []);*/
 
   return (
     <Container margin="100px auto 0" height="calc(200vh - 200px)">
       <div style={{ height: 'calc(100% - 100px)' }}>
         <section id="">
-          <Loader isLoading={false} />
+          <Loader isLoading={loading} />
           <StatusPage />
         </section>
         <section id="records" style={{}}>
-          <Loader isLoading={false} />
+          <Loader isLoading={loading} />
           <RecordsPage />
         </section>
       </div>

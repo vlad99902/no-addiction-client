@@ -17,40 +17,40 @@ import { loginOptions, passwordOptions } from '../constants/validationConst';
 import { Link } from 'react-router-dom';
 
 interface IForm {
-  login: string;
-  password: string;
+  loginAuth: string;
+  passwordAuth: string;
 }
 interface IInputValidation {
-  login?: boolean;
-  password?: boolean;
+  loginAuth?: boolean;
+  passwordAuth?: boolean;
 }
 
 export const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
 
   const [form, setForm] = useState<IForm>({
-    login: '',
-    password: '',
+    loginAuth: '',
+    passwordAuth: '',
   });
   const [inputValidation, setInputValidation] = useState<IInputValidation>({
-    login: true,
-    password: true,
+    loginAuth: true,
+    passwordAuth: true,
   });
   const [visible, setVisible] = useState<boolean>(false);
 
   const validationCheck = (e: any) => {
     setInputValidation({
-      login: validator.isLength(form.login, loginOptions),
-      password: validator.isLength(form.password, { min: 6 }),
+      loginAuth: validator.isLength(form.loginAuth, loginOptions),
+      passwordAuth: validator.isLength(form.passwordAuth, { min: 6 }),
     });
   };
 
   const submitLoginForm = (e: any) => {
     e.preventDefault();
 
-    if (inputValidation.login && inputValidation.password) {
-      dispatch(loginWithEmail(form.login, form.password));
-      setForm({ login: '', password: '' });
+    if (inputValidation.loginAuth && inputValidation.passwordAuth) {
+      dispatch(loginWithEmail(form.loginAuth, form.passwordAuth));
+      setForm({ loginAuth: '', passwordAuth: '' });
     }
   };
 
@@ -88,10 +88,11 @@ export const LoginPage: React.FC = () => {
               <Input
                 placeholder="E-Mail or Login"
                 type="text"
-                name="login"
+                name="loginAuth"
                 onChange={(e) => changeHandler(e)}
-                value={form.login}
-                valid={inputValidation.login}
+                value={form.loginAuth}
+                valid={inputValidation.loginAuth}
+                id="loginAuth"
               />
             </Container>
             <Container
@@ -103,11 +104,12 @@ export const LoginPage: React.FC = () => {
               <Input
                 placeholder="Password"
                 type={visible ? 'text' : 'password'}
-                name="password"
+                name="passwordAuth"
                 onChange={(e) => changeHandler(e)}
-                value={form.password}
+                value={form.passwordAuth}
                 style={{ paddingRight: '36px' }}
-                valid={inputValidation.password}
+                valid={inputValidation.passwordAuth}
+                id="passwordAuth"
               />
               <Container
                 width="22px"

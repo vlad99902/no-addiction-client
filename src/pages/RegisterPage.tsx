@@ -90,6 +90,15 @@ export const RegisterPage: React.FC = () => {
   const changeVisible = (e: any) => {
     setVisible((pre) => !pre);
   };
+
+  const removeReadonly = (e: any) => {
+    e.target.removeAttribute('readOnly');
+  };
+  const setFocus = (e: any) => {
+    //@ts-ignore
+    document.getElementById('login').focus();
+  };
+
   return (
     <>
       <Container
@@ -124,6 +133,11 @@ export const RegisterPage: React.FC = () => {
                 onChange={(e) => changeHandler(e)}
                 value={form.email}
                 valid={inputValidation.email}
+                id="email"
+                readOnly
+                onFocus={(e) => {
+                  removeReadonly(e);
+                }}
               />
             </Container>
             <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
@@ -134,6 +148,7 @@ export const RegisterPage: React.FC = () => {
                 onChange={(e) => changeHandler(e)}
                 value={form.login}
                 valid={inputValidation.login}
+                id="login"
               />
             </Container>
             <Container
@@ -150,6 +165,8 @@ export const RegisterPage: React.FC = () => {
                 value={form.password}
                 valid={inputValidation.password > 15 ? true : false}
                 style={{ paddingRight: '36px' }}
+                id="password"
+                autoComplete="new-password"
               />
               <Container
                 width="22px"

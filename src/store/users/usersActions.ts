@@ -22,7 +22,7 @@ export const userLanguageChange = (payload: IUsersState): UserActionsType => {
 };
 
 export const userSetLoader = (
-  payload: UsersStateLoadingArgumentType,
+  payload: UsersStateLoadingArgumentType
 ): ActionType => {
   return (dispatch, getState) => {
     dispatch({
@@ -41,10 +41,11 @@ export const userSetLoader = (
 export const registerWithEmail = (
   username: string = '',
   email: string = '',
-  password: string = '',
+  password: string = ''
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
+      dispatch(userSetLoader({ main: true }));
       const res = await requestHTTP(
         'http://localhost:3000/api/register',
         'POST',
@@ -53,7 +54,7 @@ export const registerWithEmail = (
           username,
           email,
           password,
-        },
+        }
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
@@ -62,13 +63,17 @@ export const registerWithEmail = (
       });
     } catch (error) {
       console.log(error);
+    } finally {
+      await setTimeout(() => {
+        dispatch(userSetLoader({ main: false }));
+      }, 500);
     }
   };
 };
 
 export const loginWithEmail = (
   usernameOrEmail: string,
-  password: string,
+  password: string
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -79,7 +84,7 @@ export const loginWithEmail = (
         {
           usernameOrEmail,
           password,
-        },
+        }
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
