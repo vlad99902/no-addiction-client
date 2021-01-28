@@ -16,7 +16,7 @@ const initialState: IUsersState = {
   token: '',
   isAuth: false,
   loading: {
-    main: true,
+    main: false,
     component: false,
     headerSwitcher: false,
   },
@@ -24,7 +24,7 @@ const initialState: IUsersState = {
 
 export const usersReducer = (
   state: IUsersState = initialState,
-  action: UserActionsType,
+  action: UserActionsType
 ): IUsersState => {
   switch (action.type) {
     case USER_LANGUAGE_CHANGE:
