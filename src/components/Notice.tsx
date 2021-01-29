@@ -4,21 +4,27 @@ import { colors } from '../styles/colors';
 
 interface INotice {
   display?: 'none' | 'block';
+  type: 'sever' | 'warning';
 }
 
-export const Notice: React.FC<INotice> = ({ display = 'none', children }) => {
+export const Notice: React.FC<INotice> = ({
+  display = 'none',
+  children = 'Неопознаная ошибка, сообщение не указано',
+  type,
+}) => {
   return (
     <Wrapper display={display}>
-      <Massage>Длина логина должна быть не менее 5 символов{children}</Massage>
+      <Massage>{children}</Massage>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.div<{ display: string }>`
   max-width: 75%;
+  min-width: 75%;
   height: 95%;
-  border: 2px solid ${colors.$black};
-  background-color: ${colors.$darkGray};
+  border: 2px solid ${colors.$darkGray};
+  background-color: ${colors.$gray};
   position: absolute;
   top: 0;
   right: -80%;

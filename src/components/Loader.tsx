@@ -11,7 +11,6 @@ export const Loader: React.FC<ILoader> = ({ isLoading = false }) => {
   return (
     <>
       <div className="wrapper" style={{ display: isLoading ? 'flex' : 'none' }}>
-        <Background />
         <div className="loader" />
       </div>
     </>

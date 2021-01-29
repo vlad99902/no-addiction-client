@@ -4,8 +4,13 @@
   align-items: center;
   z-index: 10;
   width: 100%;
-  height: calc(100vh - 100px);
+  height: 100%;
   position: fixed;
+  background-image: url(../assets/svg/background.svg);
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .loader {

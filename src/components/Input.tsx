@@ -49,7 +49,7 @@ const InputArea = styled.input<IStyleProps>`
   outline: none;
   color: ${colors.$black};
   :focus {
-    border: 2px solid ${colors.$black};
+    border: 2px solid ${colors.$darkGray};
   }
   ::placeholder {
     font-weight: 400;

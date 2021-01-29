@@ -100,7 +100,6 @@ export const LoginPage: React.FC = () => {
                 valid={inputValidation.loginAuth}
                 id="loginAuth"
               />
-              <Notice />
             </Container>
             <Container
               marginBottom="32px"
