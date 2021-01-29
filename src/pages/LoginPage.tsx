@@ -14,8 +14,10 @@ import { Title } from '../components/Title';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
-import { Link } from 'react-router-dom';
+import { Link, Route, useHistory, useLocation } from 'react-router-dom';
 import { Notice } from '../components/Notice';
+import { SettingsPage } from './SettingsPage';
+import { Modal } from '../containers/Modal';
 
 interface IForm {
   loginAuth: string;

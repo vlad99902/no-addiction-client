@@ -18,6 +18,7 @@ import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
 import { animationSpeed } from '../constants/validationConst';
 import { scrollToElement } from '../functions/scrollToElement';
+import { Link } from 'react-router-dom';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -71,14 +72,9 @@ export const PageHeader: React.FC = () => {
             >
               Leaderboard
             </Button>
-            <div
-              onClick={() => {
-                dispatch(clearAuthSession());
-              }}
-              style={{ cursor: 'pointer' }}
-            >
+            <Link to="/noAlco/settings">
               <Image src={profileIcon} width="100px" />
-            </div>
+            </Link>
           </Container>
         </Container>
       </Content>
