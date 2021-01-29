@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import './App.sass';
+import './App.css';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { initState } from './store/timers/timersActions';

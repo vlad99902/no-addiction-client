@@ -8,6 +8,9 @@ import { Input } from '../components/Input';
 import { animationSpeed } from '../constants/validationConst';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
+import { Link, Route, useHistory, useLocation } from 'react-router-dom';
+import { Modal } from '../containers/Modal';
+import { SettingsPage } from './SettingsPage';
 
 const param = {
   animation: false,
@@ -71,9 +74,25 @@ export const MainPage: React.FC = () => {
   //     document.removeEventListener('scroll', scroll);
   //   };
   // }, []);
+  const history = useHistory();
+  const locate = useLocation();
 
   return (
     <Container margin="100px auto 0" height="calc(200vh - 200px)">
+      <Route
+        path={`${locate.pathname.slice(0, -9)}/settings`}
+        children={({ match }) => {
+          return (
+            <Modal
+              setIsOpened={history.goBack}
+              isOpened={!!match}
+              maxWidth="1000px"
+            >
+              <SettingsPage />
+            </Modal>
+          );
+        }}
+      />
       <div style={{ height: 'calc(100% - 100px)' }}>
         <Loader isLoading={loading} />
         <section>

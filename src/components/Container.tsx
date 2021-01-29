@@ -12,7 +12,7 @@ type ContainerType = {
   marginTop?: string;
   alignItems?: string;
   justifyContent?: string;
-  pos?: string;
+  pos?: 'space-between' | 'start' | 'center' | 'end';
   width?: string;
   lastChild?: string;
   position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'inherit';
