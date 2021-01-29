@@ -17,6 +17,7 @@ import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
 import { ProgressBar } from '../components/ProgressBar';
+import { googleLoginUrl } from '../constants/queryGoogleAuth';
 
 interface IForm {
   email: string;
@@ -110,7 +111,7 @@ export const RegisterPage: React.FC = () => {
         position="relative"
       >
         <Container position="absolute" style={{ top: '16px', right: '16px' }}>
-          <a href="http://localhost:3001/api/auth/google">GOOOGLE</a>
+          <a href={googleLoginUrl}>GOOOGLE</a>
           <LoginGoogleButton onClick={() => dispatch(authWithGoogle())}>
             <Image src={GoogleIcon} alt="" width="14px" margin="0 16px 0 0" />
             Login with Google
