@@ -8,6 +8,7 @@ import {
   USER_SET_LOADER,
   GET_TOKEN_FROM_LOCALSTORAGE,
   CLEAR_AUTH_SESSION,
+  FETCH_AUTH_GOOGLE,
   FETCH_LOGIN_EMAIL,
 } from './usersTypes';
 
@@ -23,7 +24,7 @@ export const userLanguageChange = (payload: IUsersState): UserActionsType => {
 };
 
 export const userSetLoader = (
-  payload: UsersStateLoadingArgumentType
+  payload: UsersStateLoadingArgumentType,
 ): ActionType => {
   return (dispatch, getState) => {
     dispatch({
@@ -42,7 +43,7 @@ export const userSetLoader = (
 export const registerWithEmail = (
   username: string = '',
   email: string = '',
-  password: string = ''
+  password: string = '',
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -54,7 +55,7 @@ export const registerWithEmail = (
           username,
           email,
           password,
-        }
+        },
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
@@ -69,7 +70,7 @@ export const registerWithEmail = (
 
 export const loginWithEmail = (
   usernameOrEmail: string,
-  password: string
+  password: string,
 ): AsyncActionType => {
   return async (dispatch) => {
     try {
@@ -80,11 +81,30 @@ export const loginWithEmail = (
         {
           usernameOrEmail,
           password,
-        }
+        },
       );
       localStorage.setItem('userData', JSON.stringify({ token: res.token }));
       dispatch({
         type: FETCH_LOGIN_EMAIL,
+        payload: { token: res.token, isAuth: true },
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const authWithGoogle = (): AsyncActionType => {
+  return async (dispatch) => {
+    try {
+      const res = await requestHTTP(
+        'http://localhost:3000/api/auth/google',
+        'GET',
+        '',
+      );
+      localStorage.setItem('userData', JSON.stringify({ token: res.token }));
+      dispatch({
+        type: FETCH_AUTH_GOOGLE,
         payload: { token: res.token, isAuth: true },
       });
     } catch (error) {

@@ -7,6 +7,7 @@ import {
   FETCH_REGISTER_EMAIL,
   CLEAR_AUTH_SESSION,
   FETCH_LOGIN_EMAIL,
+  FETCH_AUTH_GOOGLE,
 } from './usersTypes';
 
 const initialState: IUsersState = {
@@ -24,7 +25,7 @@ const initialState: IUsersState = {
 
 export const usersReducer = (
   state: IUsersState = initialState,
-  action: UserActionsType
+  action: UserActionsType,
 ): IUsersState => {
   switch (action.type) {
     case USER_LANGUAGE_CHANGE:
@@ -34,6 +35,8 @@ export const usersReducer = (
     case FETCH_REGISTER_EMAIL:
       return { ...state, ...action.payload };
     case FETCH_LOGIN_EMAIL:
+      return { ...state, ...action.payload };
+    case FETCH_AUTH_GOOGLE:
       return { ...state, ...action.payload };
     case GET_TOKEN_FROM_LOCALSTORAGE:
       return { ...state, ...action.payload };
