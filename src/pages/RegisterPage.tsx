@@ -144,13 +144,9 @@ export const RegisterPage: React.FC = () => {
                 onFocus={(e) => {
                   removeReadonly(e);
                 }}
-              />
-              <Notice
-                type="warning"
-                display={inputValidation.email ? 'none' : 'block'}
               >
                 Введите корректный адрес электронной почты
-              </Notice>
+              </Input>
             </Container>
             <Container
               marginBottom="16px"
@@ -166,13 +162,9 @@ export const RegisterPage: React.FC = () => {
                 value={form.login}
                 valid={inputValidation.login}
                 id="login"
-              />
-              <Notice
-                type="warning"
-                display={inputValidation.login ? 'none' : 'block'}
               >
                 Логин должен содержать не менее 5 символов
-              </Notice>
+              </Input>
             </Container>
             <Container
               maxWidth="360px"
@@ -190,14 +182,11 @@ export const RegisterPage: React.FC = () => {
                 style={{ paddingRight: '36px' }}
                 id="password"
                 autoComplete="new-password"
-              />
-              <Notice
-                type="warning"
-                display={inputValidation.password > 15 ? 'none' : 'block'}
               >
                 Пароль должен содержать минимум 6 символов, 1 заглавную букву и
                 1 число
-              </Notice>
+              </Input>
+
               <Container
                 width="22px"
                 style={{

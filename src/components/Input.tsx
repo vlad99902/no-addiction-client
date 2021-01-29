@@ -1,6 +1,7 @@
 import React, { InputHTMLAttributes } from 'react';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import { colors } from '../styles/colors';
+import { Notice } from './Notice';
 
 interface IInputArea {
   margin?: string;
@@ -14,12 +15,24 @@ interface IInput extends InputHTMLAttributes<HTMLInputElement> {
   styleProps?: IInputArea;
   style?: React.CSSProperties;
   valid?: boolean;
+  massageType?: 'sever' | 'warning';
 }
 
+/**
+ *
+ * @param {string} style
+ * @param {string} styleProps
+ * @param {string} valid
+ * @param {string} massageType
+ * @param {string} children
+ * @returns
+ */
 export const Input: React.FC<IInput> = ({
   styleProps,
   style,
   valid = true,
+  massageType,
+  children,
   ...rest
 }) => {
   const invalidStyle: React.CSSProperties = {
@@ -34,6 +47,9 @@ export const Input: React.FC<IInput> = ({
         autoComplete="off"
         style={{ ...style }}
       />
+      <Notice type={massageType} display={valid ? 'none' : 'block'}>
+        {children}
+      </Notice>
     </>
   );
 };

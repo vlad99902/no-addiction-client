@@ -4,7 +4,7 @@ import { colors } from '../styles/colors';
 
 interface INotice {
   display?: 'none' | 'block';
-  type: 'sever' | 'warning';
+  type?: 'sever' | 'warning';
 }
 
 export const Notice: React.FC<INotice> = ({

@@ -99,7 +99,9 @@ export const LoginPage: React.FC = () => {
                 value={form.loginAuth}
                 valid={inputValidation.loginAuth}
                 id="loginAuth"
-              />
+              >
+                Минимальная длина логина/почты 5 символов
+              </Input>
             </Container>
             <Container
               marginBottom="32px"
@@ -116,7 +118,9 @@ export const LoginPage: React.FC = () => {
                 style={{ paddingRight: '36px' }}
                 valid={inputValidation.passwordAuth}
                 id="passwordAuth"
-              />
+              >
+                Минимальная длина пароля 5 символов
+              </Input>
               <Container
                 width="22px"
                 style={{
