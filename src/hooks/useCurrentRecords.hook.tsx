@@ -24,13 +24,13 @@ export const useCurrentRecords = () => {
 
   const records = useSelector((state: RootState) => state.timers.records);
   const currentActiveDate = useSelector(
-    (state: RootState) => state.timers.currentTimer,
+    (state: RootState) => state.timers.currentTimer
   );
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
   const currentRecordIndex = useSelector(
-    (state: RootState) => state.timers.currentRecordIndex,
+    (state: RootState) => state.timers.currentRecordIndex
   );
 
   useEffect(() => {
@@ -100,7 +100,7 @@ export const useCurrentRecords = () => {
                 </DeleteIconContainer>
               </Container>
               <Line color={colors.$darkGray} />
-            </TableElWrapper>,
+            </TableElWrapper>
           );
         } else {
           content.push(
@@ -122,7 +122,7 @@ export const useCurrentRecords = () => {
                 </Container>
               </Container>
               <Line color={colors.$darkGray} />
-            </TableElWrapper>,
+            </TableElWrapper>
           );
         }
     }
@@ -148,6 +148,7 @@ const TableElWrapper = styled.div`
 const DeleteIconContainer = styled.div`
   width: 16px;
   position: absolute;
+  user-select: none;
   right: -30px;
   top: 16px;
   z-index: 1;

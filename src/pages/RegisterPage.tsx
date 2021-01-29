@@ -17,6 +17,7 @@ import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
 import { ProgressBar } from '../components/ProgressBar';
+import { Notice } from '../components/Notice';
 
 interface IForm {
   email: string;
@@ -125,7 +126,12 @@ export const RegisterPage: React.FC = () => {
             }}
             id="registrationForm"
           >
-            <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+            <Container
+              marginBottom="16px"
+              maxWidth="360px"
+              margin="0 auto"
+              position="relative"
+            >
               <Input
                 placeholder="E-Mail"
                 type="text"
@@ -138,9 +144,16 @@ export const RegisterPage: React.FC = () => {
                 onFocus={(e) => {
                   removeReadonly(e);
                 }}
-              />
+              >
+                Введите корректный адрес электронной почты
+              </Input>
             </Container>
-            <Container marginBottom="16px" maxWidth="360px" margin="0 auto">
+            <Container
+              marginBottom="16px"
+              maxWidth="360px"
+              margin="0 auto"
+              position="relative"
+            >
               <Input
                 placeholder="Login"
                 type="text"
@@ -149,12 +162,14 @@ export const RegisterPage: React.FC = () => {
                 value={form.login}
                 valid={inputValidation.login}
                 id="login"
-              />
+              >
+                Логин должен содержать не менее 5 символов
+              </Input>
             </Container>
             <Container
               maxWidth="360px"
               margin="0 auto"
-              marginBottom="40px"
+              marginBottom="10px"
               position="relative"
             >
               <Input
@@ -167,7 +182,11 @@ export const RegisterPage: React.FC = () => {
                 style={{ paddingRight: '36px' }}
                 id="password"
                 autoComplete="new-password"
-              />
+              >
+                Пароль должен содержать минимум 6 символов, 1 заглавную букву и
+                1 число
+              </Input>
+
               <Container
                 width="22px"
                 style={{
@@ -180,9 +199,9 @@ export const RegisterPage: React.FC = () => {
               >
                 {visible ? <VisibilityOn /> : <VisibilityOff />}
               </Container>
-              <Container maxWidth="360px" margin="10px auto 0px">
-                <ProgressBar fill={passStrong} maxFill={50} />
-              </Container>
+            </Container>
+            <Container maxWidth="360px" margin="0px auto 30px">
+              <ProgressBar fill={passStrong} maxFill={50} />
             </Container>
 
             <Container pos="center">

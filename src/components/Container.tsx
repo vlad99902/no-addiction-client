@@ -15,7 +15,7 @@ type ContainerType = {
   pos?: string;
   width?: string;
   lastChild?: string;
-  position?: string;
+  position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'inherit';
   visibility?: string;
   height?: string;
   onScroll?(): void;

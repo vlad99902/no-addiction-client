@@ -4,13 +4,17 @@
   align-items: center;
   z-index: 10;
   width: 100%;
-  height: calc(100vh - 100px);
-  background-color: #fafafa;
-  position: absolute;
+  height: 100%;
+  position: fixed;
+  background-image: url(../assets/svg/background.svg);
+  background-position: center center;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .loader {
-  color: #343434;
+  color: #575757;
   font-size: 20px;
   margin: 0px auto;
   width: 1em;

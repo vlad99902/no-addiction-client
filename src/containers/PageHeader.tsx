@@ -17,6 +17,7 @@ import { Button } from '../components/Button';
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
 import { animationSpeed } from '../constants/validationConst';
+import { scrollToElement } from '../functions/scrollToElement';
 
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
@@ -32,7 +33,7 @@ export const PageHeader: React.FC = () => {
           maxWidth="1600px"
           margin="0 auto"
           pos="space-between"
-          position="realative"
+          position="relative"
           padding="0 18px"
         >
           <Container style={{}}>
@@ -40,13 +41,7 @@ export const PageHeader: React.FC = () => {
               src={logo}
               width="300px"
               onClick={() => {
-                if (document.location.href !== 'http://localhost:3001/#') {
-                  //@ts-ignore
-                  animateScrollTo(document.getElementById('#'), {
-                    speed: animationSpeed,
-                    cancelOnUserAction: false,
-                  });
-                }
+                scrollToElement('#');
               }}
               cursor="pointer"
             />
@@ -71,15 +66,7 @@ export const PageHeader: React.FC = () => {
             <Button
               styleType="extraSmallText"
               onClick={() => {
-                if (
-                  document.location.href !== 'http://localhost:3001/#records'
-                ) {
-                  //@ts-ignore
-                  animateScrollTo(document.getElementById('records'), {
-                    speed: animationSpeed,
-                    cancelOnUserAction: false,
-                  });
-                }
+                scrollToElement('records');
               }}
             >
               Leaderboard
