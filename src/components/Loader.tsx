@@ -1,5 +1,4 @@
 import React from 'react';
-import { Background } from '../assets/Background';
 
 import '../styles/loader.css';
 

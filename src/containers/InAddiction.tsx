@@ -7,11 +7,10 @@ import { Container } from '../components/Container';
 import { inAddictionChange } from '../store/timers/timersActions';
 import { Quote } from './Quote';
 
-interface IInAddiction {}
-export const InAddiction: React.FC<IInAddiction> = () => {
+export const InAddiction: React.FC = () => {
   const dispatch = useDispatch();
   return (
-    <Container>
+    <>
       <Quote marginBottom="60px" />
       <Container margin="0 auto" pos="center">
         <Button
@@ -23,6 +22,6 @@ export const InAddiction: React.FC<IInAddiction> = () => {
           Отказаться от алкоголя
         </Button>
       </Container>
-    </Container>
+    </>
   );
 };

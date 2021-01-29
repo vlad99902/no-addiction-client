@@ -13,11 +13,8 @@ import { Container } from '../components/Container';
 import { Title } from '../components/Title';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
-import { loginOptions, passwordOptions } from '../constants/validationConst';
-import { Link, Route, useHistory, useLocation } from 'react-router-dom';
-import { Notice } from '../components/Notice';
-import { SettingsPage } from './SettingsPage';
-import { Modal } from '../containers/Modal';
+import { loginOptions } from '../constants/validationConst';
+import { Link } from 'react-router-dom';
 
 interface IForm {
   loginAuth: string;
@@ -28,6 +25,7 @@ interface IInputValidation {
   passwordAuth?: boolean;
 }
 
+//TODO write comment to EVERY function (with types:D)
 export const LoginPage: React.FC = () => {
   const dispatch = useDispatch();
 

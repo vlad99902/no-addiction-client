@@ -39,6 +39,7 @@ export const RecordsPage: React.FC = () => {
   );
 };
 
+//TODO last child
 const Line = styled.hr`
   border: 3px ${(props) => props.color || colors.$black} solid;
   border-radius: 6px;

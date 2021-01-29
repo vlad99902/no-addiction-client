@@ -45,10 +45,3 @@ export async function requestHTTP(
 }
 
 export const backEndLink = 'http://localhost:3000';
-
-interface IRequestParams {
-  url: string;
-  method: string;
-  token: string;
-  data: {};
-}

@@ -10,9 +10,9 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   fill,
   maxFill = 100,
 }) => {
+  //TODO сделать функцией
   let currentColor = colors.$red;
   fill = (fill / maxFill) * 100;
-
   if (fill > 30) currentColor = colors.$orange;
   if (fill > 50) currentColor = colors.$yellow;
   if (fill > 65) currentColor = colors.$green;
@@ -34,14 +34,14 @@ const Bar = styled.div`
   position: relative;
 `;
 
-const BarSection = styled.div`
-  left: 0;
-  top: 0;
-  height: 15px;
-  position: absolute;
-  width: 50px;
-  border: 2px solid ${colors.$gray};
-`;
+// const BarSection = styled.div`
+//   left: 0;
+//   top: 0;
+//   height: 15px;
+//   position: absolute;
+//   width: 50px;
+//   border: 2px solid ${colors.$gray};
+// `;
 
 const BarFill = styled.div<{ width: string; color: string }>`
   border-radius: 10px;

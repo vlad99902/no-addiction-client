@@ -1,11 +1,9 @@
 import React from 'react';
-import animateScrollTo from 'animated-scroll-to';
 import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 import { inAddictionChange } from '../store/timers/timersActions';
-import { clearAuthSession } from '../store/users/usersActions';
 
 import { Container } from '../components/Container';
 import { Image } from '../components/Image';
@@ -16,13 +14,13 @@ import { Button } from '../components/Button';
 
 import logo from '../assets/logoNoAlco.png';
 import profileIcon from '../assets/profileIcon.png';
-import { animationSpeed } from '../constants/validationConst';
 import { scrollToElement } from '../functions/scrollToElement';
 import { Link } from 'react-router-dom';
 
+//TODO верстка кирилл
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction
+    (state: RootState) => state.timers.inAddiction,
   );
 
   const dispatch = useDispatch();

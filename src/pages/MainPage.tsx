@@ -1,27 +1,20 @@
-import animateScrollTo from 'animated-scroll-to';
-import React, { useEffect } from 'react';
-import { Loader } from '../components/Loader';
+import React from 'react';
+
 import { RecordsPage } from './RecordsPage';
 import { StatusPage } from './StatusPage';
 import { Container } from '../components/Container';
-import { Input } from '../components/Input';
-import { animationSpeed } from '../constants/validationConst';
-import { useSelector } from 'react-redux';
-import { RootState } from '../store/rootReducer';
-import { Link, Route, useHistory, useLocation } from 'react-router-dom';
+// import { animationSpeed } from '../constants/validationConst';
+import { Route, useHistory, useLocation } from 'react-router-dom';
 import { Modal } from '../containers/Modal';
 import { SettingsPage } from './SettingsPage';
 
-const param = {
-  animation: false,
-  speed: animationSpeed,
-  action: 0,
-};
+// const param = {
+//   animation: false,
+//   speed: animationSpeed,
+//   action: 0,
+// };
 
 export const MainPage: React.FC = () => {
-  const loading = useSelector(
-    (state: RootState) => state.users.loading.component
-  );
   // const scroll = () => {
   //   if (param.action === 1 || document.location.hash === '') {
   //     param.action = 1;
@@ -76,7 +69,8 @@ export const MainPage: React.FC = () => {
   // }, []);
   const history = useHistory();
   const locate = useLocation();
-
+  //TODO вставить либо туда ГДЕ ВЫЗЫВАЕТСЯ. либо в routes(влад)
+  //TODO упразднить status page. Вставить if из status page
   return (
     <Container margin="100px auto 0" height="calc(200vh - 200px)">
       <Route
@@ -94,7 +88,6 @@ export const MainPage: React.FC = () => {
         }}
       />
       <div style={{ height: 'calc(100% - 100px)' }}>
-        <Loader isLoading={loading} />
         <section>
           <StatusPage />
         </section>

@@ -1,5 +1,5 @@
 import React, { InputHTMLAttributes } from 'react';
-import styled, { CSSProperties } from 'styled-components';
+import styled from 'styled-components';
 import { colors } from '../styles/colors';
 import { Notice } from './Notice';
 
@@ -71,7 +71,4 @@ const InputArea = styled.input<IStyleProps>`
     font-weight: 400;
     color: ${colors.$gray};
   }
-  /*:invalid {
-    border: 2px solid ${colors.$red};
-  } */
 `;

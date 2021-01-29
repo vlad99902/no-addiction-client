@@ -38,7 +38,8 @@ export const Quote: React.FC<IQuote> = ({
   );
 };
 
-const Text = styled.div`
+//TODO TITLE comp or article tag. Think about it
+const Text = styled.p`
   margin: 0 auto;
   font-size: 36px;
   margin-bottom: 60px;

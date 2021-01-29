@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 
-import { useSelector, shallowEqual, useDispatch } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { RootState } from '../store/rootReducer';
 
 import { getDurationNormalize } from '../functions/moment';
 
+//TODO дрочить, чтобы не дрочилось 2 раза
 export const useCurrentDuration = (): any[] => {
   const beginDate = useSelector(
     (state: RootState) => state.timers.currentTimer.beginDate,

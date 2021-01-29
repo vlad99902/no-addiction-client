@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { colors } from '../styles/colors';
 
+//TODO подрочить верстку влад
 type TimerViewType = {
   type: 'time' | 'date';
   fz?: string;

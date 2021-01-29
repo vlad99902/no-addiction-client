@@ -1,5 +1,6 @@
 import moment from 'moment';
 
+//TODO передрочить Влад. Добавить функции в timer view
 type DurationInType =
   | 'full'
   | 'years'

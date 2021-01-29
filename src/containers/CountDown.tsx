@@ -34,6 +34,7 @@ export const CountDown: React.FC = () => {
   );
 };
 
+//TODO сделать через conrainer
 const TimerViewGrid = styled.div`
   display: flex;
   justify-content: center;

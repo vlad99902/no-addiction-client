@@ -95,11 +95,8 @@ export const RegisterPage: React.FC = () => {
   const removeReadonly = (e: any) => {
     e.target.removeAttribute('readOnly');
   };
-  const setFocus = (e: any) => {
-    //@ts-ignore
-    document.getElementById('login').focus();
-  };
 
+  //TODO кирилл почичтсить лишние атрибуты input. мб input error не children??
   return (
     <>
       <Container

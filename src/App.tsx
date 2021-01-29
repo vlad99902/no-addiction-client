@@ -9,7 +9,6 @@ import { RootState } from './store/rootReducer';
 
 import { useRoutes } from './routes';
 import { PageHeader } from './containers/PageHeader';
-import { Background } from './assets/Background';
 
 export default function App() {
   const isAuth = useSelector((state: RootState) => state.users.isAuth);
