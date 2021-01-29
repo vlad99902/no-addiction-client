@@ -6,6 +6,7 @@ export const USER_LANGUAGE_CHANGE = 'USER_LANGUAGE_CHANGE';
 export const USER_SET_LOADER = 'USER_SET_LOADER';
 export const FETCH_REGISTER_EMAIL = 'USER/FETCH_REGISTER_EMAIL';
 export const FETCH_LOGIN_EMAIL = 'USER/FETCH_LOGIN_EMAIL';
+export const FETCH_AUTH_GOOGLE = 'USER/FETCH_AUTH_GOOGLE';
 export const CLEAR_AUTH_SESSION = 'USER/CLEAR_AUTH_SESSION';
 export const GET_TOKEN_FROM_LOCALSTORAGE = 'USER/GET_TOKEN_FROM_LOCALSTORAGE';
 
@@ -47,6 +48,11 @@ interface loginWithEmail {
   type: typeof FETCH_LOGIN_EMAIL;
   payload: { token: string; isAuth: boolean };
 }
+
+interface authWuthGoogle {
+  type: typeof FETCH_AUTH_GOOGLE;
+  payload: { token: string; isAuth: boolean };
+}
 interface getTokenFromLocalStorage {
   type: typeof GET_TOKEN_FROM_LOCALSTORAGE;
   payload: { token: string; isAuth: boolean };
@@ -62,4 +68,5 @@ export type UserActionsType =
   | clearAuthSession
   | getTokenFromLocalStorage
   | loginWithEmail
+  | authWuthGoogle
   | registerWithEmail;

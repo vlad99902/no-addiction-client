@@ -1,23 +1,22 @@
 import React, { useState } from 'react';
-import { Container } from '../components/Container';
-import { Title } from '../components/Title';
+import { Link } from 'react-router-dom';
 
 import styled from 'styled-components';
 import validator from 'validator';
 
-import { registerWithEmail } from '../store/users/usersActions';
+import { registerWithEmail, authWithGoogle } from '../store/users/usersActions';
 import { useDispatch } from 'react-redux';
 
 import { Button } from '../components/Button';
 import { Image } from '../components/Image';
 import GoogleIcon from '../assets/GoogleIcon.png';
 import { Input } from '../components/Input';
-import { Link } from 'react-router-dom';
+import { Container } from '../components/Container';
+import { Title } from '../components/Title';
 import { VisibilityOn } from '../assets/VisibilityOn';
 import { VisibilityOff } from '../assets/VisibilityOff';
 import { loginOptions, passwordOptions } from '../constants/validationConst';
 import { ProgressBar } from '../components/ProgressBar';
-import { Notice } from '../components/Notice';
 
 interface IForm {
   email: string;
@@ -111,7 +110,8 @@ export const RegisterPage: React.FC = () => {
         position="relative"
       >
         <Container position="absolute" style={{ top: '16px', right: '16px' }}>
-          <LoginGoogleButton>
+          <a href="http://localhost:3001/api/auth/google">GOOOGLE</a>
+          <LoginGoogleButton onClick={() => dispatch(authWithGoogle())}>
             <Image src={GoogleIcon} alt="" width="14px" margin="0 16px 0 0" />
             Login with Google
           </LoginGoogleButton>
