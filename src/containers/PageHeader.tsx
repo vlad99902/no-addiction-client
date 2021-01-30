@@ -91,11 +91,12 @@ export const PageHeader: React.FC = () => {
               onClick={() => {
                 scrollToElement('records');
               }}
+              style={{ margin: '0 40px 0 0 ' }}
             >
               Leaderboard
             </Button>
             <Link to="/noAlco/settings">
-              <Image src={profileIcon} width="100px" />
+              <Image src={profileIcon} width="70px" borderRadius="100%" />
             </Link>
           </Container>
         </Container>

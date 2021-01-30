@@ -9,9 +9,10 @@ import { colors } from '../styles/colors';
 type TypeOfType = 'small' | 'medium' | 'large';
 
 interface ISwitchButton {
-  onClick(): void;
+  onClick?(): void;
   type?: TypeOfType;
-  position: boolean;
+  position?: boolean;
+  backgroundColor?: string;
 }
 type Position = {
   backgroundColor?: string;
@@ -20,9 +21,10 @@ type Position = {
 };
 
 export const SwitchButton: React.FC<ISwitchButton> = ({
-  onClick,
+  onClick = () => {},
   type = 'small',
   position,
+  backgroundColor,
 }) => {
   const loading = useSelector(
     (state: RootState) => state.users.loading.headerSwitcher
@@ -45,6 +47,7 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
     <MainPart
       flexDirection={getSwitchButtonPropStyles().flexDirection}
       onClick={() => onClick()}
+      backgroundColor={backgroundColor}
     >
       <Selector
         backgroundColor={getSwitchButtonPropStyles().backgroundColor}
@@ -58,7 +61,7 @@ const MainPart = styled.button<Position>`
   width: 64px;
   height: 34px;
   border-radius: 25px;
-  background-color: ${colors.$white};
+  background-color: ${(p) => p.backgroundColor || colors.$white};
   border: none;
   display: flex;
   align-items: center;

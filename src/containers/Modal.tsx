@@ -6,6 +6,7 @@ type ModalType = {
   isOpened: boolean;
   setIsOpened: () => void;
   maxWidth?: string;
+  padding?: string;
 };
 
 export const Modal: React.FC<ModalType> = ({
@@ -13,12 +14,17 @@ export const Modal: React.FC<ModalType> = ({
   isOpened,
   setIsOpened,
   maxWidth,
+  padding = '24px',
 }) => {
   return (
     <>
       {isOpened && (
         <ModalWrapper onClick={() => setIsOpened()}>
-          <ModalContent onClick={(e) => e.stopPropagation()} width={maxWidth}>
+          <ModalContent
+            onClick={(e) => e.stopPropagation()}
+            width={maxWidth}
+            padding={padding}
+          >
             {children}
           </ModalContent>
         </ModalWrapper>
@@ -35,18 +41,16 @@ const ModalWrapper = styled.div`
   bottom: 0;
   z-index: 100;
   background-color: #00000099;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 18px;
 `;
 
-const ModalContent = styled.div<{ width?: string }>`
+const ModalContent = styled.div<{ width?: string; padding?: string }>`
   position: relative;
-  padding: 24px;
   background-color: #ffffff;
   border-radius: 20px;
   max-width: ${(props) => props.width};
   width: ${(props) => props.width};
+  padding: ${(props) => props.padding};
 `;

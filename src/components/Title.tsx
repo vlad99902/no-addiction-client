@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 type TitleTypes = {
   fz?: string;
-  ff?: string;
-  fw?: string;
+  ff?: 'Alegreya Sans';
+  fw?: '100' | '300' | '400' | '500' | '700' | '800' | '900';
   color?: string;
   mb?: string;
 };
