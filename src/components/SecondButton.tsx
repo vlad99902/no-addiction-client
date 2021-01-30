@@ -7,6 +7,7 @@ type designType = 'normal' | 'negative' | 'switchOn' | 'switchOff';
 interface ISecondButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   design: designType;
   width?: string;
+  padding?: string;
 }
 
 // interface IStyledButton {}
@@ -15,6 +16,7 @@ export const SecondButton: React.FC<ISecondButton> = ({
   design,
   children,
   width,
+  padding,
   ...rest
 }) => {
   return (
@@ -22,6 +24,7 @@ export const SecondButton: React.FC<ISecondButton> = ({
       {...rest}
       style={{ ...styleType(design), ...rest.style }}
       width={width}
+      padding={padding}
     >
       {children}
     </StyledButton>
@@ -54,13 +57,13 @@ const styleType = (design: designType): React.CSSProperties => {
   }
 };
 
-const StyledButton = styled.button<{ width?: string }>`
+const StyledButton = styled.button<{ width?: string; padding?: string }>`
   width: ${(p) => p.width};
   cursor: pointer;
   user-select: none;
   border: none;
   font-family: 'Alegreya Sans';
-  padding: 10px 15px;
+  padding: ${(p) => p.padding || '10px 15px'};
   border-radius: 18px;
   font-size: 18px;
 `;

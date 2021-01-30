@@ -1,5 +1,6 @@
+import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Switch, useHistory } from 'react-router-dom';
+import { Link, Switch, useHistory } from 'react-router-dom';
 import { DeleteIcon } from '../assets/DeleteIcon';
 import { Container } from '../components/Container';
 import { SecondButton } from '../components/SecondButton';
@@ -15,10 +16,8 @@ interface ISettingsPage {}
 
 //TODO дрочим
 export const SettingsPage: React.FC<ISettingsPage> = () => {
-  const history = useHistory();
-  const dispatch = useDispatch();
   return (
-    <Container>
+    <Container maxWidth="470px">
       <SettingsHeader />
       <UserInfo style={{ marginTop: '18px' }} />
       <SettingsSection
@@ -54,10 +53,10 @@ export const SettingsPage: React.FC<ISettingsPage> = () => {
       <SettingsSection
         title="Return last timer"
         marginTop="28px"
-        description="If  you stopped you current timer you can get it back"
+        description="If you stopped you current timer you can get it back"
       >
         <SecondButton design="normal">Return</SecondButton>
-        <Container>
+        <Container style={{ textAlign: 'right' }}>
           <Title ff="Alegreya Sans" fw="300">
             In category Alcohol Begin date 2020:10:01 12:23
           </Title>
@@ -66,62 +65,30 @@ export const SettingsPage: React.FC<ISettingsPage> = () => {
           </Title>
         </Container>
       </SettingsSection>
-      <SettingsSection
-        title="Confirm window"
-        marginTop="28px"
-        description="If  you want to delete or change something you’ll see modal confirm window"
+      <Container
+        pos="space-between"
+        alignItems="flex-start"
+        justifyContent="flex-start"
+        marginBottom="28px"
       >
-        <SwitchButton backgroundColor={colors.$purple} />
-      </SettingsSection>
+        <SettingsSection
+          title="Confirm window"
+          style={{ margin: '28px 30px 0px 0px', maxWidth: '50%' }}
+        >
+          <SwitchButton backgroundColor={colors.$purple} />
+        </SettingsSection>
+        <SettingsSection title="Dark theme" marginTop="28px">
+          <SwitchButton backgroundColor={colors.$purple} />
+        </SettingsSection>
+      </Container>
+      <Title fz="32px" ff="Alegreya Sans" fw="500">
+        About us
+      </Title>
+      <Link to="/">
+        <Title ff="Alegreya Sans" fz="24px" color={colors.$gray} fw="300">
+          Terms and conditions
+        </Title>
+      </Link>
     </Container>
   );
 };
-
-{
-  /*<Container style={{ display: 'flex', flexDirection: 'column' }}>
-      <Container
-        pos="space-between"
-        marginBottom="36px"
-        alignItems="flex-start"
-      >
-        <Title>Настройки</Title>
-        <Container width="18px" onClick={history.goBack}>
-          <DeleteIcon />
-        </Container>
-      </Container>
-      <Container
-        pos="space-between"
-        marginBottom="36px"
-        alignItems="flex-start"
-      >
-        <Title>Язык</Title>
-        <Title>русский</Title>
-      </Container>
-      <Container
-        pos="space-between"
-        marginBottom="36px"
-        alignItems="flex-start"
-      >
-        <Title>Категории</Title>
-        <Container>
-          <Title mb="6px">no drugs</Title>
-          <Title mb="6px">no smoke</Title>
-          <Title>no alco</Title>
-        </Container>
-      </Container>
-      <Container
-        pos="space-between"
-        marginBottom="36px"
-        alignItems="flex-start"
-      >
-        <Container
-          onClick={() => {
-            dispatch(clearAuthSession());
-          }}
-          style={{ cursor: 'pointer' }}
-        >
-          выйти
-        </Container>
-      </Container>
-				</Container>*/
-}

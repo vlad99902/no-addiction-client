@@ -24,7 +24,7 @@ export const PageHeader: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <div id="#">
+    <header id="#">
       <Container
         position="fixed"
         style={{
@@ -101,6 +101,6 @@ export const PageHeader: React.FC = () => {
           </Container>
         </Container>
       </Container>
-    </div>
+    </header>
   );
 };
