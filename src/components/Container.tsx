@@ -1,7 +1,24 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 
 import styled from 'styled-components';
 
+interface IContainerType extends HTMLAttributes<HTMLDivElement> {
+  maxWidth?: string;
+  padding?: string;
+  display?: string;
+  margin?: string;
+  marginBottom?: string;
+  marginTop?: string;
+  alignItems?: string;
+  justifyContent?: string;
+  pos?: 'space-between' | 'start' | 'center' | 'end';
+  width?: string;
+  lastChild?: string;
+  position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'inherit';
+  visibility?: string;
+  height?: string;
+  id?: string;
+}
 type ContainerType = {
   maxWidth?: string;
   padding?: string;
@@ -18,15 +35,12 @@ type ContainerType = {
   position?: 'absolute' | 'relative' | 'fixed' | 'static' | 'inherit';
   visibility?: string;
   height?: string;
-  onScroll?(): void;
-  onClick?(e: any): void;
 };
 
-export const Container: React.FC<ContainerType> = ({
+export const Container: React.FC<IContainerType> = ({
   children,
   maxWidth,
   padding,
-  style,
   width,
   display,
   margin,
@@ -39,14 +53,11 @@ export const Container: React.FC<ContainerType> = ({
   position,
   visibility,
   height,
-  onScroll,
-  onClick,
+  id,
+  ...rest
 }) => {
   return (
     <ContainerWrapper
-      style={{
-        ...style,
-      }}
       padding={padding}
       maxWidth={maxWidth}
       width={width}
@@ -61,8 +72,8 @@ export const Container: React.FC<ContainerType> = ({
       visibility={visibility}
       height={height}
       marginTop={marginTop}
-      onScroll={onScroll}
-      onClick={onClick}
+      id={id}
+      {...rest}
     >
       {children}
     </ContainerWrapper>

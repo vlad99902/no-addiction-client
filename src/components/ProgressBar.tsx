@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { colors } from '../styles/colors';
 
+//TODO сделать нормальную валидацию (Кирилл)
+
 interface IProgressBar {
   fill: number;
   maxFill?: number;
@@ -10,16 +12,21 @@ export const ProgressBar: React.FC<IProgressBar> = ({
   fill,
   maxFill = 100,
 }) => {
-  //TODO сделать функцией
-  let currentColor = colors.$red;
-  fill = (fill / maxFill) * 100;
-  if (fill > 30) currentColor = colors.$orange;
-  if (fill > 50) currentColor = colors.$yellow;
-  if (fill > 65) currentColor = colors.$green;
-  if (fill > 80) currentColor = colors.$blue;
+  const perc = () => {
+    let currentColor = colors.$red;
+    fill = (fill / maxFill) * 100;
+    if (fill > 30) currentColor = colors.$orange;
+    if (fill > 50) currentColor = colors.$yellow;
+    if (fill > 65) currentColor = colors.$green;
+    if (fill > 80) currentColor = colors.$blue;
+    return { currentColor, fill };
+  };
   return (
     <Bar>
-      <BarFill width={String(fill) + '%'} color={currentColor}></BarFill>
+      <BarFill
+        width={String(perc().fill) + '%'}
+        color={perc().currentColor}
+      ></BarFill>
     </Bar>
   );
 };

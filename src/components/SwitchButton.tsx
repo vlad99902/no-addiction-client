@@ -25,7 +25,7 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
   position,
 }) => {
   const loading = useSelector(
-    (state: RootState) => state.users.loading.headerSwitcher,
+    (state: RootState) => state.users.loading.headerSwitcher
   );
 
   const getSwitchButtonPropStyles = (): { [key: string]: string } => {
@@ -55,8 +55,8 @@ export const SwitchButton: React.FC<ISwitchButton> = ({
 };
 
 const MainPart = styled.button<Position>`
-  width: 70px;
-  height: 36px;
+  width: 64px;
+  height: 34px;
   border-radius: 25px;
   background-color: ${colors.$white};
   border: none;
@@ -67,8 +67,8 @@ const MainPart = styled.button<Position>`
 `;
 
 const Selector = styled.div<Position>`
-  height: 30px;
-  width: 30px;
+  height: 28px;
+  width: 28px;
   border-radius: 100%;
   background-color: ${(props) => props.backgroundColor};
   margin: 0 3px;
