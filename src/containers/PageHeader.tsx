@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/rootReducer';
@@ -17,42 +16,59 @@ import profileIcon from '../assets/profileIcon.png';
 import { scrollToElement } from '../functions/scrollToElement';
 import { Link } from 'react-router-dom';
 
-//TODO верстка кирилл
 export const PageHeader: React.FC = () => {
   const inAddiction = useSelector(
-    (state: RootState) => state.timers.inAddiction,
+    (state: RootState) => state.timers.inAddiction
   );
 
   const dispatch = useDispatch();
 
   return (
-    <div id="#">
-      <Content>
+    <header id="#">
+      <Container
+        position="fixed"
+        style={{
+          top: 0,
+          height: '100px',
+          backgroundColor: colors.$gray,
+          zIndex: 11,
+        }}
+        width="100%"
+      >
         <Container
           maxWidth="1600px"
-          margin="0 auto"
           pos="space-between"
-          position="relative"
-          padding="0 18px"
+          alignItems="center"
+          margin="0 auto"
+          height="100%"
         >
-          <Container style={{}}>
+          <Container
+            style={{
+              flexBasis: '33.3333%',
+              textAlign: 'left',
+            }}
+          >
             <Image
               src={logo}
               width="300px"
               onClick={() => {
                 scrollToElement('#');
+                console.log('click');
               }}
               cursor="pointer"
             />
           </Container>
           <Container
-            position="absolute"
-            style={{ left: '50%', transform: 'translateX(-50%)' }}
-            pos="space-between"
-            maxWidth="600px"
+            style={{
+              flexBasis: '33.3333%',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+            }}
           >
             <Title fz="36px">Сейчас я пью</Title>
-            <Container margin="0 0 0 40px">
+            <Container>
               <SwitchButton
                 position={inAddiction}
                 onClick={() => {
@@ -61,30 +77,30 @@ export const PageHeader: React.FC = () => {
               />
             </Container>
           </Container>
-          <Container pos="end">
+          <Container
+            style={{
+              flexBasis: '33.3333%',
+              alignItems: 'center',
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            }}
+          >
             <Button
               styleType="extraSmallText"
               onClick={() => {
                 scrollToElement('records');
               }}
+              style={{ margin: '0 40px 0 0 ' }}
             >
               Leaderboard
             </Button>
             <Link to="/noAlco/settings">
-              <Image src={profileIcon} width="100px" />
+              <Image src={profileIcon} width="70px" borderRadius="100%" />
             </Link>
           </Container>
         </Container>
-      </Content>
-    </div>
+      </Container>
+    </header>
   );
 };
-
-const Content = styled.div`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  height: 100px;
-  background-color: ${colors.$gray};
-  z-index: 11;
-`;

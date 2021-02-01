@@ -80,7 +80,7 @@ export const MainPage: React.FC = () => {
             <Modal
               setIsOpened={history.goBack}
               isOpened={!!match}
-              maxWidth="1000px"
+              padding="50px"
             >
               <SettingsPage />
             </Modal>

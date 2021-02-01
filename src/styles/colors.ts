@@ -1,4 +1,4 @@
-interface IColors {
+export interface IColors {
   $gray: string;
   $darkGray: string;
   $black: string;
@@ -8,6 +8,9 @@ interface IColors {
   $yellow: string;
   $green: string;
   $blue: string;
+  $absolutlyWhite: string;
+  $pink: string;
+  $purple: string;
 }
 
 export const colors: IColors = {
@@ -20,4 +23,7 @@ export const colors: IColors = {
   $yellow: '#e8b80b',
   $green: '#3be80b',
   $blue: '#0be8e8',
+  $absolutlyWhite: '#FFFFFF',
+  $purple: '#633175',
+  $pink: '#FF6565',
 };

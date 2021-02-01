@@ -7,7 +7,8 @@ type TypeOfStyleType =
   | 'main'
   | 'smallText'
   | 'oneWordOneLine'
-  | 'extraSmallText';
+  | 'extraSmallText'
+  | 'settingsButton';
 
 interface ButtonType extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
@@ -49,6 +50,13 @@ const styleTypeFunction = (type: string): React.CSSProperties => {
         fontSize: '24px',
         textAlign: 'center',
         padding: '24px 52px',
+      };
+    case 'settingsButton':
+      return {
+        fontSize: '18px',
+        textAlign: 'center',
+        padding: '10px 15px',
+        fontFamily: 'Alegreya Sans',
       };
     case 'extraSmallText':
       return {
