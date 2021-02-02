@@ -1,8 +1,7 @@
 import * as queryString from 'query-string';
 
 const stringifiedParams = queryString.stringify({
-  client_id:
-    '83820396076-r5i73dssp04iisrqmct8bi61fiaalphn.apps.googleusercontent.com',
+  client_id: '',
   redirect_uri: 'http://localhost:3001/auth/google',
   scope: [
     'https://www.googleapis.com/auth/userinfo.email',
